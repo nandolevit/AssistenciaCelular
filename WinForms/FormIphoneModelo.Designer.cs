@@ -94,6 +94,8 @@
             this.radioButtonIpad = new System.Windows.Forms.RadioButton();
             this.radioButtonIphone = new System.Windows.Forms.RadioButton();
             this.buttonFoto = new System.Windows.Forms.Button();
+            this.textBoxNum = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.panelPrincipal.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -145,7 +147,7 @@
             this.comboBoxModelo.Location = new System.Drawing.Point(158, 33);
             this.comboBoxModelo.Name = "comboBoxModelo";
             this.comboBoxModelo.Size = new System.Drawing.Size(330, 21);
-            this.comboBoxModelo.TabIndex = 1;
+            this.comboBoxModelo.TabIndex = 2;
             this.comboBoxModelo.SelectedIndexChanged += new System.EventHandler(this.ComboBoxModelo_SelectedIndexChanged);
             // 
             // comboBoxNumMod
@@ -718,6 +720,8 @@
             // 
             // pictureBoxImagem
             // 
+            this.pictureBoxImagem.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBoxImagem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pictureBoxImagem.Image = global::WinForms.Properties.Resources.SP727_iphone6s_plus_gold_select_2015;
             this.pictureBoxImagem.Location = new System.Drawing.Point(3, 44);
             this.pictureBoxImagem.Name = "pictureBoxImagem";
@@ -734,7 +738,7 @@
             this.label13.Location = new System.Drawing.Point(158, 17);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(123, 13);
-            this.label13.TabIndex = 0;
+            this.label13.TabIndex = 1;
             this.label13.Text = "Selecione o Modelo:";
             // 
             // buttonSalvar
@@ -745,7 +749,7 @@
             this.buttonSalvar.Location = new System.Drawing.Point(897, 494);
             this.buttonSalvar.Name = "buttonSalvar";
             this.buttonSalvar.Size = new System.Drawing.Size(85, 40);
-            this.buttonSalvar.TabIndex = 3;
+            this.buttonSalvar.TabIndex = 8;
             this.buttonSalvar.Text = "&Salvar";
             this.buttonSalvar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.buttonSalvar.UseVisualStyleBackColor = true;
@@ -759,7 +763,7 @@
             this.buttonFechar.Location = new System.Drawing.Point(989, 494);
             this.buttonFechar.Name = "buttonFechar";
             this.buttonFechar.Size = new System.Drawing.Size(85, 40);
-            this.buttonFechar.TabIndex = 4;
+            this.buttonFechar.TabIndex = 9;
             this.buttonFechar.Text = "&Fechar";
             this.buttonFechar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.buttonFechar.UseVisualStyleBackColor = true;
@@ -772,7 +776,7 @@
             this.labelBarra.Location = new System.Drawing.Point(9, 494);
             this.labelBarra.Name = "labelBarra";
             this.labelBarra.Size = new System.Drawing.Size(71, 13);
-            this.labelBarra.TabIndex = 48;
+            this.labelBarra.TabIndex = 5;
             this.labelBarra.Text = "Carregando...";
             this.labelBarra.Visible = false;
             // 
@@ -781,7 +785,7 @@
             this.progressBar1.Location = new System.Drawing.Point(9, 510);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(395, 23);
-            this.progressBar1.TabIndex = 49;
+            this.progressBar1.TabIndex = 6;
             this.progressBar1.Visible = false;
             // 
             // groupBoxAparelho
@@ -793,7 +797,7 @@
             this.groupBoxAparelho.Location = new System.Drawing.Point(12, 12);
             this.groupBoxAparelho.Name = "groupBoxAparelho";
             this.groupBoxAparelho.Size = new System.Drawing.Size(140, 42);
-            this.groupBoxAparelho.TabIndex = 50;
+            this.groupBoxAparelho.TabIndex = 0;
             this.groupBoxAparelho.TabStop = false;
             this.groupBoxAparelho.Text = "Selecione:";
             // 
@@ -830,12 +834,32 @@
             this.buttonFoto.Location = new System.Drawing.Point(806, 494);
             this.buttonFoto.Name = "buttonFoto";
             this.buttonFoto.Size = new System.Drawing.Size(85, 40);
-            this.buttonFoto.TabIndex = 51;
+            this.buttonFoto.TabIndex = 7;
             this.buttonFoto.Text = "FOTO";
             this.buttonFoto.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.buttonFoto.UseVisualStyleBackColor = true;
             this.buttonFoto.Visible = false;
             this.buttonFoto.Click += new System.EventHandler(this.ButtonFoto_Click);
+            // 
+            // textBoxNum
+            // 
+            this.textBoxNum.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxNum.Location = new System.Drawing.Point(494, 33);
+            this.textBoxNum.Name = "textBoxNum";
+            this.textBoxNum.Size = new System.Drawing.Size(82, 20);
+            this.textBoxNum.TabIndex = 4;
+            this.textBoxNum.TextChanged += new System.EventHandler(this.TextBoxNum_TextChanged);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.ForeColor = System.Drawing.Color.White;
+            this.label14.Location = new System.Drawing.Point(491, 17);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(85, 13);
+            this.label14.TabIndex = 3;
+            this.label14.Text = "Num. Modelo:";
             // 
             // FormIphoneModelo
             // 
@@ -843,6 +867,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gray;
             this.ClientSize = new System.Drawing.Size(1086, 546);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.textBoxNum);
             this.Controls.Add(this.buttonFoto);
             this.Controls.Add(this.groupBoxAparelho);
             this.Controls.Add(this.labelBarra);
@@ -957,5 +983,7 @@
         private System.Windows.Forms.RadioButton radioButtonIpad;
         private System.Windows.Forms.RadioButton radioButtonIphone;
         private System.Windows.Forms.Button buttonFoto;
+        private System.Windows.Forms.TextBox textBoxNum;
+        private System.Windows.Forms.Label label14;
     }
 }

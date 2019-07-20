@@ -48,6 +48,7 @@ namespace WinForms
             formFormat.formatar();
             this.FormBorderStyle = FormBorderStyle.None;
             this.AcceptButton = buttonSalvar;
+            this.textBoxNum.MaxLength = 5;
 
             comboBoxModelo.ValueMember = "iphmodid";
             comboBoxModelo.DisplayMember = "iphmoddescricao";
@@ -82,6 +83,11 @@ namespace WinForms
         }
 
         private void ComboBoxModelo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ItemSelecionado();
+        }
+
+        private void ItemSelecionado()
         {
             colecaoCorSelecionada = new IphoneModeloCorColecao();
 
@@ -121,38 +127,42 @@ namespace WinForms
                         }
                     }
                 }
+
+                PreencherForm();
                 
-
-                labelTitle.Text = infoIphone.iphmoddescricao;
-                textBoxDetalhes.Text = strConver(infoIphone.iphmoddetalhes);
-                textBoxAno.Text = infoIphone.iphmodlancamento.ToString();
-                textBoxDimensoes.Text = strConver(infoIphone.iphmodpesodimensoes);
-                textBoxTela.Text = strConver(infoIphone.iphmodtela);
-                textBoxCameraT.Text = strConver(infoIphone.iphmodcameratraseira);
-                textBoxCamF.Text = strConver(infoIphone.iphmodcamerafrontal);
-                textBoxTv.Text = strConver(infoIphone.iphmodtvvideo);
-                textBoxControle.Text = strConver(infoIphone.iphmodbotoescontroles);
-                textBoxEnergia.Text = strConver(infoIphone.iphmodenergiabateria);
-                textBoxSensores.Text = strConver(infoIphone.iphmodsensores);
-                textBoxCaixa.Text = strConver(infoIphone.iphmodconteudocaixa);
-                textBoxGravacao.Text = strConver(infoIphone.iphmodgravacao);
-                textBoxResistente.Text = strConver(infoIphone.iphmodresistente);
-
-                comboBoxNumMod.Text = string.Empty;
-                comboBoxCapacidade.Text = string.Empty;
-                comboBoxCor.Text = string.Empty;
-
-                comboBoxNumMod.Items.Clear();
-                comboBoxCapacidade.Items.Clear();
-                comboBoxCor.Items.Clear();
-
-                comboBoxNumMod.Items.AddRange(infoIphone.iphmodnum);
-                comboBoxCapacidade.Items.AddRange(infoIphone.iphmodcapacidade);
-                comboBoxCor.Items.AddRange(infoIphone.iphmodcor);
-
-                panelPrincipal.Enabled = true;
-                ConvertImagem(infoIphone.iphmodfoto);
             }
+        }
+        private void PreencherForm()
+        {
+            labelTitle.Text = infoIphone.iphmoddescricao;
+            textBoxDetalhes.Text = strConver(infoIphone.iphmoddetalhes);
+            textBoxAno.Text = infoIphone.iphmodlancamento.ToString();
+            textBoxDimensoes.Text = strConver(infoIphone.iphmodpesodimensoes);
+            textBoxTela.Text = strConver(infoIphone.iphmodtela);
+            textBoxCameraT.Text = strConver(infoIphone.iphmodcameratraseira);
+            textBoxCamF.Text = strConver(infoIphone.iphmodcamerafrontal);
+            textBoxTv.Text = strConver(infoIphone.iphmodtvvideo);
+            textBoxControle.Text = strConver(infoIphone.iphmodbotoescontroles);
+            textBoxEnergia.Text = strConver(infoIphone.iphmodenergiabateria);
+            textBoxSensores.Text = strConver(infoIphone.iphmodsensores);
+            textBoxCaixa.Text = strConver(infoIphone.iphmodconteudocaixa);
+            textBoxGravacao.Text = strConver(infoIphone.iphmodgravacao);
+            textBoxResistente.Text = strConver(infoIphone.iphmodresistente);
+
+            comboBoxNumMod.Text = string.Empty;
+            comboBoxCapacidade.Text = string.Empty;
+            comboBoxCor.Text = string.Empty;
+
+            comboBoxNumMod.Items.Clear();
+            comboBoxCapacidade.Items.Clear();
+            comboBoxCor.Items.Clear();
+
+            comboBoxNumMod.Items.AddRange(infoIphone.iphmodnum);
+            comboBoxCapacidade.Items.AddRange(infoIphone.iphmodcapacidade);
+            comboBoxCor.Items.AddRange(infoIphone.iphmodcor);
+
+            panelPrincipal.Enabled = true;
+            ConvertImagem(infoIphone.iphmodfoto);
         }
 
         private void ConvertImagem(byte[] foto)
@@ -253,7 +263,10 @@ namespace WinForms
                 comboBoxModelo.ValueMember = "iphmodid";
                 comboBoxModelo.DisplayMember = "iphmoddescricao";
                 comboBoxModelo.DataSource = colecaoIphone;
-                tabControl1.TabPages.Add(tabPage2);
+
+                if (tabControl1.TabPages.Count == 1)
+                    tabControl1.TabPages.Add(tabPage2);
+
                 textBoxDetalhes.ScrollBars = ScrollBars.None;
             }
             else
@@ -271,6 +284,62 @@ namespace WinForms
             FormIphoneSalvarFoto formIphoneSalvarFoto = new FormIphoneSalvarFoto(colecaoIphone);
             formIphoneSalvarFoto.ShowDialog(this);
             formIphoneSalvarFoto.Dispose();
+        }
+
+        private void Pesquisar()
+        {
+            bool find = false;
+
+            foreach (IphoneModeloInfo phone in Form1.IphoneColecao)
+            {
+                foreach (string num in phone.iphmodnum)
+                {
+                    if (num == textBoxNum.Text)
+                    {
+                        if (phone.iphmodipad)
+                            radioButtonIpad.Checked = true;
+                        else
+                            radioButtonIphone.Checked = true;
+
+                        comboBoxModelo.SelectedIndex = -1;
+                        infoIphone = phone;
+                        PreencherForm();
+                        textBoxModelo.Text = phone.iphmoddescricao;
+                        comboBoxNumMod.Text = num;
+                        textBoxNumMod.Text = num;
+                        find = true;
+                    }
+                }
+            }
+
+            if (find == false)
+            {
+                comboBoxNumMod.SelectedIndex = -1;
+                textBoxModelo.Text = string.Empty;
+                textBoxNumMod.Text = string.Empty;
+                textBoxAno.Text = string.Empty;
+
+                if (tabControl1.TabPages.Count > 1)
+                    tabControl1.TabPages.RemoveAt(1);
+
+                textBoxNum.Select();
+                FormMessage.ShowMessegeWarning("Nenhum aparelho identificado!");
+            }
+            else
+            {
+                if (radioButtonIphone.Checked)
+                    if (tabControl1.TabPages.Count == 1)
+                        tabControl1.TabPages.Add(tabPage2);
+
+                comboBoxCapacidade.Select();
+
+            }
+        }
+
+        private void TextBoxNum_TextChanged(object sender, EventArgs e)
+        {
+            if (textBoxNum.Text.Length == 5)
+                Pesquisar();
         }
     }
 }

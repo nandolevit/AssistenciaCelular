@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormServico));
             this.textBoxNome = new System.Windows.Forms.TextBox();
             this.labelNome = new System.Windows.Forms.Label();
@@ -40,13 +39,6 @@
             this.textBoxDefeito = new System.Windows.Forms.TextBox();
             this.dateTimePickerData = new System.Windows.Forms.DateTimePicker();
             this.labelData = new System.Windows.Forms.Label();
-            this.dataGridViewServico = new System.Windows.Forms.DataGridView();
-            this.colOs = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colDescricao = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colDefeito = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colObs = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colTaxa = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colData = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.textBoxCodTec = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxResponsavel = new System.Windows.Forms.TextBox();
@@ -68,9 +60,13 @@
             this.buttonImprimir = new System.Windows.Forms.Button();
             this.labelBarra = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewServico)).BeginInit();
+            this.dataGridViewServico = new System.Windows.Forms.DataGridView();
+            this.colOs = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colDescricao = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colDefeito = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             this.groupBoxServico.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewServico)).BeginInit();
             this.SuspendLayout();
             // 
             // textBoxNome
@@ -161,76 +157,6 @@
             this.labelData.Size = new System.Drawing.Size(33, 13);
             this.labelData.TabIndex = 3;
             this.labelData.Text = "&Data:";
-            // 
-            // dataGridViewServico
-            // 
-            this.dataGridViewServico.AllowUserToAddRows = false;
-            this.dataGridViewServico.AllowUserToDeleteRows = false;
-            this.dataGridViewServico.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewServico.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.colOs,
-            this.colDescricao,
-            this.colDefeito,
-            this.colObs,
-            this.colTaxa,
-            this.colData});
-            this.dataGridViewServico.Location = new System.Drawing.Point(12, 494);
-            this.dataGridViewServico.Name = "dataGridViewServico";
-            this.dataGridViewServico.ReadOnly = true;
-            this.dataGridViewServico.RowHeadersVisible = false;
-            this.dataGridViewServico.Size = new System.Drawing.Size(783, 99);
-            this.dataGridViewServico.TabIndex = 2;
-            // 
-            // colOs
-            // 
-            this.colOs.DataPropertyName = "serid";
-            this.colOs.HeaderText = "OS:";
-            this.colOs.Name = "colOs";
-            this.colOs.ReadOnly = true;
-            this.colOs.Width = 75;
-            // 
-            // colDescricao
-            // 
-            this.colDescricao.DataPropertyName = "serdescricao";
-            this.colDescricao.HeaderText = "Descrição:";
-            this.colDescricao.Name = "colDescricao";
-            this.colDescricao.ReadOnly = true;
-            this.colDescricao.Width = 300;
-            // 
-            // colDefeito
-            // 
-            this.colDefeito.DataPropertyName = "serdefeitodescricao";
-            this.colDefeito.HeaderText = "Defeito:";
-            this.colDefeito.Name = "colDefeito";
-            this.colDefeito.ReadOnly = true;
-            this.colDefeito.Width = 200;
-            // 
-            // colObs
-            // 
-            this.colObs.DataPropertyName = "serobs";
-            this.colObs.HeaderText = "Observações:";
-            this.colObs.Name = "colObs";
-            this.colObs.ReadOnly = true;
-            this.colObs.Width = 200;
-            // 
-            // colTaxa
-            // 
-            this.colTaxa.DataPropertyName = "sertaxa";
-            dataGridViewCellStyle2.Format = "C2";
-            dataGridViewCellStyle2.NullValue = null;
-            this.colTaxa.DefaultCellStyle = dataGridViewCellStyle2;
-            this.colTaxa.HeaderText = "Taxa:";
-            this.colTaxa.Name = "colTaxa";
-            this.colTaxa.ReadOnly = true;
-            this.colTaxa.Width = 50;
-            // 
-            // colData
-            // 
-            this.colData.DataPropertyName = "serdataagend";
-            this.colData.HeaderText = "Data:";
-            this.colData.Name = "colData";
-            this.colData.ReadOnly = true;
-            this.colData.Width = 200;
             // 
             // textBoxCodTec
             // 
@@ -491,6 +417,46 @@
             this.progressBar1.TabIndex = 47;
             this.progressBar1.Visible = false;
             // 
+            // dataGridViewServico
+            // 
+            this.dataGridViewServico.AllowUserToAddRows = false;
+            this.dataGridViewServico.AllowUserToDeleteRows = false;
+            this.dataGridViewServico.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewServico.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colOs,
+            this.colDescricao,
+            this.colDefeito});
+            this.dataGridViewServico.Location = new System.Drawing.Point(12, 494);
+            this.dataGridViewServico.Name = "dataGridViewServico";
+            this.dataGridViewServico.ReadOnly = true;
+            this.dataGridViewServico.RowHeadersVisible = false;
+            this.dataGridViewServico.Size = new System.Drawing.Size(783, 99);
+            this.dataGridViewServico.TabIndex = 2;
+            // 
+            // colOs
+            // 
+            this.colOs.DataPropertyName = "serid";
+            this.colOs.HeaderText = "OS:";
+            this.colOs.Name = "colOs";
+            this.colOs.ReadOnly = true;
+            this.colOs.Width = 75;
+            // 
+            // colDescricao
+            // 
+            this.colDescricao.DataPropertyName = "serdescricao";
+            this.colDescricao.HeaderText = "Descrição:";
+            this.colDescricao.Name = "colDescricao";
+            this.colDescricao.ReadOnly = true;
+            this.colDescricao.Width = 300;
+            // 
+            // colDefeito
+            // 
+            this.colDefeito.DataPropertyName = "serdefeitodescricao";
+            this.colDefeito.HeaderText = "Defeito:";
+            this.colDefeito.Name = "colDefeito";
+            this.colDefeito.ReadOnly = true;
+            this.colDefeito.Width = 375;
+            // 
             // FormServico
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -510,11 +476,11 @@
             this.Name = "FormServico";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmServico_FormClosed);
             this.Load += new System.EventHandler(this.FrmServico_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewServico)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBoxServico.ResumeLayout(false);
             this.groupBoxServico.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewServico)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -533,7 +499,6 @@
         private System.Windows.Forms.DateTimePicker dateTimePickerData;
         private System.Windows.Forms.Button buttonAdd;
         private System.Windows.Forms.Label labelData;
-        private System.Windows.Forms.DataGridView dataGridViewServico;
         private System.Windows.Forms.Button buttonAddServico;
         private System.Windows.Forms.Button buttonImprimir;
         private System.Windows.Forms.Button buttonRemover;
@@ -552,13 +517,11 @@
         private System.Windows.Forms.RadioButton radioButtonNao;
         private System.Windows.Forms.RadioButton radioButtonSim;
         private System.Windows.Forms.GroupBox groupBoxServico;
+        private System.Windows.Forms.Label labelBarra;
+        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.DataGridView dataGridViewServico;
         private System.Windows.Forms.DataGridViewTextBoxColumn colOs;
         private System.Windows.Forms.DataGridViewTextBoxColumn colDescricao;
         private System.Windows.Forms.DataGridViewTextBoxColumn colDefeito;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colObs;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colTaxa;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colData;
-        private System.Windows.Forms.Label labelBarra;
-        private System.Windows.Forms.ProgressBar progressBar1;
     }
 }

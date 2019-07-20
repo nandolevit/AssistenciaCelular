@@ -130,6 +130,7 @@ namespace WinForms
                 textBoxCaracteristica.Select();
                 buttonSalvar.Enabled = false;
                 buttonAddServico.Enabled = true;
+                buttonCliente.Enabled = false;
             }
             formProdutoDefeito.Dispose();
         }
@@ -190,35 +191,30 @@ namespace WinForms
                 {
                     bool add = true;
 
-                    //ServicoInfo servicoInfo = new ServicoInfo
-                    //{
-                    //    seridcliente = infoCliente.cliid,
-                    //    seridend = infoEnd.IdEnd,
-                    //    serid = 000000000,
-                    //    serdescricao = textBoxDescricao.Text,
-                    //    serobs = string.IsNullOrEmpty(textBoxObs.Text.Trim()) ? "NENHUMA OBSERVACAO" : textBoxObs.Text.Trim(),
-                    //    serdataagend = dateTimePickerData.Value.Date,
-                    //    sertaxa = radioButtonSim.Checked ? 0 : Convert.ToDecimal(textBoxTaxa.Text),
-                    //    seridunid = Form1.Unidade.uniid,
-                    //    seridfunc = Form1.User.useidfuncionario,
-                    //    sergarantia = radioButtonSim.Checked,
-                    //    serideletro = eletro,
-                    //    seridtipo = tipo,
-                    //    seridstatus = 1,
-                    //    seridtecresp = Convert.ToInt32(textBoxCodTec.Text),
-                    //    serdefeitodescricao = textBoxDefeito.Text
-                    //};
+                    infoServ = new ServicoInfo
+                    {
+                        serid = 000000000,
+                        seraparelhodescricao = textBoxDescricao.Text,
+                        serdataagend = dateTimePickerData.Value.Date,
+                        seridunid = Form1.Unidade.uniid,
+                        seridfunc = Form1.User.useidfuncionario,
+                        seridstatus = 1,
+                        seridtec_resp = Convert.ToInt32(textBoxCodTec.Text),
+                        seridaparelho = infoAparelho.apaid
+                    };
 
                     foreach (DataGridViewRow row in dataGridViewServico.Rows)
                     {
-                        //if (servicoInfo.serdescricao == Convert.ToString(row.Cells["colDescricao"].Value))
-                        //    add = false;
+                        ServicoInfo serv = (ServicoInfo)row.DataBoundItem;
+
+                        if (infoServ.seridaparelho == serv.seridaparelho)
+                            add = false;
                     }
 
                     if (add)
                     {
 
-                        //colecaoServico.Add(servicoInfo);
+                        colecaoServico.Add(infoServ);
                         dataGridViewServico.DataSource = null;
                         dataGridViewServico.DataSource = colecaoServico;
                     }
@@ -228,6 +224,8 @@ namespace WinForms
                     textBoxDescricao.Clear();
                     textBoxDefeito.Clear();
                     buttonSalvar.Select();
+                    infoAparelho = null;
+                    infoDefeito = null;
                     buttonRemover.Enabled = true;
                     buttonSalvar.Enabled = true;
                 }
@@ -366,23 +364,6 @@ namespace WinForms
                 textBoxResponsavel.Text = formConsultar_Cod_Descricao.Selecionado.Descricao;
                 
             }
-        }
-
-        private int ConvertNum(TextBox text)
-        {
-            if (!string.IsNullOrEmpty(text.Text))
-            {
-                if (int.TryParse(text.Text, out int cod))
-                    return cod;
-                else
-                {
-                    text.Clear();
-                    text.Select();
-                    return 0;
-                }
-            }
-            else
-                return 0;
         }
 
         private void textBoxCodTec_TextChanged(object sender, EventArgs e)
