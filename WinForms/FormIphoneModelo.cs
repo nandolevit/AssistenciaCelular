@@ -178,9 +178,10 @@ namespace WinForms
 
         private void ComboBoxCor_SelectedIndexChanged(object sender, EventArgs e)
         {
+            textBoxCor.Text = comboBoxCor.Text;
+
             if (radioButtonIphone.Checked)
             {
-                textBoxCor.Text = comboBoxCor.Text;
                 foreach (IphoneModeloCorInfo cor in colecaoCorSelecionada)
                 {
                     if (comboBoxCor.Text == cor.iphcordescricao)
@@ -252,12 +253,16 @@ namespace WinForms
                 comboBoxModelo.ValueMember = "iphmodid";
                 comboBoxModelo.DisplayMember = "iphmoddescricao";
                 comboBoxModelo.DataSource = colecaoIphone;
+                tabControl1.TabPages.Add(tabPage2);
+                textBoxDetalhes.ScrollBars = ScrollBars.None;
             }
             else
             {
                 comboBoxModelo.ValueMember = "iphmodid";
                 comboBoxModelo.DisplayMember = "iphmoddescricao";
                 comboBoxModelo.DataSource = colecaoIpad;
+                tabControl1.TabPages.RemoveAt(1);
+                textBoxDetalhes.ScrollBars = ScrollBars.Vertical;
             }
         }
 

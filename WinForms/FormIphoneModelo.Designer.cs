@@ -118,12 +118,11 @@
             this.textBoxDetalhes.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxDetalhes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxDetalhes.ForeColor = System.Drawing.Color.White;
-            this.textBoxDetalhes.Location = new System.Drawing.Point(2, 287);
+            this.textBoxDetalhes.Location = new System.Drawing.Point(6, 325);
             this.textBoxDetalhes.Multiline = true;
             this.textBoxDetalhes.Name = "textBoxDetalhes";
             this.textBoxDetalhes.ReadOnly = true;
-            this.textBoxDetalhes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxDetalhes.Size = new System.Drawing.Size(1053, 92);
+            this.textBoxDetalhes.Size = new System.Drawing.Size(1053, 100);
             this.textBoxDetalhes.TabIndex = 12;
             this.textBoxDetalhes.TabStop = false;
             // 
@@ -132,7 +131,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(2, 268);
+            this.label1.Location = new System.Drawing.Point(3, 309);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(61, 13);
             this.label1.TabIndex = 11;
@@ -145,7 +144,7 @@
             this.comboBoxModelo.FormattingEnabled = true;
             this.comboBoxModelo.Location = new System.Drawing.Point(158, 33);
             this.comboBoxModelo.Name = "comboBoxModelo";
-            this.comboBoxModelo.Size = new System.Drawing.Size(212, 21);
+            this.comboBoxModelo.Size = new System.Drawing.Size(330, 21);
             this.comboBoxModelo.TabIndex = 1;
             this.comboBoxModelo.SelectedIndexChanged += new System.EventHandler(this.ComboBoxModelo_SelectedIndexChanged);
             // 
@@ -154,7 +153,7 @@
             this.comboBoxNumMod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxNumMod.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxNumMod.FormattingEnabled = true;
-            this.comboBoxNumMod.Location = new System.Drawing.Point(225, 83);
+            this.comboBoxNumMod.Location = new System.Drawing.Point(220, 99);
             this.comboBoxNumMod.Name = "comboBoxNumMod";
             this.comboBoxNumMod.Size = new System.Drawing.Size(79, 21);
             this.comboBoxNumMod.TabIndex = 4;
@@ -166,7 +165,7 @@
             this.textBoxDimensoes.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxDimensoes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxDimensoes.ForeColor = System.Drawing.Color.White;
-            this.textBoxDimensoes.Location = new System.Drawing.Point(222, 203);
+            this.textBoxDimensoes.Location = new System.Drawing.Point(220, 219);
             this.textBoxDimensoes.Multiline = true;
             this.textBoxDimensoes.Name = "textBoxDimensoes";
             this.textBoxDimensoes.ReadOnly = true;
@@ -179,7 +178,7 @@
             this.comboBoxCapacidade.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxCapacidade.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxCapacidade.FormattingEnabled = true;
-            this.comboBoxCapacidade.Location = new System.Drawing.Point(225, 123);
+            this.comboBoxCapacidade.Location = new System.Drawing.Point(220, 139);
             this.comboBoxCapacidade.Name = "comboBoxCapacidade";
             this.comboBoxCapacidade.Size = new System.Drawing.Size(79, 21);
             this.comboBoxCapacidade.TabIndex = 6;
@@ -188,7 +187,7 @@
             // textBoxAno
             // 
             this.textBoxAno.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxAno.Location = new System.Drawing.Point(225, 44);
+            this.textBoxAno.Location = new System.Drawing.Point(220, 60);
             this.textBoxAno.Name = "textBoxAno";
             this.textBoxAno.ReadOnly = true;
             this.textBoxAno.Size = new System.Drawing.Size(66, 20);
@@ -200,7 +199,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(222, 147);
+            this.label2.Location = new System.Drawing.Point(220, 163);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(26, 13);
             this.label2.TabIndex = 7;
@@ -210,7 +209,7 @@
             // 
             this.labelNumMod.AutoSize = true;
             this.labelNumMod.ForeColor = System.Drawing.Color.White;
-            this.labelNumMod.Location = new System.Drawing.Point(222, 67);
+            this.labelNumMod.Location = new System.Drawing.Point(220, 83);
             this.labelNumMod.Name = "labelNumMod";
             this.labelNumMod.Size = new System.Drawing.Size(45, 13);
             this.labelNumMod.TabIndex = 3;
@@ -221,7 +220,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(219, 187);
+            this.label4.Location = new System.Drawing.Point(220, 203);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(115, 13);
             this.label4.TabIndex = 9;
@@ -231,7 +230,7 @@
             // 
             this.labelCapacidade.AutoSize = true;
             this.labelCapacidade.ForeColor = System.Drawing.Color.White;
-            this.labelCapacidade.Location = new System.Drawing.Point(222, 107);
+            this.labelCapacidade.Location = new System.Drawing.Point(220, 123);
             this.labelCapacidade.Name = "labelCapacidade";
             this.labelCapacidade.Size = new System.Drawing.Size(67, 13);
             this.labelCapacidade.TabIndex = 5;
@@ -241,7 +240,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(222, 28);
+            this.label6.Location = new System.Drawing.Point(220, 44);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(69, 13);
             this.label6.TabIndex = 1;
@@ -252,7 +251,7 @@
             this.comboBoxCor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxCor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxCor.FormattingEnabled = true;
-            this.comboBoxCor.Location = new System.Drawing.Point(225, 163);
+            this.comboBoxCor.Location = new System.Drawing.Point(220, 179);
             this.comboBoxCor.Name = "comboBoxCor";
             this.comboBoxCor.Size = new System.Drawing.Size(144, 21);
             this.comboBoxCor.TabIndex = 8;
@@ -261,11 +260,11 @@
             // labelTitle
             // 
             this.labelTitle.AutoSize = true;
-            this.labelTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTitle.Font = new System.Drawing.Font("Impact", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTitle.ForeColor = System.Drawing.Color.White;
-            this.labelTitle.Location = new System.Drawing.Point(220, 3);
+            this.labelTitle.Location = new System.Drawing.Point(8, 7);
             this.labelTitle.Name = "labelTitle";
-            this.labelTitle.Size = new System.Drawing.Size(97, 25);
+            this.labelTitle.Size = new System.Drawing.Size(81, 29);
             this.labelTitle.TabIndex = 0;
             this.labelTitle.Text = "IPHONE";
             // 
@@ -289,14 +288,14 @@
             this.panelPrincipal.Enabled = false;
             this.panelPrincipal.Location = new System.Drawing.Point(12, 60);
             this.panelPrincipal.Name = "panelPrincipal";
-            this.panelPrincipal.Size = new System.Drawing.Size(1062, 382);
+            this.panelPrincipal.Size = new System.Drawing.Size(1062, 428);
             this.panelPrincipal.TabIndex = 2;
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(463, 3);
+            this.tabControl1.Location = new System.Drawing.Point(467, 7);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(592, 278);
@@ -388,13 +387,14 @@
             // 
             // textBoxModelo
             // 
-            this.textBoxModelo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxModelo.Font = new System.Drawing.Font("Impact", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxModelo.Location = new System.Drawing.Point(6, 32);
             this.textBoxModelo.Name = "textBoxModelo";
             this.textBoxModelo.ReadOnly = true;
-            this.textBoxModelo.Size = new System.Drawing.Size(233, 22);
+            this.textBoxModelo.Size = new System.Drawing.Size(233, 23);
             this.textBoxModelo.TabIndex = 1;
             this.textBoxModelo.TabStop = false;
+            this.textBoxModelo.Text = "IPHONE XS MAX";
             // 
             // textBoxCor
             // 
@@ -719,7 +719,7 @@
             // pictureBoxImagem
             // 
             this.pictureBoxImagem.Image = global::WinForms.Properties.Resources.SP727_iphone6s_plus_gold_select_2015;
-            this.pictureBoxImagem.Location = new System.Drawing.Point(3, 3);
+            this.pictureBoxImagem.Location = new System.Drawing.Point(3, 44);
             this.pictureBoxImagem.Name = "pictureBoxImagem";
             this.pictureBoxImagem.Size = new System.Drawing.Size(211, 262);
             this.pictureBoxImagem.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -742,7 +742,7 @@
             this.buttonSalvar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonSalvar.Image = global::WinForms.Properties.Resources.conf_green;
             this.buttonSalvar.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.buttonSalvar.Location = new System.Drawing.Point(897, 448);
+            this.buttonSalvar.Location = new System.Drawing.Point(897, 494);
             this.buttonSalvar.Name = "buttonSalvar";
             this.buttonSalvar.Size = new System.Drawing.Size(85, 40);
             this.buttonSalvar.TabIndex = 3;
@@ -756,7 +756,7 @@
             this.buttonFechar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonFechar.Image = global::WinForms.Properties.Resources.exit_red;
             this.buttonFechar.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.buttonFechar.Location = new System.Drawing.Point(989, 448);
+            this.buttonFechar.Location = new System.Drawing.Point(989, 494);
             this.buttonFechar.Name = "buttonFechar";
             this.buttonFechar.Size = new System.Drawing.Size(85, 40);
             this.buttonFechar.TabIndex = 4;
@@ -769,7 +769,7 @@
             // 
             this.labelBarra.AutoSize = true;
             this.labelBarra.ForeColor = System.Drawing.Color.White;
-            this.labelBarra.Location = new System.Drawing.Point(9, 448);
+            this.labelBarra.Location = new System.Drawing.Point(9, 494);
             this.labelBarra.Name = "labelBarra";
             this.labelBarra.Size = new System.Drawing.Size(71, 13);
             this.labelBarra.TabIndex = 48;
@@ -778,7 +778,7 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(9, 464);
+            this.progressBar1.Location = new System.Drawing.Point(9, 510);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(395, 23);
             this.progressBar1.TabIndex = 49;
@@ -827,7 +827,7 @@
             this.buttonFoto.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonFoto.Image = global::WinForms.Properties.Resources.conf_green;
             this.buttonFoto.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.buttonFoto.Location = new System.Drawing.Point(806, 448);
+            this.buttonFoto.Location = new System.Drawing.Point(806, 494);
             this.buttonFoto.Name = "buttonFoto";
             this.buttonFoto.Size = new System.Drawing.Size(85, 40);
             this.buttonFoto.TabIndex = 51;
@@ -842,7 +842,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gray;
-            this.ClientSize = new System.Drawing.Size(1086, 500);
+            this.ClientSize = new System.Drawing.Size(1086, 546);
             this.Controls.Add(this.buttonFoto);
             this.Controls.Add(this.groupBoxAparelho);
             this.Controls.Add(this.labelBarra);

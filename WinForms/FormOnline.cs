@@ -332,14 +332,7 @@ namespace WinForms
 
         private void FormOnline_Leave(object sender, EventArgs e)
         {
-            //if (this.Width > 1000)
-            //{
-            //    this.Hide();
-            //    this.Show(this);
 
-            //    if (dataGridViewChat.Visible == true)
-            //        this.Width = 930;
-            //}
         }
 
         private void dataGridViewChat_Click(object sender, EventArgs e)
@@ -375,10 +368,11 @@ namespace WinForms
             }
         }
 
-        private void FormOnline_FormClosed(object sender, FormClosedEventArgs e)
+        private void FormOnline_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (newThread != null)
                 newThread.Abort();
+
         }
     }
 }
