@@ -241,6 +241,7 @@ namespace WinForms
             FormEmpresa formEmpresa = new FormEmpresa();
             formEmpresa.ShowDialog(this);
             formEmpresa.Dispose();
+            Application.Exit();
         }
 
         public void ModoOfflineEncerrarSistema()

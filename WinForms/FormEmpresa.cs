@@ -33,6 +33,7 @@ namespace WinForms
         TimeSpan span;
         int contar = 1;
         string diretorio = @"C:\Users\Public\LevitSoft\";
+        bool encerrar = true;
 
         public FormEmpresa(EmpresaInfo empresa)
         {
@@ -262,31 +263,23 @@ namespace WinForms
             {
                 path += @"\" + Form1.FileIphoneCores;
                 File.Copy(path, Path.Combine(Path.GetDirectoryName(Form1.Caminho), Form1.FileIphoneCores));
-
-                //IphoneModeloCorColecao iphoneCorColecao = negocioServ.ConsultarIphoneModeloCorFoto();
-                //serializarNegocios.SerializarObjeto(iphoneCorColecao, Form1.FileIphoneCores);
             }
 
             if (!serializarNegocios.ArquivoExiste(Form1.FileIphone))
             {
                 path1 += @"\" + Form1.FileIphone;
                 File.Copy(path1, Path.Combine(Path.GetDirectoryName(Form1.Caminho), Form1.FileIphone));
-
-                //IphoneModeloColecao iphoneModeloColecao = negocioServ.ConsultarIphoneColecao();
-                //serializarNegocios.SerializarObjeto(iphoneModeloColecao, Form1.FileIphone);
             }
 
             FormMessage.ShowMessegeWarning("O sistema foi configurado com sucesso... O mesmo será encerrado, favor abra-o novamente!");
-            thread.Abort();
-            Application.Exit();
+            encerrar = false;
+            this.DialogResult = DialogResult.Yes;
         }
 
         private void FormEmpresa_Load(object sender, EventArgs e)
         {
             if (this.Modal)
             {
-                //if (Directory.Exists(diretorio))
-                //    Directory.Delete(diretorio, true);
                 serializarNegocios.ExcluirArquivo(Form1.FileNameEmp);
                 serializarNegocios.ExcluirArquivo(Form1.FileNameUnid);
                 serializarNegocios.ExcluirArquivo(Form1.FileNameComp);
@@ -309,7 +302,7 @@ namespace WinForms
             dateTime = DateTime.Now;
             panelBarra.Visible = true;
 
-            while (true)
+            while (encerrar)
             {
                 span = DateTime.Now - dateTime;
                 labelTime.Text = span.Minutes.ToString(); // + ":" + span.TotalSeconds.ToString();
@@ -320,6 +313,8 @@ namespace WinForms
                         progressBar1.Value = contar;
                 }
             }
+
+            thread.Abort();
         }
     }
 }
