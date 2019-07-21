@@ -773,11 +773,8 @@ namespace WinForms
 
         private void BuscarServico()
         {
-            FormIphoneModelo formIphoneModelo = new FormIphoneModelo();
-            formIphoneModelo.ShowDialog(this);
-            //FormAbertos(formIphoneModelo);
-            //FormConsultarServico formConsultarServico = new FormConsultarServico();
-            //FormAbertos(formConsultarServico, true);
+            FormServicoListar formServicoListar = new FormServicoListar();
+            FormAbertos(formServicoListar, true);
         }
 
         private void buttonBuscarCliente_Click(object sender, EventArgs e)

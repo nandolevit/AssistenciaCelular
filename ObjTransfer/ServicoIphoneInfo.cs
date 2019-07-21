@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace ObjTransfer
 {
-    public class IphoneDefeitoInfo
+    public class ServicoIphoneInfo
     {
         public int iphdefid { get; set; }
-        public int iphdefidaparelho { get; set; }
+        public int iphdefidservico { get; set; }
         public string iphdefdefeito { get; set; }
         public string iphdefobs { get; set; }
         public string iphdeftouchdisplay { get; set; }

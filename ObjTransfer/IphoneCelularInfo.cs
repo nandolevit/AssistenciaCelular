@@ -19,5 +19,21 @@ namespace ObjTransfer
         public string celanocompra { get; set; }
         public string celserie { get; set; }
         public string celobs { get; set; }
+
+        public override string ToString()
+        {
+            string descricao = string.Empty;
+
+            descricao += string.IsNullOrEmpty(celiphonedescricao)? "": celiphonedescricao;
+            descricao += string.IsNullOrEmpty(celmodelo) ? "" : ", Modelo: " + celmodelo;
+            descricao += string.IsNullOrEmpty(celimei) ? "" : ", IMEI: " + celimei;
+            descricao += string.IsNullOrEmpty(celserie) ? "" : ", SÉRIE: " + celserie;
+            descricao += string.IsNullOrEmpty(celanocompra) ? "" : ", Ano: " + celanocompra;
+            descricao += string.IsNullOrEmpty(celcapacidade) ? "" : ", Capacidade: " + celcapacidade;
+            descricao += string.IsNullOrEmpty(celcor) ? "" : ", Cor: " + celcor;
+            descricao += string.IsNullOrEmpty(celobs) ? "" :", Obs: " + celobs;
+
+            return descricao;
+        }
     }
 }

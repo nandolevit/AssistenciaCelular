@@ -81,7 +81,8 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>icons8_Smartphone_Tablet.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="itextsharp, Version=5.5.13.1, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
@@ -184,6 +185,12 @@
     </Compile>
     <Compile Include="FormConexao.Designer.cs">
       <DependentUpon>FormConexao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormServicoListar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormServicoListar.Designer.cs">
+      <DependentUpon>FormServicoListar.cs</DependentUpon>
     </Compile>
     <Compile Include="FormConsultar_Cod_Descricao.cs">
       <SubType>Form</SubType>
@@ -331,6 +338,12 @@
     <Compile Include="FormSangria.Designer.cs">
       <DependentUpon>FormSangria.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormServicoReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormServicoReport.Designer.cs">
+      <DependentUpon>FormServicoReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormServicoTipo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -418,6 +431,9 @@
     <EmbeddedResource Include="FormConexao.resx">
       <DependentUpon>FormConexao.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormServicoListar.resx">
+      <DependentUpon>FormServicoListar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormConsultar_Cod_Descricao.resx">
       <DependentUpon>FormConsultar_Cod_Descricao.cs</DependentUpon>
     </EmbeddedResource>
@@ -490,6 +506,9 @@
     <EmbeddedResource Include="FormSangria.resx">
       <DependentUpon>FormSangria.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormServicoReport.resx">
+      <DependentUpon>FormServicoReport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormServicoTipo.resx">
       <DependentUpon>FormServicoTipo.cs</DependentUpon>
     </EmbeddedResource>
@@ -517,6 +536,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="ReportCupomSemRadape.rdlc" />
+    <EmbeddedResource Include="ReportServico.rdlc" />
     <EmbeddedResource Include="ReportVenda.rdlc" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -666,7 +686,6 @@
     <None Include="Resources\icons8_iPhone_32.png" />
     <None Include="Resources\icons8_iMac_32.png" />
     <None Include="Resources\icons8_Smartphone_Tablet_32.png" />
-    <Content Include="icons8_Smartphone_Tablet.ico" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

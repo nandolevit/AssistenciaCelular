@@ -19,14 +19,12 @@ namespace WinForms
         Thread thread;
         ClienteInfo infoCliente;
         ServicoInfo infoServ;
-        EnderecoInfo infoEnd;
-        EnderecoColecao colecaoEnd;
         FuncInfo responsavel;
         FuncColecao colecaofunc;
-        ServicoColecao colecaoServico;
-        //IphoneCelularInfo infoCelular;
-        AparelhoInfo infoAparelho;
-        IphoneDefeitoInfo infoDefeito;
+        ServicoColecao colecaoServ;
+        ServicoIphoneInfo infoServIphone;
+        ServicoIphoneColecao colecaoServIphone;
+        IphoneCelularInfo infoCelular;
 
         ClienteNegocios negociosCliente = new ClienteNegocios(Form1.Empresa.empconexao);
         ServicoNegocio negocioServ = new ServicoNegocio(Form1.Empresa.empconexao);
@@ -61,7 +59,7 @@ namespace WinForms
             FormFormat formFormat = new FormFormat(this);
             formFormat.formatar();
             textBoxCaracteristica.CharacterCasing = CharacterCasing.Normal;
-            colecaoServico = new ServicoColecao();
+            colecaoServ = new ServicoColecao();
         }
 
         private void PreencherForm()
@@ -70,17 +68,6 @@ namespace WinForms
 
             thread = new Thread(PreencherFormThread);
             form1.ExecutarThread(thread, progressBar1, labelBarra);
-
-            if (colecaoEnd != null)
-            {
-                infoEnd = colecaoEnd[0];
-                PreencherEnd();
-            }
-            else
-            {
-                FormMessage.ShowMessegeWarning("Não existe um endereço cadastrado para este cliente!");
-                this.Close();
-            }
 
             if (colecaofunc.Count == 1)
             {
@@ -96,14 +83,8 @@ namespace WinForms
 
         private void PreencherFormThread()
         {
-            colecaoEnd = negociosCliente.ConsultarEnderecoPorIdCliente(infoCliente.cliid);
             colecaofunc = negocioFunc.ConsultarFuncTecnico();
             Form1.encerrarThread = true;
-        }
-
-        private void PreencherEnd()
-        {
-            textBoxEnd.Text = infoEnd.endcep + " - " + infoEnd.endcomplemento + " (Ponto de Ref.: " + infoEnd.endreferencia + ")";
         }
 
         private void buttonFechar_Click(object sender, EventArgs e)
@@ -119,17 +100,18 @@ namespace WinForms
         private void AbrirDefeito()
         {
             FormProdutoDefeito formProdutoDefeito = new FormProdutoDefeito(infoCliente);
-
             if (formProdutoDefeito.ShowDialog(this) == DialogResult.Yes)
             {
-                infoAparelho = formProdutoDefeito.SelecionadoAparelho;
-                infoDefeito = formProdutoDefeito.SelecionandoDefeito;
-                textBoxDescricao.Text = infoAparelho.apadescricao;
-                textBoxDefeito.Text = infoDefeito.iphdefdefeito;
-                textBoxCaracteristica.Text = infoDefeito.ToString();
-                textBoxCaracteristica.Select();
-                buttonSalvar.Enabled = false;
-                buttonAddServico.Enabled = true;
+                infoCelular = formProdutoDefeito.SelecionadoCelular;
+                infoServIphone = formProdutoDefeito.SelecionandoDefeito;
+                colecaoServIphone.Add(infoServIphone);
+
+                textBoxObs.Text = infoServIphone.iphdefobs;
+                textBoxDescricao.Text = infoCelular.ToString();
+                textBoxDefeito.Text = infoServIphone.iphdefdefeito;
+                textBoxCaracteristica.Text = infoServIphone.ToString();
+                buttonAdd.Enabled = false;
+                buttonSalvar.Select();
                 buttonCliente.Enabled = false;
             }
             formProdutoDefeito.Dispose();
@@ -137,106 +119,64 @@ namespace WinForms
 
         private void buttonSalvar_Click(object sender, EventArgs e)
         {
-            if (dataGridViewServico.Rows.Count > 0)
+            if (FormMessage.ShowMessegeQuestion("Deseja salvar este registro?") == DialogResult.Yes)
             {
-                if (FormMessage.ShowMessegeQuestion("Deseja salvar este registro?") == DialogResult.Yes)
+                groupBoxServico.Enabled = false;
+                infoServ = new ServicoInfo
                 {
-                    List<int> listInt = new List<int>();
-                    colecaoServico = new ServicoColecao();
+                    serid = 000000000,
+                    serdataagend = dateTimePickerData.Value.Date,
+                    seridunid = Form1.Unidade.uniid,
+                    seridfunc = Form1.User.useidfuncionario,
+                    seridstatus = 1,
+                    seridtec_resp = responsavel.funId,
+                    seridaparelho = infoCelular.celid,
+                    serdescricao = infoCelular.ToString(),
+                    seridtipoaparelho = 1,
+                };
 
-                    foreach (DataGridViewRow row in dataGridViewServico.Rows)
-                    {
-                        //idSave = negocioServ.InsertServico((ServicoInfo)row.DataBoundItem);
-                        if (idSave > 0)
-                            listInt.Add(idSave);
-                        else
-                            break;
-                    }
-
-                    if (idSave > 0)
-                    {
-                        foreach (int item in listInt)
-                            //colecaoServico.Add(negocioServ.ConsultarServicoPorOs(item));
-
-                        PreencherGrid();
-                        saved = true;
-                    }
-                    else
-                        MessageBox.Show("Falha ao tentar salvar!");
-                }
+                thread = new Thread(new ThreadStart(Salvar));
+                form1.ExecutarThread(thread, progressBar1, labelBarra);
+                PreencherGrid();
             }
-            else
-                FormMessage.ShowMessegeWarning("Insira uma Ordem de serviço para poder salvar!");
+        }
+
+        private void Limpar()
+        {
+            infoServ = null;
+            infoServIphone = null;
+            idSave = 0;
+            textBoxCaracteristica.Clear();
+            textBoxDescricao.Clear();
+            textBoxDefeito.Clear();
+            textBoxObs.Clear();
+            buttonAdd.Enabled = true;
+        }
+
+        private void Salvar()
+        {
+            idSave = negocioServ.InsertServico(infoServ);
+
+            if (idSave > 0)
+            {
+                infoServ.serid = idSave;
+                infoServIphone.iphdefidservico = idSave;
+                negocioServ.InsertServicoIphone(infoServIphone);
+                colecaoServ.Add(infoServ);
+                colecaoServIphone.Add(infoServIphone);
+                Form1.encerrarThread = true;
+            }
         }
 
         private void PreencherGrid()
         {
             dataGridViewServico.DataSource = null;
-            dataGridViewServico.DataSource = colecaoServico;
+            dataGridViewServico.DataSource = colecaoServ;
 
-            ServGrarantia();
-            FormMessage.ShowMessegeInfo("Serviço salvo com sucesso!");
-            buttonSalvar.Enabled = false;
-            groupBoxServico.Enabled = false;
-            buttonRemover.Enabled = false;
-            buttonImprimir.Enabled = true;
+            Limpar();
+            groupBoxServico.Enabled = true;
+            buttonImprimir.Visible = true;
             buttonImprimir.Select();
-        }
-
-        private void buttonAddServico_Click(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrEmpty(textBoxDescricao.Text))
-            {
-                if (!string.IsNullOrEmpty(textBoxResponsavel.Text))
-                {
-                    bool add = true;
-
-                    infoServ = new ServicoInfo
-                    {
-                        serid = 000000000,
-                        seraparelhodescricao = textBoxDescricao.Text,
-                        serdataagend = dateTimePickerData.Value.Date,
-                        seridunid = Form1.Unidade.uniid,
-                        seridfunc = Form1.User.useidfuncionario,
-                        seridstatus = 1,
-                        seridtec_resp = Convert.ToInt32(textBoxCodTec.Text),
-                        seridaparelho = infoAparelho.apaid
-                    };
-
-                    foreach (DataGridViewRow row in dataGridViewServico.Rows)
-                    {
-                        ServicoInfo serv = (ServicoInfo)row.DataBoundItem;
-
-                        if (infoServ.seridaparelho == serv.seridaparelho)
-                            add = false;
-                    }
-
-                    if (add)
-                    {
-
-                        colecaoServico.Add(infoServ);
-                        dataGridViewServico.DataSource = null;
-                        dataGridViewServico.DataSource = colecaoServico;
-                    }
-                    else
-                        FormMessage.ShowMessegeWarning("Este produto já foi adicionado");
-
-                    textBoxDescricao.Clear();
-                    textBoxDefeito.Clear();
-                    buttonSalvar.Select();
-                    infoAparelho = null;
-                    infoDefeito = null;
-                    buttonRemover.Enabled = true;
-                    buttonSalvar.Enabled = true;
-                }
-                else
-                {
-                    FormMessage.ShowMessegeWarning("Selecione o técnico responsável pelo serviço!");
-                    textBoxCodTec.Select();
-                }
-            }
-            else
-                FormMessage.ShowMessegeInfo("Preencher o campo Descrição!");
         }
 
         private void buttonImprimir_Click(object sender, EventArgs e)
@@ -255,43 +195,7 @@ namespace WinForms
             if (dataGridViewServico.SelectedRows.Count > 0)
                 infoServ = (ServicoInfo)dataGridViewServico.SelectedRows[0].DataBoundItem;
         }
-
-        private void ServGrarantia()
-        {
-            Selecionado();
-
-            if (dataGridViewServico.SelectedRows.Count > 0)
-            {
-                //if (infoServ.sergarantia)
-                //    buttonNota.Enabled = true;
-                //else
-                //    buttonNota.Enabled = false;
-            }
-                
-        }
-        private void buttonRemover_Click(object sender, EventArgs e)
-        {
-            if (FormMessage.ShowMessegeQuestion("Deseja remover esta Ordem de Serviço?") == DialogResult.Yes)
-            {
-                if (dataGridViewServico.SelectedRows.Count > 0)
-                {
-                    ServicoColecao servicoCol = new ServicoColecao();
-
-                    foreach (DataGridViewRow row in dataGridViewServico.Rows)
-                        if (dataGridViewServico.SelectedRows[0].Index != row.Index)
-                            servicoCol.Add((ServicoInfo)row.DataBoundItem);
-
-                    dataGridViewServico.DataSource = null;
-                    dataGridViewServico.DataSource = servicoCol;
-                }
-                else
-                {
-                    buttonAdd.Select();
-                    buttonRemover.Enabled = false;
-                }
-            }
-        }
-
+        
         private void buttonFechar_Click_1(object sender, EventArgs e)
         {
             this.Close();
@@ -305,6 +209,8 @@ namespace WinForms
         private void FrmServico_Load(object sender, EventArgs e)
         {
             buttonCliente.Select();
+            colecaoServIphone = new ServicoIphoneColecao();
+                colecaoServ = new ServicoColecao();
 
             if (infoCliente != null)
                 AbrirDefeito();
@@ -332,7 +238,6 @@ namespace WinForms
                     textBoxCodTec.Select();
                 }
             }
-            buttonAddServico.Select();
         }
 
         private void ConsultarResponsavel(FuncColecao funcColecao)
@@ -387,7 +292,7 @@ namespace WinForms
 
         private void TextBoxObs_Leave(object sender, EventArgs e)
         {
-            buttonAddServico.Select();
+            buttonSalvar.Select();
         }
 
         private void FrmServico_FormClosed(object sender, FormClosedEventArgs e)

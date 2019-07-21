@@ -21,7 +21,26 @@ namespace Negocios
 
         AccessDbMySql accessDbMySql = new AccessDbMySql();
 
-        public int UpdateIphoneDefeito(IphoneDefeitoInfo defeito)
+        public int InsertServico(ServicoInfo servico)
+        {
+            if (accessDbMySql.Conectar(EmpConexao))
+            {
+                accessDbMySql.AddParametrosMySql("@agend", servico.serdataagend);
+                accessDbMySql.AddParametrosMySql("@func", servico.seridfunc);
+                accessDbMySql.AddParametrosMySql("@idstat", servico.seridstatus);
+                accessDbMySql.AddParametrosMySql("@resp", servico.seridtec_resp);
+                accessDbMySql.AddParametrosMySql("@unid", servico.seridunid);
+                accessDbMySql.AddParametrosMySql("@aparelho", servico.seridaparelho);
+                accessDbMySql.AddParametrosMySql("@descricao", servico.serdescricao);
+                accessDbMySql.AddParametrosMySql("@tipo", servico.seridtipoaparelho);
+
+                return accessDbMySql.ExecutarScalarMySql("spInsertServico");
+            }
+            else
+                return 0;
+        }
+
+        public int UpdateServicoIphone(ServicoIphoneInfo defeito)
         {
             if (accessDbMySql.Conectar(EmpConexao))
             {
@@ -36,7 +55,6 @@ namespace Negocios
                 accessDbMySql.AddParametrosMySql("@fone", defeito.iphdeffone);
                 accessDbMySql.AddParametrosMySql("@home", defeito.iphdefhome);
                 accessDbMySql.AddParametrosMySql("@id", defeito.iphdefid);
-                accessDbMySql.AddParametrosMySql("@aparelho", defeito.iphdefidaparelho);
                 accessDbMySql.AddParametrosMySql("@microfone", defeito.iphdefmicrofone);
                 accessDbMySql.AddParametrosMySql("@microfonetraseiro", defeito.iphdefmicrofonetraseiro);
                 accessDbMySql.AddParametrosMySql("@obs", defeito.iphdefobs);
@@ -48,13 +66,13 @@ namespace Negocios
                 accessDbMySql.AddParametrosMySql("@desligar", defeito.iphdefdesligar);
                 accessDbMySql.AddParametrosMySql("@bandeja", defeito.iphdefbandeja);
 
-                return accessDbMySql.ExecutarScalarMySql("spUpdateIphoneDefeito");
+                return accessDbMySql.ExecutarScalarMySql("sUpdateServicoIphone");
             }
             else
                 return 0;
         }
 
-        public int InsertIphoneDefeito(IphoneDefeitoInfo defeito)
+        public int InsertServicoIphone(ServicoIphoneInfo defeito)
         {
             if (accessDbMySql.Conectar(EmpConexao))
             {
@@ -69,7 +87,7 @@ namespace Negocios
                 accessDbMySql.AddParametrosMySql("@fone", defeito.iphdeffone);
                 accessDbMySql.AddParametrosMySql("@home", defeito.iphdefhome);
                 accessDbMySql.AddParametrosMySql("@id", defeito.iphdefid);
-                accessDbMySql.AddParametrosMySql("@phone", defeito.iphdefidaparelho);
+                accessDbMySql.AddParametrosMySql("@servico", defeito.iphdefidservico);
                 accessDbMySql.AddParametrosMySql("@microfone", defeito.iphdefmicrofone);
                 accessDbMySql.AddParametrosMySql("@microfonetraseiro", defeito.iphdefmicrofonetraseiro);
                 accessDbMySql.AddParametrosMySql("@obs", defeito.iphdefobs);
@@ -81,20 +99,20 @@ namespace Negocios
                 accessDbMySql.AddParametrosMySql("@desligar", defeito.iphdefdesligar);
                 accessDbMySql.AddParametrosMySql("@bandeja", defeito.iphdefbandeja);
 
-                return accessDbMySql.ExecutarScalarMySql("spInsertIphoneDefeito");
+                return accessDbMySql.ExecutarScalarMySql("spInsertServicoIphone");
             }
             else
                 return 0;
         }
 
-        public IphoneDefeitoInfo ConsultarIphoneDefeitoId(int id)
+        public ServicoIphoneInfo ConsultarServicoIphoneId(int id)
         {
             if (accessDbMySql.Conectar(EmpConexao))
             {
                 accessDbMySql.AddParametrosMySql("@phone", id);
                 DataTable dataTable = accessDbMySql.dataTableMySql("spConsultarIphoneDefeitoId");
                 if (dataTable != null)
-                    return PreencherIphoneDefeito(dataTable)[0];
+                    return PreencherServicoIphone(dataTable)[0];
                 else
                     return null;
             }
@@ -102,12 +120,12 @@ namespace Negocios
                 return null;
         }
 
-        private IphoneDefeitoColecao PreencherIphoneDefeito(DataTable dataTable)
+        private ServicoIphoneColecao PreencherServicoIphone(DataTable dataTable)
         {
-            IphoneDefeitoColecao colecao = new IphoneDefeitoColecao();
+            ServicoIphoneColecao colecao = new ServicoIphoneColecao();
             foreach (DataRow row in dataTable.Rows)
             {
-                IphoneDefeitoInfo defeito = new IphoneDefeitoInfo
+                ServicoIphoneInfo defeito = new ServicoIphoneInfo
                 {
                     iphdefautofrontal = Convert.ToString(row["iphdefautofrontal"]),
                     iphdefautointerno = Convert.ToString(row["iphdefautointerno"]),
@@ -120,7 +138,6 @@ namespace Negocios
                     iphdeffone = Convert.ToString(row["iphdeffone"]),
                     iphdefhome = Convert.ToString(row["iphdefhome"]),
                     iphdefid = Convert.ToInt32(row["iphdefid"]),
-                    iphdefidaparelho = Convert.ToInt32(row["iphdefidaparelho"]),
                     iphdefmicrofone = Convert.ToString(row["iphdefmicrofone"]),
                     iphdefmicrofonetraseiro = Convert.ToString(row["iphdefmicrofonetraseiro"]),
                     iphdefobs = Convert.ToString(row["iphdefobs"]),
@@ -135,15 +152,14 @@ namespace Negocios
             return colecao;
         }
 
-        public AparelhoInfo ConsultarAparelhoId(int id)
+        public IphoneCelularInfo ConsultarIphoneCelularId(int id)
         {
             if (accessDbMySql.Conectar(EmpConexao))
             {
                 accessDbMySql.AddParametrosMySql("@id", id);
-                DataTable dataTable = accessDbMySql.dataTableMySql("spConsultarAparelhoId");
-
+                DataTable dataTable = accessDbMySql.dataTableMySql("spConsultarIphoneCelularId");
                 if (dataTable != null)
-                    return PreencherAparelho(dataTable)[0];
+                    return PreencherIphoneCelular(dataTable)[0];
                 else
                     return null;
             }
@@ -151,15 +167,14 @@ namespace Negocios
                 return null;
         }
 
-        public AparelhoColecao ConsultarAparelhoClienteId(int id)
+        public IphoneCelularColecao ConsultarIphoneCelularIdCliente(int id)
         {
             if (accessDbMySql.Conectar(EmpConexao))
             {
                 accessDbMySql.AddParametrosMySql("@id", id);
-                DataTable dataTable = accessDbMySql.dataTableMySql("spConsultarAparelhoClienteId");
-
+                DataTable dataTable = accessDbMySql.dataTableMySql("spConsultarIphoneCelularIdCliente");
                 if (dataTable != null)
-                    return PreencherAparelho(dataTable);
+                    return PreencherIphoneCelular(dataTable);
                 else
                     return null;
             }
@@ -167,21 +182,27 @@ namespace Negocios
                 return null;
         }
 
-        private AparelhoColecao PreencherAparelho(DataTable dataTable)
+        private IphoneCelularColecao PreencherIphoneCelular(DataTable dataTable)
         {
-            AparelhoColecao colecao = new AparelhoColecao();
+            IphoneCelularColecao colecao = new IphoneCelularColecao();
             foreach (DataRow row in dataTable.Rows)
             {
-                AparelhoInfo aparelho = new AparelhoInfo
+                IphoneCelularInfo phone = new IphoneCelularInfo
                 {
-                    apadescricao = Convert.ToString(row["apadescricao"]),
-                    apaid = Convert.ToInt32(row["apaid"]),
-                    apaidaparelho = Convert.ToInt32(row["apaidaparelho"]),
-                    apaidcliente = Convert.ToInt32(row["apaidcliente"]),
-                    apaidtipoaparelho = Convert.ToInt32(row["apaidtipoaparelho"])
+                    celanocompra = Convert.ToString(row["celanocompra"]),
+                    celcapacidade = Convert.ToString(row["celcapacidade"]),
+                    celcor = Convert.ToString(row["celcor"]),
+                    celid = Convert.ToInt32(row["celid"]),
+                    celidcliente = Convert.ToInt32(row["celidcliente"]),
+                    celidmodiphone = Convert.ToInt32(row["celidmodiphone"]),
+                    celimei = Convert.ToString(row["celimei"]),
+                    celiphonedescricao = Convert.ToString(row["celiphonedescricao"]),
+                    celmodelo = Convert.ToString(row["celmodelo"]),
+                    celobs = Convert.ToString(row["celobs"]),
+                    celserie = Convert.ToString(row["celserie"])
                 };
 
-                colecao.Add(aparelho);
+                colecao.Add(phone);
             }
 
             return colecao;
@@ -339,7 +360,7 @@ namespace Negocios
                 DataTable dataTable = accessDbMySql.dataTableMySql("spConsultarIphoneColecao");
 
                 if (dataTable != null)
-                    return PreencherIphone(dataTable);
+                    return PreencherIphoneModelo(dataTable);
                 else
                     return null;
             }
@@ -355,7 +376,7 @@ namespace Negocios
                 DataTable dataTable = accessDbMySql.dataTableMySql("spConsultarIphoneId");
 
                 if (dataTable != null)
-                    return PreencherIphone(dataTable)[0];
+                    return PreencherIphoneModelo(dataTable)[0];
                 else
                     return null;
             }
@@ -363,7 +384,7 @@ namespace Negocios
                 return null;
         }
 
-        public IphoneModeloColecao PreencherIphone(DataTable dataTable)
+        public IphoneModeloColecao PreencherIphoneModelo(DataTable dataTable)
         {
             IphoneModeloColecao colecao = new IphoneModeloColecao();
             foreach (DataRow iphone in dataTable.Rows)

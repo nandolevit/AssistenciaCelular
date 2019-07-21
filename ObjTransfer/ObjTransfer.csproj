@@ -59,8 +59,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AparelhoColecao.cs" />
-    <Compile Include="AparelhoInfo.cs" />
     <Compile Include="EntradaDiversosColecao.cs" />
     <Compile Include="EntradaDiversosInfo.cs" />
     <Compile Include="CaixaAbrirColecao.cs" />
@@ -105,8 +103,8 @@
     <Compile Include="GridViewVendaPeriodoColecao.cs" />
     <Compile Include="IphoneCelularColecao.cs" />
     <Compile Include="IphoneCelularInfo.cs" />
-    <Compile Include="IphoneDefeitoColecao.cs" />
-    <Compile Include="IphoneDefeitoInfo.cs" />
+    <Compile Include="ServicoIphoneColecao.cs" />
+    <Compile Include="ServicoIphoneInfo.cs" />
     <Compile Include="IphoneModeloColecao.cs" />
     <Compile Include="IphoneModeloCorColecao.cs" />
     <Compile Include="IphoneModeloCorInfo.cs" />

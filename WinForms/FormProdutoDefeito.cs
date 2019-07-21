@@ -21,13 +21,12 @@ namespace WinForms
 
         Thread thread;
         ClienteInfo infoCliente;
-        AparelhoColecao colecaoAparelho;
-        //IphoneCelularInfo infoCelular;
-        IphoneDefeitoInfo infoDefeito;
-        AparelhoInfo infoAparelho;
+        IphoneCelularInfo infoCelular;
+        IphoneCelularColecao colecaoCelular;
+        ServicoIphoneInfo infoDefeito;
 
-        public IphoneDefeitoInfo SelecionandoDefeito { get; set; }
-        public AparelhoInfo SelecionadoAparelho { get; set; }
+        public ServicoIphoneInfo SelecionandoDefeito { get; set; }
+        public IphoneCelularInfo SelecionadoCelular { get; set; }
 
         public FormProdutoDefeito(ClienteInfo cliente)
         {
@@ -45,13 +44,10 @@ namespace WinForms
         //    infoCelular = phone;
         //    infoCliente = cliente;
 
-        //    thread = new Thread(ConsultarAparelho);
-        //    form1.ExecutarThread(thread, progressBar1, labelBarra);
-
         //    if (infoCelular != null)
         //    {
-        //        textBoxCodProd.Text = string.Format("{0:0000}", infoAparelho.apaid);
-        //        textBoxProdDescricao.Text = infoAparelho.apadescricao;
+        //        textBoxCodProd.Text = string.Format("{0:0000}", infoCelular.celid);
+        //        textBoxProdDescricao.Text = infoCelular.ToString();
         //    }
         //}
 
@@ -68,7 +64,7 @@ namespace WinForms
 
         private void ConsultarAparelhoCliente()
         {
-            colecaoAparelho = negocioServ.ConsultarAparelhoClienteId(infoCliente.cliid);
+            colecaoCelular = negocioServ.ConsultarIphoneCelularIdCliente(infoCliente.cliid);
             textBoxDefeito.Select();
             Form1.encerrarThread = true;
         }
@@ -77,7 +73,10 @@ namespace WinForms
         {
             if (!(string.IsNullOrEmpty(textBoxDefeito.Text.Trim()) || string.IsNullOrEmpty(textBoxCodProd.Text)))
             {
-                Salvar();
+                PreencherDefeito();
+                SelecionadoCelular = infoCelular;
+                SelecionandoDefeito = infoDefeito;
+                this.DialogResult = DialogResult.Yes;
             }
             else
                 FormMessage.ShowMessegeWarning("Informar o eletrodoméstico e o defeito do aparelho!");
@@ -90,78 +89,61 @@ namespace WinForms
 
         private void FormProdutoDefeito_Load(object sender, EventArgs e)
         {
-            if (colecaoAparelho != null)
+            if (colecaoCelular != null)
             {
-                if (colecaoAparelho.Count > 1)
-                    AbrirListaAparelho();
+                if (colecaoCelular.Count > 1)
+                    AbrirListaAparelho(true);
                 else
                 {
-                    infoAparelho = colecaoAparelho[0];
-                    textBoxCodProd.Text = string.Format("{0:0000}", colecaoAparelho[0].apaid);
-                    textBoxProdDescricao.Text = colecaoAparelho[0].apadescricao;
+                    textBoxCodProd.Text = string.Format("{0:00000}", colecaoCelular[0].celid);
+                    textBoxProdDescricao.Text = colecaoCelular[0].ToString();
+                    infoCelular = colecaoCelular[0];
                 }
-            }
-            else
-            {
-                FormIphoneModelo formIphoneModelo = new FormIphoneModelo(infoCliente);
-                if(formIphoneModelo.ShowDialog(this) == DialogResult.Yes)
-                    infoAparelho = negocioServ.ConsultarAparelhoId(formIphoneModelo.SelecionadoIphone.celid);
-
-                textBoxCodProd.Text = string.Format("{0:00000}", infoAparelho.apaidaparelho);
-                textBoxProdDescricao.Text = infoAparelho.apadescricao;
-                formIphoneModelo.Dispose();
             }
         }
 
-        private void AbrirListaAparelho()
+        private void AbrirListaAparelho(bool modelo = false)
         {
             Form_ConsultarColecao colecao = new Form_ConsultarColecao();
-            foreach (AparelhoInfo aparelho in colecaoAparelho)
+            foreach (IphoneCelularInfo aparelho in colecaoCelular)
             {
                 Form_Consultar form_Consultar = new Form_Consultar
                 {
-                    Cod = string.Format("{0:00000}", aparelho.apaid),
-                    Descricao = aparelho.apadescricao
+                    Cod = string.Format("{0:00000}", aparelho.celid),
+                    Descricao = aparelho.ToString()
                 };
 
                 colecao.Add(form_Consultar);
             }
 
             FormConsultar_Cod_Descricao formConsultar_Cod_Descricao = new FormConsultar_Cod_Descricao(colecao, "Aparelho");
-            formConsultar_Cod_Descricao.ShowDialog(this);
-            formConsultar_Cod_Descricao.Dispose();
-
-            if (formConsultar_Cod_Descricao.DialogResult == DialogResult.Yes)
+            if (formConsultar_Cod_Descricao.ShowDialog(this) == DialogResult.Yes)
             {
                 Form_Consultar consultar = formConsultar_Cod_Descricao.Selecionado;
                 textBoxCodProd.Text = consultar.Cod;
                 textBoxProdDescricao.Text = consultar.Descricao;
-                infoAparelho = negocioServ.ConsultarAparelhoId(Convert.ToInt32(consultar.Cod));
-                SelecionadoAparelho = infoAparelho;
-            }
-        }
-
-        private void Salvar()
-        {
-            PreencherDefeito();
-            ExecutarSalvar();
-        }
-
-        private void ExecutarSalvar()
-        {
-            if (negocioServ.InsertIphoneDefeito(infoDefeito) > 0)
-            {
-                SelecionadoAparelho = infoAparelho;
-                SelecionandoDefeito = infoDefeito;
-                this.DialogResult = DialogResult.Yes;
+                infoCelular = negocioServ.ConsultarIphoneCelularId(Convert.ToInt32(consultar.Cod));
+                SelecionadoCelular = infoCelular;
             }
             else
-                FormMessage.ShowMessegeWarning("Falha ao tentar salvar, tente novamente!");
+            {
+                if (modelo)
+                {
+                    FormIphoneModelo formIphoneModelo = new FormIphoneModelo(infoCliente);
+                    if (formIphoneModelo.ShowDialog(this) == DialogResult.Yes)
+                    {
+                        infoCelular = formIphoneModelo.SelecionadoIphone;
+                        textBoxCodProd.Text = string.Format("{0:00000}", infoCelular.celid);
+                        textBoxProdDescricao.Text = infoCelular.ToString();
+                    }
+                }
+            }
+            formConsultar_Cod_Descricao.Dispose();
         }
 
         private void PreencherDefeito()
         {
-            infoDefeito = new IphoneDefeitoInfo
+            infoDefeito = new ServicoIphoneInfo
             {
                 iphdefautofrontal = textBoxAutoFrontal.Text,
                 iphdefautointerno = textBoxAutoInterno.Text,
@@ -174,7 +156,6 @@ namespace WinForms
                 iphdeffone = textBoxFone.Text,
                 iphdefhome = textBoxHome.Text,
                 iphdefid = 0,
-                iphdefidaparelho = infoAparelho.apaid,
                 iphdefmicrofone = textBoxMicro.Text,
                 iphdefmicrofonetraseiro = textBoxMicroTraseira.Text,
                 iphdefobs = textBoxObs.Text,
@@ -184,13 +165,25 @@ namespace WinForms
                 iphdefbandeja = textBoxBandeja.Text,
                 iphdefdesligar = textBoxDesligar.Text,
                 iphdefsilencioso = textBoxSilencioso.Text,
-                iphdefvolume = textBoxVolume.Text
+                iphdefvolume = textBoxVolume.Text,
             };
         }
 
         private void ButtonBuscarAparelho_Click(object sender, EventArgs e)
         {
             AbrirListaAparelho();
+        }
+
+        private void ButtonAddAparelho_Click(object sender, EventArgs e)
+        {
+            FormIphoneModelo formIphoneModelo = new FormIphoneModelo(infoCliente);
+            if (formIphoneModelo.ShowDialog(this) == DialogResult.Yes)
+            {
+                infoCelular = formIphoneModelo.SelecionadoIphone;
+                textBoxCodProd.Text = string.Format("{0:00000}", infoCelular.celid);
+                textBoxProdDescricao.Text = infoCelular.ToString();
+            }
+            formIphoneModelo.Dispose();
         }
     }
 }

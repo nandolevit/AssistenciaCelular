@@ -1,6 +1,6 @@
 ﻿namespace WinForms
 {
-    partial class FormConsultarServico
+    partial class FormServicoListar
     {
         /// <summary>
         /// Required designer variable.
@@ -84,7 +84,7 @@
             // buttonAdicionar
             // 
             this.buttonAdicionar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonAdicionar.Image = global::WinForms.Properties.Resources.add_green;
+            this.buttonAdicionar.Image = global::WinForms.Properties.Resources.add_insert_green;
             this.buttonAdicionar.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.buttonAdicionar.Location = new System.Drawing.Point(748, 19);
             this.buttonAdicionar.Name = "buttonAdicionar";
@@ -388,14 +388,14 @@
             this.colAtendente.Name = "colAtendente";
             this.colAtendente.Width = 200;
             // 
-            // FormConsultarServico
+            // FormServicoListar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1362, 598);
             this.Controls.Add(this.groupBox1);
             this.KeyPreview = true;
-            this.Name = "FormConsultarServico";
+            this.Name = "FormServicoListar";
             this.Load += new System.EventHandler(this.FormConsultarServico_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormConsultarServico_KeyDown);
             this.groupBox1.ResumeLayout(false);
