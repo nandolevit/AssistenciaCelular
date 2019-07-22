@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.buttonAdicionar = new System.Windows.Forms.Button();
             this.buttonSelecionar = new System.Windows.Forms.Button();
             this.checkBoxDetalhada = new System.Windows.Forms.CheckBox();
             this.groupBoxDetalhada = new System.Windows.Forms.GroupBox();
-            this.checkBoxGarantia = new System.Windows.Forms.CheckBox();
             this.buttonPesquisarDetalhada = new System.Windows.Forms.Button();
             this.labelAtendente = new System.Windows.Forms.Label();
             this.comboBoxAtendente = new System.Windows.Forms.ComboBox();
@@ -56,8 +56,9 @@
             this.colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colEletro = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colTecnico = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colAtendente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.labelBarra = new System.Windows.Forms.Label();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.groupBox1.SuspendLayout();
             this.groupBoxDetalhada.SuspendLayout();
             this.groupBoxTipo.SuspendLayout();
@@ -66,6 +67,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.labelBarra);
+            this.groupBox1.Controls.Add(this.progressBar1);
             this.groupBox1.Controls.Add(this.buttonAdicionar);
             this.groupBox1.Controls.Add(this.buttonSelecionar);
             this.groupBox1.Controls.Add(this.checkBoxDetalhada);
@@ -77,7 +80,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1362, 598);
+            this.groupBox1.Size = new System.Drawing.Size(1362, 581);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
@@ -86,7 +89,7 @@
             this.buttonAdicionar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonAdicionar.Image = global::WinForms.Properties.Resources.add_insert_green;
             this.buttonAdicionar.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.buttonAdicionar.Location = new System.Drawing.Point(748, 19);
+            this.buttonAdicionar.Location = new System.Drawing.Point(754, 19);
             this.buttonAdicionar.Name = "buttonAdicionar";
             this.buttonAdicionar.Size = new System.Drawing.Size(149, 40);
             this.buttonAdicionar.TabIndex = 1;
@@ -112,7 +115,7 @@
             // checkBoxDetalhada
             // 
             this.checkBoxDetalhada.AutoSize = true;
-            this.checkBoxDetalhada.Location = new System.Drawing.Point(6, 65);
+            this.checkBoxDetalhada.Location = new System.Drawing.Point(12, 65);
             this.checkBoxDetalhada.Name = "checkBoxDetalhada";
             this.checkBoxDetalhada.Size = new System.Drawing.Size(121, 17);
             this.checkBoxDetalhada.TabIndex = 2;
@@ -122,7 +125,6 @@
             // 
             // groupBoxDetalhada
             // 
-            this.groupBoxDetalhada.Controls.Add(this.checkBoxGarantia);
             this.groupBoxDetalhada.Controls.Add(this.buttonPesquisarDetalhada);
             this.groupBoxDetalhada.Controls.Add(this.labelAtendente);
             this.groupBoxDetalhada.Controls.Add(this.comboBoxAtendente);
@@ -133,23 +135,12 @@
             this.groupBoxDetalhada.Controls.Add(this.dateTimePickerFim);
             this.groupBoxDetalhada.Controls.Add(this.dateTimePickerIni);
             this.groupBoxDetalhada.Enabled = false;
-            this.groupBoxDetalhada.Location = new System.Drawing.Point(6, 85);
+            this.groupBoxDetalhada.Location = new System.Drawing.Point(12, 85);
             this.groupBoxDetalhada.Name = "groupBoxDetalhada";
-            this.groupBoxDetalhada.Size = new System.Drawing.Size(1156, 55);
+            this.groupBoxDetalhada.Size = new System.Drawing.Size(1080, 55);
             this.groupBoxDetalhada.TabIndex = 3;
             this.groupBoxDetalhada.TabStop = false;
             this.groupBoxDetalhada.Text = "Detalhes:";
-            // 
-            // checkBoxGarantia
-            // 
-            this.checkBoxGarantia.AutoSize = true;
-            this.checkBoxGarantia.Location = new System.Drawing.Point(1052, 29);
-            this.checkBoxGarantia.Name = "checkBoxGarantia";
-            this.checkBoxGarantia.Size = new System.Drawing.Size(66, 17);
-            this.checkBoxGarantia.TabIndex = 8;
-            this.checkBoxGarantia.Text = "Garantia";
-            this.checkBoxGarantia.UseVisualStyleBackColor = true;
-            this.checkBoxGarantia.CheckedChanged += new System.EventHandler(this.checkBoxGarantia_CheckedChanged);
             // 
             // buttonPesquisarDetalhada
             // 
@@ -157,7 +148,7 @@
             this.buttonPesquisarDetalhada.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.buttonPesquisarDetalhada.FlatAppearance.BorderSize = 0;
             this.buttonPesquisarDetalhada.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonPesquisarDetalhada.Location = new System.Drawing.Point(1124, 26);
+            this.buttonPesquisarDetalhada.Location = new System.Drawing.Point(1051, 27);
             this.buttonPesquisarDetalhada.Name = "buttonPesquisarDetalhada";
             this.buttonPesquisarDetalhada.Size = new System.Drawing.Size(20, 20);
             this.buttonPesquisarDetalhada.TabIndex = 9;
@@ -243,7 +234,7 @@
             this.groupBoxTipo.Controls.Add(this.radioButtonNome);
             this.groupBoxTipo.Controls.Add(this.buttonPesquisar);
             this.groupBoxTipo.Controls.Add(this.radioButtonOs);
-            this.groupBoxTipo.Location = new System.Drawing.Point(6, 19);
+            this.groupBoxTipo.Location = new System.Drawing.Point(12, 19);
             this.groupBoxTipo.Name = "groupBoxTipo";
             this.groupBoxTipo.Size = new System.Drawing.Size(736, 40);
             this.groupBoxTipo.TabIndex = 0;
@@ -301,7 +292,7 @@
             // labelCountLista
             // 
             this.labelCountLista.AutoSize = true;
-            this.labelCountLista.Location = new System.Drawing.Point(12, 566);
+            this.labelCountLista.Location = new System.Drawing.Point(896, 535);
             this.labelCountLista.Name = "labelCountLista";
             this.labelCountLista.Size = new System.Drawing.Size(71, 13);
             this.labelCountLista.TabIndex = 5;
@@ -330,69 +321,81 @@
             this.colStatus,
             this.colEletro,
             this.colCliente,
-            this.colTecnico,
             this.colAtendente});
-            this.dataGridViewConsultar.Location = new System.Drawing.Point(3, 153);
+            this.dataGridViewConsultar.Location = new System.Drawing.Point(12, 153);
             this.dataGridViewConsultar.Name = "dataGridViewConsultar";
             this.dataGridViewConsultar.RowHeadersVisible = false;
-            this.dataGridViewConsultar.Size = new System.Drawing.Size(1338, 375);
+            this.dataGridViewConsultar.Size = new System.Drawing.Size(1329, 375);
             this.dataGridViewConsultar.TabIndex = 4;
             this.dataGridViewConsultar.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewConsultar_CellDoubleClick);
             // 
             // colEntrada
             // 
-            this.colEntrada.DataPropertyName = "Entrada";
+            this.colEntrada.DataPropertyName = "entrada";
             this.colEntrada.HeaderText = "Entrada:";
             this.colEntrada.Name = "colEntrada";
             // 
             // colOs
             // 
-            this.colOs.DataPropertyName = "Os";
+            this.colOs.DataPropertyName = "ordem";
+            dataGridViewCellStyle4.Format = "000000";
+            this.colOs.DefaultCellStyle = dataGridViewCellStyle4;
             this.colOs.HeaderText = "OS:";
             this.colOs.Name = "colOs";
-            this.colOs.Width = 50;
+            this.colOs.Width = 75;
             // 
             // colStatus
             // 
-            this.colStatus.DataPropertyName = "Status";
+            this.colStatus.DataPropertyName = "status";
             this.colStatus.HeaderText = "Status:";
             this.colStatus.Name = "colStatus";
             this.colStatus.Width = 175;
             // 
             // colEletro
             // 
-            this.colEletro.DataPropertyName = "Eletro";
-            this.colEletro.HeaderText = "Eletro:";
+            this.colEletro.DataPropertyName = "aparelho";
+            this.colEletro.HeaderText = "Aparelho:";
             this.colEletro.Name = "colEletro";
-            this.colEletro.Width = 500;
+            this.colEletro.Width = 485;
             // 
             // colCliente
             // 
-            this.colCliente.DataPropertyName = "Cliente";
+            this.colCliente.DataPropertyName = "cliente";
             this.colCliente.HeaderText = "Cliente:";
             this.colCliente.Name = "colCliente";
             this.colCliente.Width = 275;
             // 
-            // colTecnico
-            // 
-            this.colTecnico.DataPropertyName = "Tecnico";
-            this.colTecnico.HeaderText = "Técnico:";
-            this.colTecnico.Name = "colTecnico";
-            this.colTecnico.Visible = false;
-            this.colTecnico.Width = 200;
-            // 
             // colAtendente
             // 
-            this.colAtendente.DataPropertyName = "Atendente";
+            this.colAtendente.DataPropertyName = "atendente";
             this.colAtendente.HeaderText = "Atendente:";
             this.colAtendente.Name = "colAtendente";
             this.colAtendente.Width = 200;
+            // 
+            // labelBarra
+            // 
+            this.labelBarra.AutoSize = true;
+            this.labelBarra.ForeColor = System.Drawing.Color.White;
+            this.labelBarra.Location = new System.Drawing.Point(12, 531);
+            this.labelBarra.Name = "labelBarra";
+            this.labelBarra.Size = new System.Drawing.Size(71, 13);
+            this.labelBarra.TabIndex = 8;
+            this.labelBarra.Text = "Carregando...";
+            this.labelBarra.Visible = false;
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(12, 547);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(395, 23);
+            this.progressBar1.TabIndex = 9;
+            this.progressBar1.Visible = false;
             // 
             // FormServicoListar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1362, 598);
+            this.ClientSize = new System.Drawing.Size(1362, 581);
             this.Controls.Add(this.groupBox1);
             this.KeyPreview = true;
             this.Name = "FormServicoListar";
@@ -432,14 +435,14 @@
         private System.Windows.Forms.Label labelAtendente;
         private System.Windows.Forms.ComboBox comboBoxAtendente;
         private System.Windows.Forms.Button buttonPesquisarDetalhada;
-        private System.Windows.Forms.CheckBox checkBoxGarantia;
+        private System.Windows.Forms.Button buttonAdicionar;
         private System.Windows.Forms.DataGridViewTextBoxColumn colEntrada;
         private System.Windows.Forms.DataGridViewTextBoxColumn colOs;
         private System.Windows.Forms.DataGridViewTextBoxColumn colStatus;
         private System.Windows.Forms.DataGridViewTextBoxColumn colEletro;
         private System.Windows.Forms.DataGridViewTextBoxColumn colCliente;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colTecnico;
         private System.Windows.Forms.DataGridViewTextBoxColumn colAtendente;
-        private System.Windows.Forms.Button buttonAdicionar;
+        private System.Windows.Forms.Label labelBarra;
+        private System.Windows.Forms.ProgressBar progressBar1;
     }
 }

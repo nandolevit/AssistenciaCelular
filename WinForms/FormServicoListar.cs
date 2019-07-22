@@ -18,14 +18,16 @@ namespace WinForms
     {
         Form1 form1 = new Form1();
         Thread thread;
-        bool selecionado;
+
+        GridServicoColecao colecaoGrid;
+
+        bool radio;
         string palavraPesquisa;
         string status;
         string atend;
-        string garant;
         DateTime dataIni;
         DateTime dataFim;
-        ServicoNegocio servicoNegocio = new ServicoNegocio(Form1.Empresa.empconexao);
+        ServicoNegocio negocioServ = new ServicoNegocio(Form1.Empresa.empconexao);
         
         public FormServicoListar()
         {
@@ -108,7 +110,7 @@ namespace WinForms
 
         private void buttonPesquisar_Click(object sender, EventArgs e)
         {
-
+            Pesquisar();
         }
 
 
@@ -128,7 +130,7 @@ namespace WinForms
                 }
                 else
                 {
-
+                    Pesquisar();
                 }
             }
         }
@@ -150,10 +152,6 @@ namespace WinForms
             else
                 atend = Convert.ToString(comboBoxAtendente.SelectedValue);
 
-            if (!checkBoxGarantia.Checked)
-                garant = "%";
-            else
-                garant = "1";
 
             dataIni = dateTimePickerIni.Value;
             dataFim = dateTimePickerFim.Value;
@@ -192,6 +190,61 @@ namespace WinForms
         private void radioButtonNome_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void Pesquisar()
+        {
+            palavraPesquisa = textBoxPesquisar.Text;
+            radio = radioButtonOs.Checked;
+
+            thread = new Thread(new ThreadStart(PesquisarThread));
+            form1.ExecutarThread(thread, progressBar1, labelBarra);
+            PreencherGrid();
+        }
+
+        private void PesquisarThread()
+        {
+            if (!string.IsNullOrEmpty(palavraPesquisa))
+            {
+                colecaoGrid = new GridServicoColecao();
+
+                if (radio)
+                {
+                    if (int.TryParse(palavraPesquisa, out int cod))
+                    {
+                        GridServicoInfo grid = negocioServ.ConsultarGridServicoOs(cod);
+
+                        if (grid != null)
+                            colecaoGrid.Add(grid);
+                    }
+                    else
+                        FormMessage.ShowMessegeWarning("Insira um valor válido!");
+                }
+                else
+                    colecaoGrid = negocioServ.ConsultarGridServicoCliente(palavraPesquisa);
+            }
+            else
+                colecaoGrid = negocioServ.ConsultarGridServicoDia();
+
+            Form1.encerrarThread = true;
+        }
+
+        private void PreencherGrid()
+        {
+            if (colecaoGrid == null)
+            {
+                colecaoGrid = new GridServicoColecao();
+                GridServicoInfo grid = new GridServicoInfo
+                {
+                    aparelho = "Nenhuma Ordem de Serviço foi encontrada!"
+                };
+
+                colecaoGrid.Add(grid);
+            }
+
+
+            dataGridViewConsultar.DataSource = null;
+            dataGridViewConsultar.DataSource = colecaoGrid;
         }
 
         private void dataGridViewConsultar_CellDoubleClick(object sender, DataGridViewCellEventArgs e)

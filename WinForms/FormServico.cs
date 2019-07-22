@@ -79,6 +79,8 @@ namespace WinForms
                 ConsultarResponsavel(colecaofunc);
 
             buttonAdd.Enabled = true;
+            buttonAdd.Select();
+            buttonCliente.Enabled = false;
         }
 
         private void PreencherFormThread()
@@ -111,6 +113,7 @@ namespace WinForms
                 textBoxDefeito.Text = infoServIphone.iphdefdefeito;
                 textBoxCaracteristica.Text = infoServIphone.ToString();
                 buttonAdd.Enabled = false;
+                buttonSalvar.Enabled = true;
                 buttonSalvar.Select();
                 buttonCliente.Enabled = false;
             }
@@ -175,6 +178,7 @@ namespace WinForms
 
             Limpar();
             groupBoxServico.Enabled = true;
+            buttonSalvar.Enabled = false;
             buttonImprimir.Visible = true;
             buttonImprimir.Select();
         }

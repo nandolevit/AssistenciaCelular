@@ -21,6 +21,71 @@ namespace Negocios
 
         AccessDbMySql accessDbMySql = new AccessDbMySql();
 
+        public GridServicoInfo ConsultarGridServicoOs(int id)
+        {
+            if (accessDbMySql.Conectar(EmpConexao))
+            {
+                accessDbMySql.AddParametrosMySql("@id", id);
+                DataTable dataTable = accessDbMySql.dataTableMySql("spConsultarvServicoIphoneOs");
+                if (dataTable != null)
+                    return PreencherGridServico(dataTable)[0];
+                else
+                    return null;
+            }
+            else
+                return null;
+        }
+
+        public GridServicoColecao ConsultarGridServicoDia()
+        {
+            if (accessDbMySql.Conectar(EmpConexao))
+            {
+                DataTable dataTable = accessDbMySql.dataTableMySql("spConsultarvServicoIphoneDia");
+                if (dataTable != null)
+                    return PreencherGridServico(dataTable);
+                else
+                    return null;
+            }
+            else
+                return null;
+
+        }
+        public GridServicoColecao ConsultarGridServicoCliente(string nome)
+        {
+            if (accessDbMySql.Conectar(EmpConexao))
+            {
+                accessDbMySql.AddParametrosMySql("@nome", nome);
+                DataTable dataTable = accessDbMySql.dataTableMySql("spConsultarvServicoIphoneCliente");
+                if (dataTable != null)
+                    return PreencherGridServico(dataTable);
+                else
+                    return null;
+            }
+            else
+                return null;
+        }
+
+        private GridServicoColecao PreencherGridServico(DataTable dataTable)
+        {
+            GridServicoColecao colecao = new GridServicoColecao();
+            foreach (DataRow row in dataTable.Rows)
+            {
+                GridServicoInfo grid = new GridServicoInfo
+                {
+                    aparelho = Convert.ToString(row["serapadescricao"]),
+                    atendente = Convert.ToString(row["funnome"]),
+                    cliente = Convert.ToString(row["clinome"]),
+                    entrada = Convert.ToDateTime(row["serdataagend"]).Date,
+                    ordem = Convert.ToInt32(row["serid"]),
+                    status = Convert.ToString(row["statusdescricao"]),
+                };
+
+                colecao.Add(grid);
+            }
+
+            return colecao;
+        }
+
         public int InsertServico(ServicoInfo servico)
         {
             if (accessDbMySql.Conectar(EmpConexao))

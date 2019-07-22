@@ -97,6 +97,8 @@
     <Compile Include="GridLancarEstoqueInfo.cs" />
     <Compile Include="GridPedidoColecao.cs" />
     <Compile Include="GridPedidoInfo.cs" />
+    <Compile Include="GridServicoColecao.cs" />
+    <Compile Include="GridServicoInfo.cs" />
     <Compile Include="GridViewComissaoColecao.cs" />
     <Compile Include="GridViewComissaoInfo.cs" />
     <Compile Include="GridViewVendaPeriodo.cs" />
