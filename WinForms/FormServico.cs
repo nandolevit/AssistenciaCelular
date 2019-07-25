@@ -284,14 +284,14 @@ namespace WinForms
         {
             ServicoInfo servico = new ServicoInfo();
             FormClienteConsultar formClienteConsultar = new FormClienteConsultar(true);
-            formClienteConsultar.ShowDialog(this);
-            formClienteConsultar.Dispose();
-
-            if (formClienteConsultar.DialogResult == DialogResult.Yes)
+            if (formClienteConsultar.ShowDialog(this) == DialogResult.Yes)
             {
                 infoCliente = formClienteConsultar.SelecionadoCliente;
                 PreencherForm();
+                AbrirDefeito();
             }
+
+            formClienteConsultar.Dispose();
         }
 
         private void TextBoxObs_Leave(object sender, EventArgs e)

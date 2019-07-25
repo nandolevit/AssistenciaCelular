@@ -720,7 +720,7 @@
             // 
             // pictureBoxImagem
             // 
-            this.pictureBoxImagem.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBoxImagem.BackColor = System.Drawing.Color.White;
             this.pictureBoxImagem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pictureBoxImagem.Image = global::WinForms.Properties.Resources.SP727_iphone6s_plus_gold_select_2015;
             this.pictureBoxImagem.Location = new System.Drawing.Point(3, 44);
