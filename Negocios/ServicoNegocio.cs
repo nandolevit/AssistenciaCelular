@@ -86,7 +86,7 @@ namespace Negocios
             return colecao;
         }
 
-        public int InsertServico(ServicoInfo servico)
+        private int InsertServico(ServicoInfo servico)
         {
             if (accessDbMySql.Conectar(EmpConexao))
             {
@@ -95,9 +95,6 @@ namespace Negocios
                 accessDbMySql.AddParametrosMySql("@idstat", servico.seridstatus);
                 accessDbMySql.AddParametrosMySql("@resp", servico.seridtec_resp);
                 accessDbMySql.AddParametrosMySql("@unid", servico.seridunid);
-                accessDbMySql.AddParametrosMySql("@aparelho", servico.seridaparelho);
-                accessDbMySql.AddParametrosMySql("@descricao", servico.serdescricao);
-                accessDbMySql.AddParametrosMySql("@tipo", servico.seridtipoaparelho);
 
                 return accessDbMySql.ExecutarScalarMySql("spInsertServico");
             }
@@ -139,32 +136,39 @@ namespace Negocios
 
         public int InsertServicoIphone(ServicoIphoneInfo defeito)
         {
-            if (accessDbMySql.Conectar(EmpConexao))
-            {
-                accessDbMySql.AddParametrosMySql("@autofrontal", defeito.iphdefautofrontal);
-                accessDbMySql.AddParametrosMySql("@autointerno", defeito.iphdefautointerno);
-                accessDbMySql.AddParametrosMySql("@camfrontal", defeito.iphdefcamfrontal);
-                accessDbMySql.AddParametrosMySql("@camtraseira", defeito.iphdefcamtraseira);
-                accessDbMySql.AddParametrosMySql("@carcaca", defeito.iphdefcarcaca);
-                accessDbMySql.AddParametrosMySql("@conector", defeito.iphdefconector);
-                accessDbMySql.AddParametrosMySql("@defeito", defeito.iphdefdefeito);
-                accessDbMySql.AddParametrosMySql("@flash", defeito.iphdefflash);
-                accessDbMySql.AddParametrosMySql("@fone", defeito.iphdeffone);
-                accessDbMySql.AddParametrosMySql("@home", defeito.iphdefhome);
-                accessDbMySql.AddParametrosMySql("@id", defeito.iphdefid);
-                accessDbMySql.AddParametrosMySql("@servico", defeito.iphdefidservico);
-                accessDbMySql.AddParametrosMySql("@microfone", defeito.iphdefmicrofone);
-                accessDbMySql.AddParametrosMySql("@microfonetraseiro", defeito.iphdefmicrofonetraseiro);
-                accessDbMySql.AddParametrosMySql("@obs", defeito.iphdefobs);
-                accessDbMySql.AddParametrosMySql("@parafuso", defeito.iphdefparafuso);
-                accessDbMySql.AddParametrosMySql("@sensor", defeito.iphdefsensorprox);
-                accessDbMySql.AddParametrosMySql("@display", defeito.iphdeftouchdisplay);
-                accessDbMySql.AddParametrosMySql("@volume", defeito.iphdefvolume);
-                accessDbMySql.AddParametrosMySql("@silencioso", defeito.iphdefsilencioso);
-                accessDbMySql.AddParametrosMySql("@desligar", defeito.iphdefdesligar);
-                accessDbMySql.AddParametrosMySql("@bandeja", defeito.iphdefbandeja);
+            int id = InsertServico(defeito);
 
-                return accessDbMySql.ExecutarScalarMySql("spInsertServicoIphone");
+            if (id > 0)
+            {
+                if (accessDbMySql.Conectar(EmpConexao))
+                {
+                    accessDbMySql.AddParametrosMySql("@autofrontal", defeito.iphdefautofrontal);
+                    accessDbMySql.AddParametrosMySql("@autointerno", defeito.iphdefautointerno);
+                    accessDbMySql.AddParametrosMySql("@camfrontal", defeito.iphdefcamfrontal);
+                    accessDbMySql.AddParametrosMySql("@camtraseira", defeito.iphdefcamtraseira);
+                    accessDbMySql.AddParametrosMySql("@carcaca", defeito.iphdefcarcaca);
+                    accessDbMySql.AddParametrosMySql("@conector", defeito.iphdefconector);
+                    accessDbMySql.AddParametrosMySql("@defeito", defeito.iphdefdefeito);
+                    accessDbMySql.AddParametrosMySql("@flash", defeito.iphdefflash);
+                    accessDbMySql.AddParametrosMySql("@fone", defeito.iphdeffone);
+                    accessDbMySql.AddParametrosMySql("@home", defeito.iphdefhome);
+                    accessDbMySql.AddParametrosMySql("@id", defeito.iphdefid);
+                    accessDbMySql.AddParametrosMySql("@servico", id);
+                    accessDbMySql.AddParametrosMySql("@microfone", defeito.iphdefmicrofone);
+                    accessDbMySql.AddParametrosMySql("@microfonetraseiro", defeito.iphdefmicrofonetraseiro);
+                    accessDbMySql.AddParametrosMySql("@obs", defeito.iphdefobs);
+                    accessDbMySql.AddParametrosMySql("@parafuso", defeito.iphdefparafuso);
+                    accessDbMySql.AddParametrosMySql("@sensor", defeito.iphdefsensorprox);
+                    accessDbMySql.AddParametrosMySql("@display", defeito.iphdeftouchdisplay);
+                    accessDbMySql.AddParametrosMySql("@volume", defeito.iphdefvolume);
+                    accessDbMySql.AddParametrosMySql("@silencioso", defeito.iphdefsilencioso);
+                    accessDbMySql.AddParametrosMySql("@desligar", defeito.iphdefdesligar);
+                    accessDbMySql.AddParametrosMySql("@bandeja", defeito.iphdefbandeja);
+
+                    return accessDbMySql.ExecutarScalarMySql("spInsertServicoIphone");
+                }
+                else
+                    return 0;
             }
             else
                 return 0;
@@ -287,6 +291,9 @@ namespace Negocios
                 accessDbMySql.AddParametrosMySql("@obs", phone.celobs);
                 accessDbMySql.AddParametrosMySql("@serie", phone.celserie);
                 accessDbMySql.AddParametrosMySql("@descricao", phone.celiphonedescricao);
+                accessDbMySql.AddParametrosMySql("@senha", phone.celsenha);
+                accessDbMySql.AddParametrosMySql("@icloudlogin", phone.celicloudlogin);
+                accessDbMySql.AddParametrosMySql("@icloudsenha", phone.celicloudsenha);
 
                 return accessDbMySql.ExecutarScalarMySql("spInsertIphoneCelular");
             }

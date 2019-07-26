@@ -254,66 +254,27 @@ namespace WinForms
                 Application.Exit();
         }
 
-        public void ExecutarThread(Thread thread, ProgressBar barra, Label label)
+        public void ExecutarThread(Thread thread, Button salvar, PictureBox load)
         {
             thread.Start();
 
-            barra.Visible = true;
-            label.Visible = true;
-            barra.Maximum = 100;
-            int cont = 0;
-
-            //FormCarregarPrincipal formCarregarPrincipal = new FormCarregarPrincipal();
-            //formCarregarPrincipal.Show(this);
+            salvar.Visible = false;
+            load.Location = salvar.Location;
 
             DateTime temp1 = DateTime.Now;
             DateTime temp2;
-            DateTime temp3 = DateTime.Now;
 
             while (true)
             {
                 temp2 = DateTime.Now;
                 TimeSpan span = temp2 - temp1;
-                TimeSpan span1 = temp2 - temp3;
-
-
-                int num = (int)span1.TotalSeconds;
-
-                if ( num > cont)
-                {
-                    cont++;
-                    barra.Increment(cont);
-
-                    label.Text = "Carregando";
-                    string txt = new string('.', cont);
-                    label.Text += txt;
-
-                    if (cont > 15)
-                    {
-                        barra.Value = 0;
-                        cont = 0;
-                        temp3 = DateTime.Now;
-                    }
-                }
-
-                //if (span.TotalSeconds > 180)
-                //{
-                //    //Form1.FecharFormCarregando = true;
-                //    FormMessage.ShowMessegeWarning("Falha, não foi passível concluir a tarefa, tente novamente!");
-                //    break;
-                //}
 
                 if (encerrarThread)
-                {
-                    //panelCentral.Visible = false;
                     break;
-                }
             }
 
-            //Form1.FecharFormCarregando = true;
-            //formCarregarPrincipal.Close();
-            barra.Visible = false;
-            label.Visible = false;
+            load.Visible = false;
+            salvar.Visible = true;
             thread.Abort();
             encerrarThread = false;
         }
