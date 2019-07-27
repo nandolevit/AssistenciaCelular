@@ -70,8 +70,9 @@ namespace WinForms
         {
             if (enumCupom == EnumCupom.Rodape)
             {
+                pictureBoxLoad.Visible = true;
                 thread = new Thread(CriarCupom);
-                form1.ExecutarThread(thread, buttonTeste, pictureBoxLoad);
+                form1.ExecutarThread(thread);
                 this.Activate();
                 PreencherForm(ArrCupom[0] + ArrCupom[1]);
                 
@@ -93,8 +94,9 @@ namespace WinForms
         
         private void CriarCaixa()
         {
+            pictureBoxLoad.Visible = true;
             thread = new Thread(PreencherCaixaThread);
-            form1.ExecutarThread(thread, buttonTeste, pictureBoxLoad);
+            form1.ExecutarThread(thread);
             this.Activate();
             PreencherForm(ArrCupom[0]);
         }
@@ -104,7 +106,8 @@ namespace WinForms
             CaixaNegocios caixaNegocios = new CaixaNegocios(Form1.Empresa.empconexao);
             CaixaAbrirInfo caixaAbrirInfo = caixaNegocios.ConsultarCaixaPorId(Ident);
             ArrCupom[0] = cupom.CriarCupomCaixa(caixaAbrirInfo, enumCaixa);
-            Form1.encerrarThread = true;  
+            Form1.encerrarThread = true;
+            pictureBoxLoad.Visible = false;
         }
 
         private void CriarCupom()
@@ -121,6 +124,7 @@ namespace WinForms
                 Form1.encerrarThread = true;
                 FormMessage.ShowMessegeWarning("Nada foi encontrado!");
             }
+            pictureBoxLoad.Visible = false;
         }
 
         private void PreencherForm(string texto)

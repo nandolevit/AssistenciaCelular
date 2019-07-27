@@ -345,8 +345,9 @@ namespace WinForms
 
         private void ConcluirVenda()
         {
+            pictureBoxLoad.Visible = true;
             thread = new Thread(Concluir);
-            form1.ExecutarThread(thread, buttonConcluir, pictureBoxLoad);
+            form1.ExecutarThread(thread);
             this.Activate();
         }
 
@@ -466,6 +467,7 @@ namespace WinForms
             }
 
             Form1.encerrarThread = true;
+            pictureBoxLoad.Visible = false;
         }
 
         private void textBoxValor_TextChanged(object sender, EventArgs e)

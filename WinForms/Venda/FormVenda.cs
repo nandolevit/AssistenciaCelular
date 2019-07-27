@@ -92,8 +92,9 @@ namespace WinForms
         }
         private void VendaThread()
         {
+            pictureBoxLoad.Visible = true;
             thread = new Thread(PreencherFormThread);
-            form1.ExecutarThread(thread, buttonConcluir, pictureBoxLoad);
+            form1.ExecutarThread(thread);
             this.Activate();
         }
 
@@ -109,6 +110,7 @@ namespace WinForms
                 vendaCanceladaInfo = vendaNegocios.ConsultarVendaCanceladaIdVenda(vendaInfo.venid);
 
             Form1.encerrarThread = true;
+            pictureBoxLoad.Visible = false;
         }
 
         private void PreencherForm()

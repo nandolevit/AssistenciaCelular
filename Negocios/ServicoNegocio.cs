@@ -303,7 +303,7 @@ namespace Negocios
 
         public IphoneModeloCorColecao ConsultarIphoneModeloCorFotoId(int id)
         {
-            if (accessDbMySql.Conectar(DadosDB.ConexaoSys))
+            if (accessDbMySql.ConectarSys())
             {
                 accessDbMySql.AddParametrosMySql("@phone", id);
                 DataTable dataTable = accessDbMySql.dataTableMySql("spConsultarIphoneModeloCorFotoId");
@@ -337,7 +337,7 @@ namespace Negocios
 
         public IphoneModeloCorColecao ConsultarIphoneModeloCorFoto()
         {
-            if (accessDbMySql.Conectar(DadosDB.ConexaoSys))
+            if (accessDbMySql.ConectarSys())
             {
                 DataTable dataTable = accessDbMySql.dataTableMySql("spConsultarIphoneModeloCorFoto");
 
@@ -383,7 +383,7 @@ namespace Negocios
 
         public int InsertIphoneModeloCor(IphoneModeloCorInfo cor)
         {
-            if (accessDbMySql.Conectar(DadosDB.ConexaoSys))
+            if (accessDbMySql.ConectarSys())
             {
                 accessDbMySql.AddParametrosMySql("@phone", cor.modcoridiphone);
                 accessDbMySql.AddParametrosMySql("@cor", cor.modcoridcor);
@@ -397,7 +397,7 @@ namespace Negocios
 
         public CodDescricaoColecao ConsultarIphoneCorColecao()
         {
-            if (accessDbMySql.Conectar(DadosDB.ConexaoSys))
+            if (accessDbMySql.ConectarSys())
             {
                 DataTable dataTable = accessDbMySql.dataTableMySql("spConsultarIphoneCor");
 
@@ -427,7 +427,7 @@ namespace Negocios
 
         public IphoneModeloColecao ConsultarIphoneColecao()
         {
-            if (accessDbMySql.Conectar(DadosDB.ConexaoSys))
+            if (accessDbMySql.ConectarSys())
             {
                 DataTable dataTable = accessDbMySql.dataTableMySql("spConsultarIphoneColecao");
 
@@ -440,9 +440,46 @@ namespace Negocios
                 return null;
         }
 
-        public IphoneModeloInfo ConsultarIphoneId(string id)
+        public List<int> ConsultarNovoIphoneModelo() //esse metodo serve consultar se há um novo modelo de cadastrado
         {
-            if (accessDbMySql.Conectar(DadosDB.ConexaoSys))
+            string diretorio = @"C:\Users\Public\LevitSoft\";
+            SerializarNegocios serial = new SerializarNegocios(diretorio);
+            IphoneModeloColecao phone = (IphoneModeloColecao)serial.DesserializarObjeto(@"phone.lvt");
+            List<int> lista = new List<int>();
+            HashSet<int> setNovo = new HashSet<int>();
+            HashSet<int> set = new HashSet<int>();
+
+            if (accessDbMySql.ConectarSys())
+            {
+                DataTable dataTable = accessDbMySql.dataTableMySql("spConsultarNovoModelo");
+
+                if (dataTable != null)
+                {
+                    foreach (DataRow row in dataTable.Rows)
+                        setNovo.Add(Convert.ToInt32(row[0]));
+
+                    foreach (IphoneModeloInfo item in phone)
+                        set.Add(item.iphmodid);
+
+                    HashSet<int> listaSet = new HashSet<int>(setNovo);
+                    listaSet.ExceptWith(set);
+
+                    if (listaSet.Count > 0)
+                        foreach (int item in listaSet)
+                            lista.Add(item);
+
+                    return lista;
+                }
+                else
+                    return lista;
+            }
+            else
+                return lista;
+        }
+
+        public IphoneModeloInfo ConsultarIphoneModeloId(int id)
+        {
+            if (accessDbMySql.ConectarSys())
             {
                 accessDbMySql.AddParametrosMySql("@cod", id);
                 DataTable dataTable = accessDbMySql.dataTableMySql("spConsultarIphoneId");
@@ -481,8 +518,8 @@ namespace Negocios
                     iphmodtela = Convert.ToString(iphone["iphmodtela"]).Split(';'),
                     iphmodtvvideo = Convert.ToString(iphone["iphmodtvvideo"]).Split(';'),
                     iphmoddescricao = Convert.ToString(iphone["iphmoddescricao"]),
-                    iphmodfoto = DBNull.Value.Equals(iphone["iphmodfoto"]) ? null : (byte[])iphone["iphmodfoto"],
-                    iphmodipad = Convert.ToBoolean(iphone["iphmodipad"])
+                    iphmodipad = Convert.ToBoolean(iphone["iphmodipad"]),
+                    iphmodfoto = DBNull.Value.Equals(iphone["iphmodfoto"]) ? null : (byte[])iphone["iphmodfoto"]
                 };
                 colecao.Add(phone);
             }

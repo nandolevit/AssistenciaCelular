@@ -33,8 +33,9 @@ namespace WinForms
             Inicializar();
             infoCliente = cliente;
 
+            pictureBoxLoad.Visible = true;
             thread = new Thread(ConsultarAparelhoCliente);
-            form1.ExecutarThread(thread, buttonSalvar, pictureBoxLoad);
+            form1.ExecutarThread(thread);
 
         }
 
@@ -67,6 +68,7 @@ namespace WinForms
             colecaoCelular = negocioServ.ConsultarIphoneCelularIdCliente(infoCliente.cliid);
             textBoxDefeito.Select();
             Form1.encerrarThread = true;
+            pictureBoxLoad.Visible = false;
         }
 
         private void buttonSalvar_Click(object sender, EventArgs e)

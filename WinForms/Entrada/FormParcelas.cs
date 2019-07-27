@@ -93,8 +93,9 @@ namespace WinForms
 
         private void buttonSalvar_Click(object sender, EventArgs e)
         {
+            pictureBoxLoad.Visible = true;
             thread = new Thread(Salvar);
-            form1.ExecutarThread(thread, buttonSalvar, pictureBoxLoad);
+            form1.ExecutarThread(thread);
             this.Activate();
             this.DialogResult = DialogResult.Yes;
         }
@@ -107,6 +108,7 @@ namespace WinForms
             entradaSaidaNegocios.UpdateEntradaSaidaLancamentoParcelas(entradaSaidaInfo);
 
             Form1.encerrarThread = true;
+            pictureBoxLoad.Visible = false;
         }
         private void buttonFechar_Click(object sender, EventArgs e)
         {

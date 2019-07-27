@@ -121,8 +121,9 @@ namespace WinForms
                     contaCod = Convert.ToInt32(textBoxContaCod.Text);
                     valor = Convert.ToDecimal(textBoxValor.Text);
                     obs = textBoxObs.Text;
+                    pictureBoxLoad.Visible = true;
                     thread = new Thread(Salvar);
-                    form1.ExecutarThread(thread, buttonSalvar, pictureBoxLoad);
+                    form1.ExecutarThread(thread);
                     this.Close();
                 }
             }
@@ -159,12 +160,16 @@ namespace WinForms
                 Form1.encerrarThread = true;
                 FormMessage.ShowMessegeWarning("Falha ao tentar salvar!");
             }
+
+
+            pictureBoxLoad.Visible = false;
         }
 
         private void FormSangria_Load(object sender, EventArgs e)
         {
+            pictureBoxLoad.Visible = true;
             thread = new Thread(Saldo);
-            form1.ExecutarThread(thread, buttonSalvar, pictureBoxLoad);
+            form1.ExecutarThread(thread);
             this.Activate();
             labelCaixa.Text = totalEspecie.ToString("C2");
             textBoxValor.Text = "0";
@@ -175,6 +180,7 @@ namespace WinForms
             Caixa caixa = new Caixa();
             totalEspecie = caixa.PreencherCaixaTotal(EnumCaixa.Caixa).caixafecharvalorsaldoespecie;
             Form1.encerrarThread = true;
+            pictureBoxLoad.Visible = false;
         }
     }
 }

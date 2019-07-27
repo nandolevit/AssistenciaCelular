@@ -52,8 +52,9 @@ namespace WinForms
 
         private void PreencherClasseThread()
         {
+            pictureBoxLoad.Visible = true;
             thread = new Thread(PreencherClasse);
-            form1.ExecutarThread(thread, buttonFechamento, pictureBoxLoad);
+            form1.ExecutarThread(thread);
             this.Activate();
         }
 
@@ -124,6 +125,7 @@ namespace WinForms
             caixaaberto.caixafechardata = DateTime.Now;
 
             Form1.encerrarThread = true;
+            pictureBoxLoad.Visible = false;
         }
 
         private void textBoxProxCaixaValor_TextChanged(object sender, EventArgs e)

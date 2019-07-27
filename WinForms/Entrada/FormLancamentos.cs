@@ -49,8 +49,9 @@ namespace WinForms
         {
             Inicializador();
             grid = entrada;
+            pictureBoxLoad.Visible = true;
             thread = new Thread(Consultar);
-            form1.ExecutarThread(thread, buttonSalvar, pictureBoxLoad);
+            form1.ExecutarThread(thread);
             this.Activate();
             ConsultarLancamento();
             alterar = true;
@@ -61,6 +62,7 @@ namespace WinForms
             entradaSaidaInfo = entradaSaidaNegocios.ConsultarEntradaSaidaId(grid.entralancamentoid);
             nomeFunc = funcNegocios.ConsultarFuncPorId(entradaSaidaInfo.entraidfunc).funNome;
             Form1.encerrarThread = true;
+            pictureBoxLoad.Visible = false;
         }
 
         private void ConsultarLancamento()
@@ -124,8 +126,9 @@ namespace WinForms
                 obs = textBoxObs.Text;
                 cat = Convert.ToInt32(textBoxCodCat.Text);
                 valor = Convert.ToDecimal(textBoxValor.Text);
+                pictureBoxLoad.Visible = true;
                 thread = new Thread(Salvar);
-                form1.ExecutarThread(thread, buttonSalvar, pictureBoxLoad);
+                form1.ExecutarThread(thread);
                 Fechar();
             }
         }
@@ -212,6 +215,8 @@ namespace WinForms
 
             if (thread.IsAlive)
                 Form1.encerrarThread = true;
+
+            pictureBoxLoad.Visible = false;
         }
         
         private void Fechar()

@@ -63,8 +63,9 @@ namespace WinForms
         {
             textBoxNome.Text = infoCliente.cliid + " - " + infoCliente.clinome;
 
+            pictureBoxLoad.Visible = false;
             thread = new Thread(PreencherFormThread);
-            form1.ExecutarThread(thread, buttonSalvar, pictureBoxLoad);
+            form1.ExecutarThread(thread);
 
             if (colecaofunc.Count == 1)
             {
@@ -84,6 +85,7 @@ namespace WinForms
         {
             colecaofunc = negocioFunc.ConsultarFuncTecnico();
             Form1.encerrarThread = true;
+            pictureBoxLoad.Visible = false;
         }
 
         private void buttonFechar_Click(object sender, EventArgs e)
@@ -122,9 +124,10 @@ namespace WinForms
             if (FormMessage.ShowMessegeQuestion("Deseja salvar este registro?") == DialogResult.Yes)
             {
                 groupBoxServico.Enabled = false;
-                
+
+                pictureBoxLoad.Visible = true;
                 thread = new Thread(new ThreadStart(Salvar));
-                form1.ExecutarThread(thread, buttonSalvar, pictureBoxLoad);
+                form1.ExecutarThread(thread);
                 PreencherGrid();
             }
         }
@@ -153,6 +156,7 @@ namespace WinForms
             negocioServ.InsertServicoIphone(infoServIphone);
             colecaoServIphone.Add(infoServIphone);
             Form1.encerrarThread = true;
+            pictureBoxLoad.Visible = false;
         }
 
         private void PreencherGrid()

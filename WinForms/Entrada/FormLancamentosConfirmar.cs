@@ -28,8 +28,9 @@ namespace WinForms
             FormFormat formFormat = new FormFormat(this);
             formFormat.formatar();
             grid = entrada;
+            pictureBoxLoad.Visible = false;
             thread = new Thread(Consultar);
-            form1.ExecutarThread(thread, buttonConfirmar, pictureBoxLoad);
+            form1.ExecutarThread(thread);
             this.Activate();
         }
 
@@ -37,6 +38,7 @@ namespace WinForms
         {
             ent = entradaSaidaNegocios.ConsultarEntradaSaidaId(grid.entralancamentoid);
             Form1.encerrarThread = true;
+            pictureBoxLoad.Visible = false;
         }
 
         private void buttonFechar_Click(object sender, EventArgs e)
@@ -49,8 +51,9 @@ namespace WinForms
             ent.entravalorpago = Convert.ToDecimal(labelValorSaldo.Text.Replace("R$", ""));
             ent.entradatavenc = dateTimePickerData.Value;
 
+            pictureBoxLoad.Visible = true;
             thread = new Thread(Atualizar);
-            form1.ExecutarThread(thread, buttonConfirmar, pictureBoxLoad);
+            form1.ExecutarThread(thread);
             this.Activate();
             this.DialogResult = DialogResult.Yes;
         }
@@ -60,6 +63,7 @@ namespace WinForms
             ent.entraconfirmada = true;
             entradaSaidaNegocios.UpdateEntradaSaidaLancamentoConfirmar(ent);
             Form1.encerrarThread = true;
+            pictureBoxLoad.Visible = false;
         }
 
         private void FormLancamentosConfirmar_Load(object sender, EventArgs e)

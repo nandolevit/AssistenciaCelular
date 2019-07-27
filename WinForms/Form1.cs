@@ -174,7 +174,8 @@ namespace WinForms
             {
                 if (Desserializar())
                 {
-
+                    Thread t = new Thread(ConsultarNovoIphone);
+                    ExecutarThread(t);
                     threadLogin = new Thread(UpdateUserLogin);
                     threadLogin.Start();
 
@@ -204,7 +205,7 @@ namespace WinForms
                                 TimeSpan timeSpan = Empresa.empdataativo.Subtract(DateTime.Now.Date);
                                 if (timeSpan.Days > 0)
                                 {
-                                    if (timeSpan.Days < 7)
+                                    if (timeSpan.Days < 15)
                                         FormMessage.ShowMessegeWarning(Empresa.empobs.Replace("**", timeSpan.Days.ToString()));
 
                                     InicializarSistema();
@@ -236,6 +237,27 @@ namespace WinForms
             }
         }
 
+        private void ConsultarNovoIphone()
+        {
+            ServicoNegocio serv = new ServicoNegocio(Empresa.empconexao);
+            List<int> lista = serv.ConsultarNovoIphoneModelo();
+
+            if (lista.Count > 0)
+            {
+                foreach (int item in lista)
+                {
+                    IphoneModeloInfo mod = serv.ConsultarIphoneModeloId(item);
+
+                    if (mod != null)
+                        IphoneColecao.Add(mod);
+                }
+
+                if(serializarNegocios.ExcluirArquivo(FileIphone))
+                    serializarNegocios.SerializarObjeto(IphoneColecao, FileIphone);
+            }
+            encerrarThread = true;
+        }
+
         private void AbrirFormEmpresa()
         {
             FormEmpresa formEmpresa = new FormEmpresa();
@@ -254,12 +276,10 @@ namespace WinForms
                 Application.Exit();
         }
 
-        public void ExecutarThread(Thread thread, Button salvar, PictureBox load)
+        public void ExecutarThread(Thread thread)
         {
             thread.Start();
 
-            salvar.Visible = false;
-            load.Location = salvar.Location;
 
             DateTime temp1 = DateTime.Now;
             DateTime temp2;
@@ -273,8 +293,6 @@ namespace WinForms
                     break;
             }
 
-            load.Visible = false;
-            salvar.Visible = true;
             thread.Abort();
             encerrarThread = false;
         }

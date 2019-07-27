@@ -30,6 +30,7 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.pictureBoxLoad = new System.Windows.Forms.PictureBox();
             this.buttonAdicionar = new System.Windows.Forms.Button();
             this.buttonSelecionar = new System.Windows.Forms.Button();
             this.checkBoxDetalhada = new System.Windows.Forms.CheckBox();
@@ -57,12 +58,11 @@
             this.colEletro = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colAtendente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pictureBoxLoad = new System.Windows.Forms.PictureBox();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLoad)).BeginInit();
             this.groupBoxDetalhada.SuspendLayout();
             this.groupBoxTipo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewConsultar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLoad)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -82,6 +82,17 @@
             this.groupBox1.Size = new System.Drawing.Size(1362, 581);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
+            // 
+            // pictureBoxLoad
+            // 
+            this.pictureBoxLoad.Image = global::WinForms.Properties.Resources.load;
+            this.pictureBoxLoad.Location = new System.Drawing.Point(12, 535);
+            this.pictureBoxLoad.Name = "pictureBoxLoad";
+            this.pictureBoxLoad.Size = new System.Drawing.Size(53, 40);
+            this.pictureBoxLoad.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxLoad.TabIndex = 8;
+            this.pictureBoxLoad.TabStop = false;
+            this.pictureBoxLoad.Visible = false;
             // 
             // buttonAdicionar
             // 
@@ -371,16 +382,6 @@
             this.colAtendente.Name = "colAtendente";
             this.colAtendente.Width = 200;
             // 
-            // pictureBoxLoad
-            // 
-            this.pictureBoxLoad.Image = global::WinForms.Properties.Resources.load;
-            this.pictureBoxLoad.Location = new System.Drawing.Point(12, 535);
-            this.pictureBoxLoad.Name = "pictureBoxLoad";
-            this.pictureBoxLoad.Size = new System.Drawing.Size(53, 40);
-            this.pictureBoxLoad.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBoxLoad.TabIndex = 8;
-            this.pictureBoxLoad.TabStop = false;
-            // 
             // FormServicoListar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -393,12 +394,12 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormConsultarServico_KeyDown);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLoad)).EndInit();
             this.groupBoxDetalhada.ResumeLayout(false);
             this.groupBoxDetalhada.PerformLayout();
             this.groupBoxTipo.ResumeLayout(false);
             this.groupBoxTipo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewConsultar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLoad)).EndInit();
             this.ResumeLayout(false);
 
         }

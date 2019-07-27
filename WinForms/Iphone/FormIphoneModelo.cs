@@ -228,7 +228,8 @@ namespace WinForms
                     buttonSalvar.Enabled = false;
                     PreencherCelular();
                     thread = new Thread(Salvar);
-                    form1.ExecutarThread(thread, buttonSalvar, pictureBoxLoad);
+                    form1.ExecutarThread(thread);
+                    pictureBoxLoad.Visible = false;
                 }
             }
         }

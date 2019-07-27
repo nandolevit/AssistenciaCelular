@@ -49,6 +49,7 @@ namespace WinForms
             else
                 gridViewComissaoColecao = vendaNegocios.ConsultarVendaDetalhesIdFunc(comboFunc, dataIni.Date, dataFim.Date);
             Form1.encerrarThread = true;
+            pictureBoxLoad.Visible = false;
         }
 
         private void ConsultarComissao()
@@ -229,8 +230,9 @@ namespace WinForms
             dataFim = dateTimePickerFinal.Value.Date;
             comboFunc = Convert.ToInt32(comboBoxNome.SelectedValue);
 
+            pictureBoxLoad.Visible = true;
             thread = new Thread(ConsultarComissaoThread);
-            form1.ExecutarThread(thread, buttonBuscar, pictureBoxLoad);
+            form1.ExecutarThread(thread);
             this.Activate();
 
             if (combo == 0)
@@ -283,8 +285,9 @@ namespace WinForms
             {
                 gridViewComissaoInfo = (GridViewComissaoInfo)dataGridViewComissao.SelectedRows[0].DataBoundItem;
 
+                pictureBoxLoad.Visible = true;
                 thread = new Thread(AbrirVendaThread);
-                form1.ExecutarThread(thread, buttonBuscar, pictureBoxLoad);
+                form1.ExecutarThread(thread);
                 this.Activate();
                 AbrirVenda(vendaInfo);
             }
@@ -294,6 +297,7 @@ namespace WinForms
         {
             vendaInfo = vendaNegocios.ConsultarVendaId(gridViewComissaoInfo.IdVenda);
             Form1.encerrarThread = true;
+            pictureBoxLoad.Visible = false;
         }
 
         private void AbrirVenda(VendaInfo vendaInfo)

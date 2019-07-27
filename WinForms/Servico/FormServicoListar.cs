@@ -197,8 +197,9 @@ namespace WinForms
             palavraPesquisa = textBoxPesquisar.Text;
             radio = radioButtonOs.Checked;
 
+            pictureBoxLoad.Visible = true;
             thread = new Thread(new ThreadStart(PesquisarThread));
-            form1.ExecutarThread(thread, buttonPesquisar, pictureBoxLoad);
+            form1.ExecutarThread(thread);
             PreencherGrid();
         }
 
@@ -227,6 +228,7 @@ namespace WinForms
                 colecaoGrid = negocioServ.ConsultarGridServicoDia();
 
             Form1.encerrarThread = true;
+            pictureBoxLoad.Visible = false;
         }
 
         private void PreencherGrid()

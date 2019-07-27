@@ -116,6 +116,7 @@ namespace WinForms
                 infoEnd = colecaoEndereco[0];
 
             Form1.encerrarThread = true;
+            pictureBoxLoad.Visible = false;
         }
 
         private void PreencherFormEnd()
@@ -153,8 +154,9 @@ namespace WinForms
 
         private void PreencherFormCliente()
         {
+            pictureBoxLoad.Visible = true;
             thread = new Thread(ConsultarEndCliente);
-            form1.ExecutarThread(thread, buttonSalvar, pictureBoxLoad);
+            form1.ExecutarThread(thread);
             this.Activate();
 
             textBoxId.Text = string.Format("{0:000000}", infoCliente.cliid);
@@ -422,7 +424,7 @@ namespace WinForms
         {
             pictureBoxLoad.Visible = true;
             thread = new Thread(Salvar);
-            form1.ExecutarThread(thread, buttonSalvar, pictureBoxLoad);
+            form1.ExecutarThread(thread);
         }
 
         private void Salvar()
@@ -465,6 +467,7 @@ namespace WinForms
             }
 
             Form1.encerrarThread = true;
+            pictureBoxLoad.Visible = false;
 
             if (idSave > 0 && modSave != 0)
                 FormMessage.ShowMessegeInfo("Registro salvo com sucesso!");

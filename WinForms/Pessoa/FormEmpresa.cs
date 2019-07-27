@@ -29,9 +29,6 @@ namespace WinForms
         bool Ativo;
 
 
-        DateTime dateTime;
-        TimeSpan span;
-        int contar = 1;
         string diretorio = @"C:\Users\Public\LevitSoft\";
         bool carregando = true;
 

@@ -81,6 +81,7 @@ namespace WinForms
             }
 
             Form1.encerrarThread = true;
+            pictureBoxLoad.Visible = false;
         }
         
         private void PreencherGrid()
@@ -204,8 +205,9 @@ namespace WinForms
         private void ExecutarConsulta()
         {
             ParametroPesquisar();
+            pictureBoxLoad.Visible = true;
             thread = new Thread(ExecuntarConsultaThread);
-            form1.ExecutarThread(thread, buttonBuscar, pictureBoxLoad);
+            form1.ExecutarThread(thread);
             this.Activate();
             PreencherGrid();
             
@@ -232,8 +234,9 @@ namespace WinForms
                 {
                     if (FormMessage.ShowMessegeQuestion("Este lancamento já foi confirmado! Deseja cancelar a confirmação?") == DialogResult.Yes)
                     {
+                        pictureBoxLoad.Visible = true;
                         thread = new Thread(AtualizarConselar);
-                        form1.ExecutarThread(thread, buttonBuscar, pictureBoxLoad);
+                        form1.ExecutarThread(thread);
                         this.Activate();
                         FormMessage.ShowMessegeInfo("Alteração realizada com sucesso! Abra o lançamento novamente...");
                         ExecutarConsulta();
@@ -250,6 +253,7 @@ namespace WinForms
             ent.entraconfirmada = false;
             entradaSaidaNegocios.UpdateEntradaSaidaLancamentoConfirmar(ent);
             Form1.encerrarThread = true;
+            pictureBoxLoad.Visible = false;
         }
 
         private void buttonAbrir_Click(object sender, EventArgs e)
@@ -296,8 +300,9 @@ namespace WinForms
 
                 if (FormMessage.ShowMessegeQuestion("Deseja cancelar este lançamento?") == DialogResult.Yes)
                 {
+                    pictureBoxLoad.Visible = true;
                     thread = new Thread(Desativar);
-                    form1.ExecutarThread(thread, buttonBuscar, pictureBoxLoad);
+                    form1.ExecutarThread(thread);
                     this.Activate();
                     ExecutarConsulta();
                 }
@@ -310,6 +315,7 @@ namespace WinForms
         {
             entradaSaidaNegocios.DesativarEntradaSaidaLancamento(saida.entralancamentoid);
             Form1.encerrarThread = true;
+            pictureBoxLoad.Visible = false;
         }
 
         private void comboBoxEntSai_SelectedIndexChanged(object sender, EventArgs e)

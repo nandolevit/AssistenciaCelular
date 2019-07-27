@@ -70,8 +70,10 @@ namespace WinForms
             combo = comboBoxTurno.SelectedIndex;
 
             gridViewVendaPeriodoColecao = new GridViewVendaPeriodoColecao();
+
+            pictureBoxLoad.Visible = true;
             thread = new Thread(PreencherLista);
-            form1.ExecutarThread(thread, buttonBuscar, pictureBoxLoad);
+            form1.ExecutarThread(thread);
             this.Activate();
 
             labelValorDinheiro.Text = totaldinheiro.ToString("C");
@@ -214,6 +216,7 @@ namespace WinForms
                 }
             }
             Form1.encerrarThread = true;
+            pictureBoxLoad.Visible = false;
         }
 
         private bool ItemSelecionado()

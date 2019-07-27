@@ -51,13 +51,15 @@ namespace WinForms
         {
             colecaoCliente = clienteNegocios.ConsultarPorNome(pesquisa);
             Form1.encerrarThread = true;
+            pictureBoxLoad.Visible = false;
         }
 
         private void RealizarPesquisa()
         {
             pesquisa = textBoxPesquisar.Text.Trim();
+            pictureBoxLoad.Visible = true;
             thread = new Thread(RealizarPesquisaThread);
-            form1.ExecutarThread(thread, buttonBuscar, pictureBoxLoad);
+            form1.ExecutarThread(thread);
             this.Activate();
             PreencherGrid();
         }
