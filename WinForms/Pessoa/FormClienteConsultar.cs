@@ -17,18 +17,12 @@ namespace WinForms
     {
         Form1 form1 = new Form1();
         Thread thread;
-        ClienteNegocios clienteNegocios = new ClienteNegocios(Form1.Empresa.empconexao);
-        public ClienteInfo SelecionadoCliente { get; set; }
-        ClienteInfo infoCliente;
-        ClienteColecao colecaoCliente;
+        PessoaNegocio negocioPessoa;
+        PessoaInfo inforPessoa;
+        PessoaColecao colecaoPessoa;
+        public PessoaInfo SelecionadoCliente { get; set; }
         string pesquisa;
-        bool modSelect;
 
-        public FormClienteConsultar(bool mod)
-        {
-            Inicializar();
-            modSelect = mod;
-        }
         public FormClienteConsultar()
         {
             Inicializar();
@@ -40,6 +34,7 @@ namespace WinForms
             FormFormat formFormat = new FormFormat(this);
             formFormat.formatar();
             this.AcceptButton = buttonBuscar;
+            negocioPessoa = new PessoaNegocio(Form1.Empresa.empconexao);
         }
 
         private void buttonPesquisar_Click(object sender, EventArgs e)
@@ -49,7 +44,7 @@ namespace WinForms
 
         private void RealizarPesquisaThread()
         {
-            colecaoCliente = clienteNegocios.ConsultarPorNome(pesquisa);
+            colecaoPessoa = negocioPessoa.ConsultarPessoaDescricao(pesquisa);
             Form1.encerrarThread = true;
             pictureBoxLoad.Visible = false;
         }
@@ -66,24 +61,25 @@ namespace WinForms
         
         private void PreencherGrid()
         {
-            if (colecaoCliente != null)
+            if (colecaoPessoa != null)
             {
-                dataGridViewPesquisarCliente.DataSource = colecaoCliente;
+                dataGridViewPesquisarCliente.DataSource = colecaoPessoa;
                 dataGridViewPesquisarCliente.Select();
             }
             else
             {
-                ClienteInfo cliente = new ClienteInfo
+                PessoaInfo cliente = new PessoaInfo
                 {
-                    clinome = "NENHUM REGISTRO FOI ENCONTRADO!"
+                    pssnome = "NENHUM REGISTRO FOI ENCONTRADO!"
                 };
 
-                colecaoCliente = new ClienteColecao
+                colecaoPessoa = new PessoaColecao
                 {
                     cliente
                 };
 
-                dataGridViewPesquisarCliente.DataSource = colecaoCliente;
+                dataGridViewPesquisarCliente.DataSource = null;
+                dataGridViewPesquisarCliente.DataSource = colecaoPessoa;
                 textBoxPesquisar.Select();
             }
         }
@@ -107,22 +103,22 @@ namespace WinForms
         {
             Selecionado();
 
-            if (modSelect)
+            if (this.Modal)
                 DialogResult = DialogResult.Yes;
             else
-                {
-                    FormCadastroPessoa formCadastroPessoa = new FormCadastroPessoa(infoCliente);
-                    formCadastroPessoa.ShowDialog(this);
-                    formCadastroPessoa.Dispose();
-                }
+            {
+                FormPessoa formCadastroPessoa = new FormPessoa(inforPessoa);
+                formCadastroPessoa.ShowDialog(this);
+                formCadastroPessoa.Dispose();
+            }
         }
 
         private void Selecionado()
         {
             if (dataGridViewPesquisarCliente.SelectedRows.Count > 0)
             {
-                infoCliente = (ClienteInfo)dataGridViewPesquisarCliente.SelectedRows[0].DataBoundItem;
-                SelecionadoCliente = infoCliente;
+                inforPessoa = (PessoaInfo)dataGridViewPesquisarCliente.SelectedRows[0].DataBoundItem;
+                SelecionadoCliente = inforPessoa;
             }
         }
 

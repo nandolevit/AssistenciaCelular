@@ -45,6 +45,7 @@ namespace WinForms
 
         public static bool encerrarThread;
 
+        PessoaNegocio negocioPessoa;
         UserNegocio userNegocio;
         EmpresaNegocios negocioEmp;
         Thread threadLogin;
@@ -95,7 +96,7 @@ namespace WinForms
 
         private void clienteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CadCliente();
+            CadPessoa(EnumPessoaTipo.Cliente);
         }
 
         private void MenuItemCliente_Click(object sender, EventArgs e)
@@ -309,6 +310,7 @@ namespace WinForms
 
             accessLogin = new AccessLogin(Form1.Empresa.empconexao);
             negocioEmp = new EmpresaNegocios(Form1.Empresa.empconexao);
+            negocioPessoa = new PessoaNegocio(Form1.Empresa.empconexao);
             if (accessLogin.UserExist())
             {
                 FormLogin formLogin = new FormLogin();
@@ -361,13 +363,13 @@ namespace WinForms
                 if (unid == null)
                     empresaNegocios.InsertUnidade(unidadeInfo, true);
 
-                FormCadastroPessoa formCadastroPessoa = new FormCadastroPessoa(unidadeInfo);
-                formCadastroPessoa.ShowDialog(this);
+                //FormPessoa formCadastroPessoa = new FormPessoa(unidadeInfo);
+                //formCadastroPessoa.ShowDialog(this);
 
-                if (formCadastroPessoa.DialogResult == DialogResult.Yes)
-                    AoCarregar();
+                //if (formCadastroPessoa.DialogResult == DialogResult.Yes)
+                //    AoCarregar();
 
-                formCadastroPessoa.Dispose();
+                //formCadastroPessoa.Dispose();
             }
         }
 
@@ -474,9 +476,7 @@ namespace WinForms
 
         private void MenuItemFuncionario_Click(object sender, EventArgs e)
         {
-            FuncInfo funcInfo = new FuncInfo();
-            FormCadastroPessoa formCadastroPessoa = new FormCadastroPessoa(funcInfo);
-            FormAbertos(formCadastroPessoa);
+            CadPessoa(EnumPessoaTipo.Funcionario);
         }
 
         private void MenuItemAlterarSenha_Click(object sender, EventArgs e)
@@ -721,22 +721,43 @@ namespace WinForms
         
         private void buttonCliente_Click(object sender, EventArgs e)
         {
-            CadCliente();
+            CadPessoa(EnumPessoaTipo.Cliente);
         }
 
-        private void CadCliente()
+        private void CadPessoa(EnumPessoaTipo pessoa)
         {
-            //FrmCliente frmCliente = new FrmCliente();
-            ClienteInfo cli = new ClienteInfo();
-            FormCadastroPessoa formCadastroPessoa = new FormCadastroPessoa(cli);
-            FormAbertos(formCadastroPessoa);
-        }
+            FormPessoa formPessoa = new FormPessoa(pessoa);
+            if (formPessoa.ShowDialog(this) == DialogResult.Yes)
+            {
+                PessoaInfo p = formPessoa.SelecionadoPessoa;
+                int id = negocioPessoa.InsertPessoa(p);
+                if (id > 0)
+                {
+                    p.pssid = id;
 
-        private void buttonBuscar_Click(object sender, EventArgs e)
-        {
-            FornecedorInfo fornecedorInfo = new FornecedorInfo();
-            FormCadastroPessoa formCadastroPessoa = new FormCadastroPessoa(fornecedorInfo);
-            FormAbertos(formCadastroPessoa);
+                    FormMessage.ShowMessegeInfo("Registro salvo com sucesso!");
+
+                    if (pessoa == EnumPessoaTipo.Cliente)
+                    {
+                        FormServicoTipo formServicoTipo = new FormServicoTipo();
+                        if (formServicoTipo.ShowDialog(this) == DialogResult.Yes)
+                        {
+                            FormServico formServico = new FormServico(p);
+                            if(formServico.ShowDialog(this) == DialogResult.Yes)
+                            {
+                                FormMessage.ShowMessegeInfo("Registro salvo com sucesso!");
+                            }
+                        }
+                        else if(formServicoTipo.ShowDialog(this) == DialogResult.OK)
+                        {
+
+                        }
+                        formServicoTipo.Dispose();
+                    }
+                }
+            }
+
+            formPessoa.Dispose();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -855,7 +876,7 @@ namespace WinForms
                 switch (e.KeyCode)
                 {
                     case Keys.F1:
-                        CadCliente();
+                        CadPessoa(EnumPessoaTipo.Cliente);
                         break;
                     case Keys.F2:
                         BuscarCliente();
@@ -932,19 +953,13 @@ namespace WinForms
 
         private void FornecedorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AbrirFornecedor();
+           CadPessoa(EnumPessoaTipo.Fornecedor);
         }
 
-        private void AbrirFornecedor()
-        {
-            FornecedorInfo fornecedor = new FornecedorInfo();
-            FormCadastroPessoa formCadastroPessoa = new FormCadastroPessoa(fornecedor);
-            FormAbertos(formCadastroPessoa);
-        }
 
         private void ButtonFornecedor_Click(object sender, EventArgs e)
         {
-            AbrirFornecedor();
+            CadPessoa(EnumPessoaTipo.Fornecedor);
         }
     }
 }

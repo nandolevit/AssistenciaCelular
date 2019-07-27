@@ -141,11 +141,11 @@
     <Compile Include="Pessoa\FormAlterarSenha.Designer.cs">
       <DependentUpon>FormAlterarSenha.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pessoa\FormCadastroPessoa.cs">
+    <Compile Include="Pessoa\FormPessoa.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Pessoa\FormCadastroPessoa.Designer.cs">
-      <DependentUpon>FormCadastroPessoa.cs</DependentUpon>
+    <Compile Include="Pessoa\FormPessoa.Designer.cs">
+      <DependentUpon>FormPessoa.cs</DependentUpon>
     </Compile>
     <Compile Include="FormCadTexto.cs">
       <SubType>Form</SubType>
@@ -398,8 +398,8 @@
     <EmbeddedResource Include="Pessoa\FormAlterarSenha.resx">
       <DependentUpon>FormAlterarSenha.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pessoa\FormCadastroPessoa.resx">
-      <DependentUpon>FormCadastroPessoa.cs</DependentUpon>
+    <EmbeddedResource Include="Pessoa\FormPessoa.resx">
+      <DependentUpon>FormPessoa.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormCadTexto.resx">
       <DependentUpon>FormCadTexto.cs</DependentUpon>

@@ -25,7 +25,7 @@ namespace WinForms
         IphoneModeloCorColecao colecaoCor;
         IphoneModeloCorColecao colecaoCorSelecionada;
         CodDescricaoColecao colecaoCores;
-        ClienteInfo infoCliente;
+        PessoaInfo infoCliente;
         IphoneCelularInfo infoCelular;
         public IphoneCelularInfo SelecionadoIphone { get; set; }
         int cod = 0;
@@ -35,7 +35,7 @@ namespace WinForms
             Inicializar();
         }
 
-        public FormIphoneModelo(ClienteInfo cliente)
+        public FormIphoneModelo(PessoaInfo cliente)
         {
             Inicializar();
             infoCliente = cliente;
@@ -287,7 +287,7 @@ namespace WinForms
                 celcapacidade = textBoxCap.Text,
                 celcor = textBoxCor.Text,
                 celid = 0,
-                celidcliente = infoCliente.cliid,
+                celidcliente = infoCliente.pssid,
                 celidmodiphone = infoIphone.iphmodid,
                 celimei = maskedTextBoxImei.Text,
                 celmodelo = textBoxNumMod.Text,

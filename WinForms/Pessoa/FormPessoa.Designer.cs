@@ -1,6 +1,6 @@
 ﻿namespace WinForms
 {
-    partial class FormCadastroPessoa
+    partial class FormPessoa
     {
         /// <summary>
         /// Required designer variable.

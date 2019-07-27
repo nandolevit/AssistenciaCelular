@@ -20,7 +20,7 @@ namespace WinForms
         //public string DefeitoInfo { get; set; }
 
         Thread thread;
-        ClienteInfo infoCliente;
+        PessoaInfo infoCliente;
         IphoneCelularInfo infoCelular;
         IphoneCelularColecao colecaoCelular;
         ServicoIphoneInfo infoDefeito;
@@ -28,7 +28,7 @@ namespace WinForms
         public ServicoIphoneInfo SelecionandoDefeito { get; set; }
         public IphoneCelularInfo SelecionadoCelular { get; set; }
 
-        public FormAprelhoDefeito(ClienteInfo cliente)
+        public FormAprelhoDefeito(PessoaInfo cliente)
         {
             Inicializar();
             infoCliente = cliente;
@@ -65,7 +65,7 @@ namespace WinForms
 
         private void ConsultarAparelhoCliente()
         {
-            colecaoCelular = negocioServ.ConsultarIphoneCelularIdCliente(infoCliente.cliid);
+            colecaoCelular = negocioServ.ConsultarIphoneCelularIdCliente(infoCliente.pssid);
             textBoxDefeito.Select();
             Form1.encerrarThread = true;
             pictureBoxLoad.Visible = false;

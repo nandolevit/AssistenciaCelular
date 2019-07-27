@@ -15,10 +15,10 @@ namespace WinForms
 {
     public partial class FormProdEstoque : Form
     {
-        FornecedorNegocios fornecedorNegocios = new FornecedorNegocios(Form1.Empresa.empconexao);
         ProdutoNegocios produtoNegocios = new ProdutoNegocios(Form1.Empresa.empconexao);
-        FornecedorInfo fornecedorInfo = new FornecedorInfo();
         ProdutoEstoqueInfo produtoEstoqueInfo = new ProdutoEstoqueInfo();
+        PessoaInfo infoPessoa;
+        PessoaColecao colecaoPessoa;
         ProdutoInfo produtoInfo = new ProdutoInfo();
         GridLancarEstoqueColecao gridLancarEstoqueColecao = new GridLancarEstoqueColecao();
         EstoqueLancamentoInfo estoqueLancamentoInfo;
@@ -99,7 +99,7 @@ namespace WinForms
 
         private void buttonAddFornecedor_Click(object sender, EventArgs e)
         {
-            FormCadastroPessoa formCadastroPessoa = new FormCadastroPessoa(fornecedorInfo);
+            FormPessoa formCadastroPessoa = new FormPessoa(fornecedorInfo);
             formCadastroPessoa.ShowDialog(this);
             formCadastroPessoa.Dispose();
         }

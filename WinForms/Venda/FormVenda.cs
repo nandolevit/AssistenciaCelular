@@ -28,8 +28,8 @@ namespace WinForms
         VendaInfo vendaInfo;
         FuncInfo responsavel;
         VendaInfo vendaFinal;
+        PessoaInfo infoPessoa;
         ProdutoInfo produtoInfo;
-        ClienteInfo clienteInfo;
         ItemVendaColecao colecaoVendNova;
         ItemVendaInfo itemSelecionando;
         ItemVendaColecao colecaoItemVenda = new ItemVendaColecao();
@@ -83,8 +83,8 @@ namespace WinForms
 
         private void PreencherCliente()
         {
-            clienteInfo = clienteNegocios.ConsultarClientePorId(vendaInfo.venidcliente);
-            labelCliente.Text = "Cliente: " + clienteInfo.clinome;
+            infoPessoa = clienteNegocios.ConsultarPessoaId(vendaInfo.venidcliente);
+            labelCliente.Text = "Cliente: " + infoPessoa.pssnome;
             labelValorVolume.Text = string.Format("{0:000}", vendaInfo.venquant);
             labelValorTotal.Text = vendaInfo.venvalor.ToString("C");
 
@@ -101,7 +101,7 @@ namespace WinForms
         private void PreencherFormThread()
         {
             responsavel = funcNegocios.ConsultarFuncPorId(vendaInfo.venidfunc);
-            clienteInfo = clienteNegocios.ConsultarClientePorId(vendaInfo.venidcliente);
+            infoPessoa = clienteNegocios.ConsultarPessoaId(vendaInfo.venidcliente);
 
             if (colecaoDetalhes == null)
                 colecaoDetalhes = vendaNegocios.ConsultarVendaDetalhesIdVenda(vendaInfo.venid);
@@ -138,7 +138,7 @@ namespace WinForms
             labelOperacao.Text += " " + string.Format("{0:00000000}", vendaInfo.venid);
             labelVendedor.Text += " " + Form1.User.usenome;
             
-            labelCliente.Text = "Cliente: " + clienteInfo.clinome;
+            labelCliente.Text = "Cliente: " + infoPessoa.pssnome;
             labelValorVolume.Text = string.Format("{0:000}", vendaInfo.venquant);
             labelValorTotal.Text = vendaInfo.venvalor.ToString("C");
 
@@ -158,7 +158,7 @@ namespace WinForms
                     VendaInfo vendaNova = new VendaInfo
                     {
                         vendata = DateTime.Now.Date,
-                        venidcliente = clienteInfo.cliid,
+                        venidcliente = infoPessoa.pssid,
                         venidfunc = Form1.User.useidfuncionario,
                         venidunidade = Form1.Unidade.uniid,
                         venquant = qtTotal,
@@ -423,40 +423,36 @@ namespace WinForms
             else if (formVendaVip.DialogResult == DialogResult.OK)
             {
                 ClienteNegocios clienteNegocios = new ClienteNegocios(Form1.Empresa.empconexao);
-                clienteInfo = clienteNegocios.ConsultarClientePadrao();
+                infoPessoa = clienteNegocios.ConsultarPessoaCpf("12345678910"); //seleciona cliente avulso
 
-                if (clienteInfo == null)
-                    clienteInfo = CriarClientePadrao();
-
-                if (clienteInfo != null)
+                if (infoPessoa == null)
+                    infoPessoa = CriarClientePadrao();
+                else
                 {
-                    labelCliente.Text = "Cliente: " + clienteInfo.clinome;
+                    labelCliente.Text = "Cliente: " + infoPessoa.pssnome;
                     AtivarForm(true);
                     VendaVip = false;
                 }
-                else
-                    FormMessage.ShowMessegeWarning("Falhou, tente novamente!");
             }
 
             formVendaVip.Dispose();
             
         }
 
-        private ClienteInfo CriarClientePadrao()
+        private PessoaInfo CriarClientePadrao()
         {
             ClienteNegocios clienteNegocios = new ClienteNegocios(Form1.Empresa.empconexao);
-            ClienteInfo padrao = new ClienteInfo
+            PessoaInfo padrao = new PessoaInfo
             {
-                clipadrao = 1,
-                clicpf = "00000000000",
-                cliemail = "sem@email.com",
-                cliiduser = Form1.User.useidfuncionario,
-                clinome = "CLIENTE AVULSO",
-                cliniver = DateTime.Now.Date,
-                clitel = "71000000000",
+                psscpf = "12345678910",
+                pssemail = "sem@email.com",
+                pssiduser = Form1.User.useidfuncionario,
+                pssnome = "CLIENTE AVULSO",
+                pssniver = DateTime.Now.Date,
+                psstelefone = "71000000000",
             };
 
-            if (clienteNegocios.Inserir(padrao) > 0)
+            if (clienteNegocios.InsertPessoa(padrao) > 0)
                 return padrao;
             else
                 return null;
@@ -677,7 +673,7 @@ namespace WinForms
             responsavel = null;
             vendaFinal = null;
             produtoInfo = null;
-            clienteInfo = null;
+            infoPessoa = null;
             colecaoVendNova = null;
             itemSelecionando = null;
             colecaoItemVenda = null;
@@ -719,14 +715,14 @@ namespace WinForms
         {
             if (VendaVip)
             {
-                FormClienteConsultar formClienteConsultar = new FormClienteConsultar(true);
+                FormClienteConsultar formClienteConsultar = new FormClienteConsultar();
                 formClienteConsultar.ShowDialog(this);
-                clienteInfo =  new ClienteInfo();
+                infoPessoa =  new PessoaInfo();
 
                 if (formClienteConsultar.DialogResult == DialogResult.Yes)
                 {
-                    clienteInfo = formClienteConsultar.SelecionadoCliente;
-                    labelCliente.Text = "Cliente: " + clienteInfo.clinome;
+                    infoPessoa = formClienteConsultar.SelecionadoCliente;
+                    labelCliente.Text = "Cliente: " + infoPessoa.pssnome;
                     AtivarForm(true);
                 }
 

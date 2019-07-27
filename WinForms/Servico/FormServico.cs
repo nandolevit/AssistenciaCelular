@@ -17,7 +17,7 @@ namespace WinForms
     {
         Form1 form1 = new Form1();
         Thread thread;
-        ClienteInfo infoCliente;
+        PessoaInfo infoCliente;
         FuncInfo responsavel;
         FuncColecao colecaofunc;
         ServicoColecao colecaoServ;
@@ -30,7 +30,7 @@ namespace WinForms
 
         bool saved; //confirma se a OS foi salva, para quando fechar a janela atualizar a lista
 
-        public FormServico(ClienteInfo cliente)
+        public FormServico(PessoaInfo cliente)
         {
             Inicializar();
             infoCliente = cliente;
@@ -61,7 +61,7 @@ namespace WinForms
 
         private void PreencherForm()
         {
-            textBoxNome.Text = infoCliente.cliid + " - " + infoCliente.clinome;
+            textBoxNome.Text = infoCliente.pssid + " - " + infoCliente.pssnome;
 
             pictureBoxLoad.Visible = false;
             thread = new Thread(PreencherFormThread);
@@ -126,9 +126,12 @@ namespace WinForms
                 groupBoxServico.Enabled = false;
 
                 pictureBoxLoad.Visible = true;
+                buttonSalvar.Enabled = false;
                 thread = new Thread(new ThreadStart(Salvar));
                 form1.ExecutarThread(thread);
                 PreencherGrid();
+                pictureBoxLoad.Visible = false;
+                buttonSalvar.Enabled = true;
             }
         }
 
@@ -266,8 +269,7 @@ namespace WinForms
 
         private void ButtonCliente_Click(object sender, EventArgs e)
         {
-            ServicoInfo servico = new ServicoInfo();
-            FormClienteConsultar formClienteConsultar = new FormClienteConsultar(true);
+            FormClienteConsultar formClienteConsultar = new FormClienteConsultar();
             if (formClienteConsultar.ShowDialog(this) == DialogResult.Yes)
             {
                 infoCliente = formClienteConsultar.SelecionadoCliente;

@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace ObjTransfer
 {
-    public class EnderecoColecao : List<EnderecoInfo>
+    public enum EnumAssistencia : int
     {
+        Assistencia = 1,
+        Loja = 0
     }
 }

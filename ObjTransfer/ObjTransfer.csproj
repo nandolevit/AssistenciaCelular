@@ -73,6 +73,10 @@
     <Compile Include="CodDescricaoInfo.cs" />
     <Compile Include="ComputerColecao.cs" />
     <Compile Include="ComputerInfo.cs" />
+    <Compile Include="Pessoa\Enum\EnumAssistencia.cs" />
+    <Compile Include="Pessoa\Enum\EnumPessoaTipo.cs" />
+    <Compile Include="Pessoa\PessoaColecao.cs" />
+    <Compile Include="Pessoa\PessoaInfo.cs" />
     <Compile Include="Produto\Estoque\EstoqueContarColecao.cs" />
     <Compile Include="Produto\Estoque\EstoqueContarDetalhesColecao.cs" />
     <Compile Include="Produto\Estoque\EstoqueContarDetalhesInfo.cs" />
@@ -121,14 +125,10 @@
     <Compile Include="Venda\PedidoDetalhesColecao.cs" />
     <Compile Include="Venda\PedidoDetalhesInfo.cs" />
     <Compile Include="Pessoa\CepInfo.cs" />
-    <Compile Include="Pessoa\ClienteColecao.cs" />
-    <Compile Include="Pessoa\ClienteInfo.cs" />
     <Compile Include="Produto\ContagemProdColecao.cs" />
     <Compile Include="Produto\ContagemProdInfo.cs" />
     <Compile Include="Pessoa\EmpresaColecao.cs" />
     <Compile Include="Pessoa\EmpresaInfo.cs" />
-    <Compile Include="Pessoa\EnderecoColecao.cs" />
-    <Compile Include="Pessoa\EnderecoInfo.cs" />
     <Compile Include="Entrada\EntradaSaidaColecao.cs" />
     <Compile Include="Entrada\EntradaSaidaInfo.cs" />
     <Compile Include="Entrada\EntradaSaidaPesquisar.cs" />
@@ -138,8 +138,6 @@
     <Compile Include="Venda\Pagamento\FormaPagamentoInfo.cs" />
     <Compile Include="Form_Consultar.cs" />
     <Compile Include="Form_ConsultarColecao.cs" />
-    <Compile Include="Pessoa\FornecedorColecao.cs" />
-    <Compile Include="Pessoa\FornecedorInfo.cs" />
     <Compile Include="Pessoa\FuncColecao.cs" />
     <Compile Include="Pessoa\FuncInfo.cs" />
     <Compile Include="Venda\ItemPedidoColecao.cs" />

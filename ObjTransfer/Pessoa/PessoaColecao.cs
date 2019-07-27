@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ObjTransfer
 {
-    public class ClienteColecao : List<ClienteInfo>
+    public class PessoaColecao : List<PessoaInfo>
     {
     }
 }

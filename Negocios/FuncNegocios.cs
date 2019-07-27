@@ -12,7 +12,7 @@ namespace Negocios
 {
     public class FuncNegocios
     {
-        private static string EmpConexao { get; set; }
+        private string EmpConexao { get; set; }
 
         public FuncNegocios(string conexao)
         {

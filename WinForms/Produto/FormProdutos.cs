@@ -18,7 +18,6 @@ namespace WinForms
     {
         ProdutoNegocios produtoNegocios = new ProdutoNegocios(Form1.Empresa.empconexao);
         EstoqueNegocios estoque = new EstoqueNegocios(Form1.Empresa.empconexao);
-        FornecedorNegocios fornecedorNegocios = new FornecedorNegocios(Form1.Empresa.empconexao);
         ProdutoInfo infoProd;
 
         private int ProdCod { get; set; }
@@ -728,7 +727,7 @@ namespace WinForms
         {
 
             FornecedorInfo fornecedorInfo = new FornecedorInfo();
-            FormCadastroPessoa formCadastroPessoa = new FormCadastroPessoa(fornecedorInfo);
+            FormPessoa formCadastroPessoa = new FormPessoa(fornecedorInfo);
             formCadastroPessoa.ShowDialog(this);
             formCadastroPessoa.Dispose();
         }
