@@ -19,6 +19,23 @@ namespace Negocios
         {
             EmpConexao = conexao;
         }
+
+        public PessoaInfo ConsultarPessoaPadrao(EnumPessoaTipo tipo, bool pad = true)
+        {
+            if (accessDbMySql.Conectar(EmpConexao))
+            {
+                accessDbMySql.AddParametrosMySql("@tipo", tipo);
+                accessDbMySql.AddParametrosMySql("@padrao", pad);
+
+                DataTable dataTable = accessDbMySql.dataTableMySql("spConsultarPessoaPadrao");
+                if (dataTable != null)
+                    return PreencherPessoa(dataTable)[0];
+                else
+                    return null;
+            }
+            else
+                return null;
+        }
         public PessoaInfo ConsultarPessoaCpf(string cpf)
         {
             if (accessDbMySql.Conectar(EmpConexao))
@@ -57,11 +74,18 @@ namespace Negocios
                 return null;
         }
 
-        public PessoaColecao ConsultarPessoaDescricao(string descricao)
+        public PessoaColecao ConsultarPessoaTodos(EnumPessoaTipo tipo, bool assistencia = true)
+        {
+            return ConsultarPessoaDescricao("%", tipo, assistencia);
+        }
+
+        public PessoaColecao ConsultarPessoaDescricao(string descricao, EnumPessoaTipo tipo, bool assistencia = true)
         {
             if (accessDbMySql.Conectar(EmpConexao))
             {
                 accessDbMySql.AddParametrosMySql("@descricao", descricao);
+                accessDbMySql.AddParametrosMySql("@tipo", tipo);
+                accessDbMySql.AddParametrosMySql("@assist", assistencia);
                 DataTable dataTable = accessDbMySql.dataTableMySql("spConsultarPessoaDescricao");
                 if (dataTable != null)
                     return PreencherPessoa(dataTable);
@@ -90,6 +114,7 @@ namespace Negocios
                 accessDbMySql.AddParametrosMySql("@niver", pessoa.pssniver);
                 accessDbMySql.AddParametrosMySql("@nome", pessoa.pssnome);
                 accessDbMySql.AddParametrosMySql("@telefone", pessoa.psstelefone);
+                accessDbMySql.AddParametrosMySql("@padrao", pessoa.psspadrao);
 
                 return accessDbMySql.ExecutarScalarMySql("spInsertPessoa");
             }
@@ -97,7 +122,7 @@ namespace Negocios
                 return 0;
         }
 
-        private PessoaColecao PreencherPessoa(DataTable dataTable)
+        protected PessoaColecao PreencherPessoa(DataTable dataTable)
         {
             PessoaColecao colecao = new PessoaColecao();
             foreach (DataRow row in dataTable.Rows)

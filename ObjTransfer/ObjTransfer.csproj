@@ -138,8 +138,6 @@
     <Compile Include="Venda\Pagamento\FormaPagamentoInfo.cs" />
     <Compile Include="Form_Consultar.cs" />
     <Compile Include="Form_ConsultarColecao.cs" />
-    <Compile Include="Pessoa\FuncColecao.cs" />
-    <Compile Include="Pessoa\FuncInfo.cs" />
     <Compile Include="Venda\ItemPedidoColecao.cs" />
     <Compile Include="Venda\ItemPedidoInfo.cs" />
     <Compile Include="Venda\ItemVendaColecao.cs" />

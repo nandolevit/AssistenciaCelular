@@ -33,6 +33,7 @@ namespace WinForms
         {
             Inicializar();
             enumPessoa = pessoa;
+            labelTitle.Text = pessoa.ToString();
         }
 
         public FormPessoa(PessoaInfo pessoa)
@@ -46,12 +47,6 @@ namespace WinForms
             InitializeComponent();
             FormFormat formFormat = new FormFormat(this);
             formFormat.formatar();
-
-            if (Form1.Offline == true)
-            {
-                buttonEnd.Visible = false;
-                linkLabelCep.Visible = false;
-            }
 
             this.AcceptButton = buttonSalvar;
         }
@@ -118,7 +113,7 @@ namespace WinForms
                 pssnome = textBoxNome.Text,
                 psstelefone = maskedTextBoxTel1.Text + (string.IsNullOrEmpty(maskedTextBoxTel2.Text) ? "" : "/" + maskedTextBoxTel2.Text),
                 pssenduf = textBoxUF.Text,
-                pssiduser = Form1.User.useidfuncionario,
+                pssiduser = Form1.User == null ? 0 : Form1.User.useidfuncionario,
                 pssidtipo = enumPessoa,
                 pssniver = string.IsNullOrEmpty(textBoxNiver.Text) ? DateTime.Now.Date : Convert.ToDateTime(textBoxNiver.Text).Date                
             };

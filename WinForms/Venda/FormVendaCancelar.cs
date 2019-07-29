@@ -44,15 +44,15 @@ namespace WinForms
                     if (cod > 0)
                     {
                         ClienteNegocios clienteNegocios = new ClienteNegocios(Form1.Empresa.empconexao);
-                        ClienteInfo clienteInfo = clienteNegocios.ConsultarClientePorId(vendaInfo.venidcliente);
+                        PessoaInfo infoPessoa = clienteNegocios.ConsultarPessoaId(vendaInfo.venidcliente);
 
                         CaixaNegocios caixaNegocios = new CaixaNegocios(Form1.Empresa.empconexao);
                         Caixa caixa = new Caixa();
                         CaixaTurnoInfo caixaTurnoInfo = caixa.ConsultarTurnoAberto();
                         string nome = string.Empty;
 
-                        if (clienteInfo != null)
-                            nome = clienteInfo.clinome;
+                        if (infoPessoa != null)
+                            nome = infoPessoa.pssnome;
                         else
                             nome = "CLIENTE AVULSO";
 

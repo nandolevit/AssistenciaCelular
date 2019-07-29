@@ -26,6 +26,7 @@ namespace ObjTransfer
         public string pssendcidade { get; set; }
         public string pssenduf { get; set; }
 
+        public bool psspadrao { get; set; }
         public EnumAssistencia pssassistencia { get; set; }
     }
 }

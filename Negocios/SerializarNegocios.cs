@@ -64,14 +64,16 @@ namespace Negocios
         
         public bool SerializarObjeto(object objeto, string fileName)
         {
+            string path = Path.GetDirectoryName(Caminho);
+            string pathFull = Path.Combine(path, fileName);
+            BinaryFormatter bf = new BinaryFormatter();
             try
             {
-                if (!Directory.Exists(Path.GetDirectoryName(Caminho)))
-                    Directory.CreateDirectory(Path.GetDirectoryName(Caminho));
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
 
-                using (Stream Serial = File.Create(Path.Combine(Path.GetDirectoryName(Caminho), fileName)))
+                using (Stream Serial = File.Create(pathFull))
                 {
-                    BinaryFormatter bf = new BinaryFormatter();
                     bf.Serialize(Serial, objeto);
                 }
 
@@ -80,6 +82,10 @@ namespace Negocios
             catch (Exception)
             {
                 return false;
+            }
+            finally
+            {
+                bf = null;
             }
             
         }

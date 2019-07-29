@@ -110,18 +110,18 @@ namespace WinForms
 
         private void PreencherComboBoxFunc()
         {
-            FuncColecao funcColecao = new FuncColecao();
-            FuncInfo funcInfo = new FuncInfo
+            PessoaColecao funcColecao = new PessoaColecao();
+            PessoaInfo funcInfo = new PessoaInfo
             {
-                funId = 0,
-                funNome = "*RESUMO - TODOS FUNCIONÁRIOS*"
+                pssid = 0,
+                pssnome = "*RESUMO - TODOS FUNCIONÁRIOS*"
             };
 
             funcColecao.Add(funcInfo);
 
-            FuncColecao colecao = funcNegocios.ConsultatFuncTotal();
+            PessoaColecao colecao = funcNegocios.ConsultarPessoaTodos(EnumPessoaTipo.Funcionario);
 
-            foreach (FuncInfo func in colecao)
+            foreach (PessoaInfo func in colecao)
                 funcColecao.Add(func);
 
             comboBoxNome.DisplayMember = "funnome";

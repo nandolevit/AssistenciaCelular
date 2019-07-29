@@ -38,8 +38,6 @@ namespace WinForms
 
         private void FormConsultarServico_Load(object sender, EventArgs e)
         {
-            if (Form1.Offline)
-                checkBoxDetalhada.Enabled = false;
 
             textBoxPesquisar.Select();
         }
@@ -47,18 +45,18 @@ namespace WinForms
         private void PreencherComboboxAtendente()
         {
             FuncNegocios funcNegocios = new FuncNegocios(Form1.Empresa.empconexao);
-            FuncColecao colecao = new FuncColecao();
-            FuncColecao funcColecao = funcNegocios.ConsultatFuncTotal();
+            PessoaColecao colecao = new PessoaColecao();
+            PessoaColecao funcColecao = funcNegocios.ConsultarPessoaTodos(EnumPessoaTipo.Funcionario);
 
-            FuncInfo funcInfo = new FuncInfo
+            PessoaInfo funcInfo = new PessoaInfo
             {
-                funId = 0,
-                funNome = "*TODOS ATENDENTES*"
+                pssid = 0,
+                pssnome = "*TODOS ATENDENTES*"
             };
 
             colecao.Add(funcInfo);
 
-            foreach (FuncInfo func in funcColecao)
+            foreach (PessoaInfo func in funcColecao)
                 colecao.Add(func);
 
             comboBoxAtendente.DisplayMember = "funnome";

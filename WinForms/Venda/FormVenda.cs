@@ -26,8 +26,8 @@ namespace WinForms
         Thread thread;
         Caixa caixa;
         VendaInfo vendaInfo;
-        FuncInfo responsavel;
         VendaInfo vendaFinal;
+        PessoaInfo responsavel;
         PessoaInfo infoPessoa;
         ProdutoInfo produtoInfo;
         ItemVendaColecao colecaoVendNova;
@@ -100,7 +100,7 @@ namespace WinForms
 
         private void PreencherFormThread()
         {
-            responsavel = funcNegocios.ConsultarFuncPorId(vendaInfo.venidfunc);
+            responsavel = funcNegocios.ConsultarPessoaId(vendaInfo.venidfunc);
             infoPessoa = clienteNegocios.ConsultarPessoaId(vendaInfo.venidcliente);
 
             if (colecaoDetalhes == null)
@@ -127,7 +127,7 @@ namespace WinForms
             {
 
                 string texto = "Cancelado por: ";
-                texto += responsavel == null ? "" : responsavel.funNome + Environment.NewLine + Environment.NewLine;
+                texto += responsavel == null ? "" : responsavel.pssnome + Environment.NewLine + Environment.NewLine;
                 texto += "Motivo do cancelamento: " + vendaCanceladaInfo.vendacanceladadescricao;
                 textBoxObs.Text = texto;
                 this.Text = "Venda Cancelada!";
@@ -277,7 +277,7 @@ namespace WinForms
                 foreach (VendaDetalhesInfo detalhes in colecaoDetalhes)
                 {
                     produtoInfo = produtoNegocios.ConsultarProdutosId(detalhes.vendetalhesidprod);
-                    responsavel = funcNegocios.ConsultarFuncPorId(detalhes.vendetalhesidfunc);
+                    responsavel = funcNegocios.ConsultarPessoaId(detalhes.vendetalhesidfunc);
 
                     itemVendaInfo = new ItemVendaInfo
                     {
@@ -288,8 +288,8 @@ namespace WinForms
                         Quant = detalhes.vendetalhesquant,
                         Total = detalhes.vendetalhesquant * detalhes.vendetalhesvalordesc,
                         ValorUnit = detalhes.vendetalhesvalorunit,
-                        funid = responsavel.funId,
-                        funnome = responsavel.funNome
+                        funid = responsavel.pssid,
+                        funnome = responsavel.pssnome
                     };
 
                     colecaoItemVenda.Add(itemVendaInfo);
@@ -310,8 +310,8 @@ namespace WinForms
                     Quant = dbQuant,
                     Total = dbTotal,
                     ValorUnit = produtoInfo.proValorVarejo,
-                    funid = responsavel.funId,
-                    funnome = responsavel.funNome
+                    funid = responsavel.pssid,
+                    funnome = responsavel.pssnome
                 };
                 
                 if (colecaoItemVenda.Count > 0)
@@ -378,8 +378,8 @@ namespace WinForms
             {
                 if (colecaoItemVenda[i].Id == item.Id)
                 {
-                    item.funid = responsavel.funId;
-                    item.funnome = responsavel.funNome;
+                    item.funid = responsavel.pssid;
+                    item.funnome = responsavel.pssnome;
                     colecaoItemVenda.RemoveAt(i);
                     break;
                 }
@@ -566,8 +566,8 @@ namespace WinForms
             textBoxBarras.Select();
 
             VendaAtiva = ativar;
-            responsavel = funcNegocios.ConsultarFuncPorId(Form1.User.useidfuncionario);
-            labelVendedor.Text = "Vendedor: " + responsavel.funNome;
+            responsavel = funcNegocios.ConsultarPessoaId(Form1.User.useidfuncionario);
+            labelVendedor.Text = "Vendedor: " + responsavel.pssnome;
 
             if (ativar)
                 buttonProd.Select();
@@ -771,15 +771,15 @@ namespace WinForms
             if (dataGridViewItens.SelectedRows.Count > 0)
             {
                 Form_ConsultarColecao form_ConsultarColecao = new Form_ConsultarColecao();
-                FuncColecao funcColecao = new FuncColecao();
-                funcColecao = funcNegocios.ConsultatFuncTotal();
+                PessoaColecao funcColecao = new PessoaColecao();
+                funcColecao = funcNegocios.ConsultarPessoaTodos(EnumPessoaTipo.Funcionario);
 
-                foreach (FuncInfo func in funcColecao)
+                foreach (PessoaInfo func in funcColecao)
                 {
                     Form_Consultar form_Consultar = new Form_Consultar
                     {
-                        Cod = string.Format("{0:000}", func.funId),
-                        Descricao = func.funNome
+                        Cod = string.Format("{0:000}", func.pssid),
+                        Descricao = func.pssnome
                     };
 
                     form_ConsultarColecao.Add(form_Consultar);
@@ -789,7 +789,7 @@ namespace WinForms
                 formConsultar_Cod_Descricao.ShowDialog(this);
 
                 if (formConsultar_Cod_Descricao.DialogResult == DialogResult.Yes)
-                    responsavel = funcNegocios.ConsultarFuncPorId(Convert.ToInt32(formConsultar_Cod_Descricao.Selecionado.Cod));
+                    responsavel = funcNegocios.ConsultarPessoaId(Convert.ToInt32(formConsultar_Cod_Descricao.Selecionado.Cod));
 
                 MudarResponsavel();
 
@@ -808,11 +808,6 @@ namespace WinForms
                 if (FormMessage.ShowMessegeQuestion("Deseja cancelar está venda?") == DialogResult.Yes)
                     this.Close();
             }
-        }
-
-        private void DefinirResponsavel(FuncInfo func)
-        {
-
         }
 
         private void dataGridViewItens_SelectionChanged(object sender, EventArgs e)

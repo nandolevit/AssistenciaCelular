@@ -57,6 +57,7 @@
             this.tabControlEmp = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPageUnid = new System.Windows.Forms.TabPage();
+            this.pictureBoxLoad = new System.Windows.Forms.PictureBox();
             this.panelUnidade = new System.Windows.Forms.Panel();
             this.buttonUnid = new System.Windows.Forms.Button();
             this.groupBoxServer = new System.Windows.Forms.GroupBox();
@@ -77,15 +78,14 @@
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridViewUnid = new System.Windows.Forms.DataGridView();
             this.colUnidade = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pictureBoxLoad = new System.Windows.Forms.PictureBox();
             this.tabControlEmp.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPageUnid.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLoad)).BeginInit();
             this.panelUnidade.SuspendLayout();
             this.groupBoxServer.SuspendLayout();
             this.groupBoxRede.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewUnid)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLoad)).BeginInit();
             this.SuspendLayout();
             // 
             // textBoxCnpj
@@ -396,6 +396,17 @@
             this.tabPageUnid.Text = "Unidade";
             this.tabPageUnid.UseVisualStyleBackColor = true;
             // 
+            // pictureBoxLoad
+            // 
+            this.pictureBoxLoad.Image = global::WinForms.Properties.Resources.load;
+            this.pictureBoxLoad.Location = new System.Drawing.Point(6, 300);
+            this.pictureBoxLoad.Name = "pictureBoxLoad";
+            this.pictureBoxLoad.Size = new System.Drawing.Size(53, 40);
+            this.pictureBoxLoad.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxLoad.TabIndex = 46;
+            this.pictureBoxLoad.TabStop = false;
+            this.pictureBoxLoad.Visible = false;
+            // 
             // panelUnidade
             // 
             this.panelUnidade.Controls.Add(this.buttonUnid);
@@ -598,17 +609,6 @@
             this.colUnidade.ReadOnly = true;
             this.colUnidade.Width = 530;
             // 
-            // pictureBoxLoad
-            // 
-            this.pictureBoxLoad.Image = global::WinForms.Properties.Resources.load;
-            this.pictureBoxLoad.Location = new System.Drawing.Point(109, 287);
-            this.pictureBoxLoad.Name = "pictureBoxLoad";
-            this.pictureBoxLoad.Size = new System.Drawing.Size(53, 40);
-            this.pictureBoxLoad.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBoxLoad.TabIndex = 46;
-            this.pictureBoxLoad.TabStop = false;
-            this.pictureBoxLoad.Visible = false;
-            // 
             // FormEmpresa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -625,13 +625,13 @@
             this.tabPage1.PerformLayout();
             this.tabPageUnid.ResumeLayout(false);
             this.tabPageUnid.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLoad)).EndInit();
             this.panelUnidade.ResumeLayout(false);
             this.groupBoxServer.ResumeLayout(false);
             this.groupBoxServer.PerformLayout();
             this.groupBoxRede.ResumeLayout(false);
             this.groupBoxRede.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewUnid)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLoad)).EndInit();
             this.ResumeLayout(false);
 
         }

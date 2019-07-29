@@ -27,9 +27,9 @@ namespace WinForms
 
         private void PreencherGrid()
         {
-            FuncColecao funcColecao = new FuncColecao();
+            PessoaColecao funcColecao = new PessoaColecao();
 
-            funcColecao = funcNegocios.ConsultatFuncTotal();
+            funcColecao = funcNegocios.ConsultarPessoaTodos(EnumPessoaTipo.Funcionario);
 
             dataGridViewFunc.DataSource = null;
             dataGridViewFunc.DataSource = funcColecao;

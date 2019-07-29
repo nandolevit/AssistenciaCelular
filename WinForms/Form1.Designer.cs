@@ -66,7 +66,6 @@
             this.logoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sairToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.sobreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.modoOfflineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuItemCadastrar = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuItemCadCliente = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuItemCadFuncionario = new System.Windows.Forms.ToolStripMenuItem();
@@ -141,6 +140,7 @@
             this.panelOnline = new System.Windows.Forms.Panel();
             this.panelCentral = new System.Windows.Forms.Panel();
             this.menuStripPrincipal.SuspendLayout();
+            this.statusStripBarra.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.panelPrincipal.SuspendLayout();
             this.SuspendLayout();
@@ -411,8 +411,7 @@
             this.encerrarToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.logoutToolStripMenuItem,
             this.sairToolStripMenuItem1,
-            this.sobreToolStripMenuItem,
-            this.modoOfflineToolStripMenuItem});
+            this.sobreToolStripMenuItem});
             this.encerrarToolStripMenuItem.Name = "encerrarToolStripMenuItem";
             this.encerrarToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
             this.encerrarToolStripMenuItem.Text = "Encerrar";
@@ -420,29 +419,22 @@
             // logoutToolStripMenuItem
             // 
             this.logoutToolStripMenuItem.Name = "logoutToolStripMenuItem";
-            this.logoutToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.logoutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.logoutToolStripMenuItem.Text = "Logout";
             this.logoutToolStripMenuItem.Click += new System.EventHandler(this.logoutToolStripMenuItem_Click);
             // 
             // sairToolStripMenuItem1
             // 
             this.sairToolStripMenuItem1.Name = "sairToolStripMenuItem1";
-            this.sairToolStripMenuItem1.Size = new System.Drawing.Size(145, 22);
+            this.sairToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.sairToolStripMenuItem1.Text = "Sair";
             // 
             // sobreToolStripMenuItem
             // 
             this.sobreToolStripMenuItem.Name = "sobreToolStripMenuItem";
-            this.sobreToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.sobreToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.sobreToolStripMenuItem.Text = "Sobre";
             this.sobreToolStripMenuItem.Click += new System.EventHandler(this.MenuItemSobre_Click);
-            // 
-            // modoOfflineToolStripMenuItem
-            // 
-            this.modoOfflineToolStripMenuItem.Name = "modoOfflineToolStripMenuItem";
-            this.modoOfflineToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
-            this.modoOfflineToolStripMenuItem.Text = "Modo Offline";
-            this.modoOfflineToolStripMenuItem.Click += new System.EventHandler(this.ModoOfflineToolStripMenuItem_Click);
             // 
             // MenuItemCadastrar
             // 
@@ -1205,6 +1197,8 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.menuStripPrincipal.ResumeLayout(false);
             this.menuStripPrincipal.PerformLayout();
+            this.statusStripBarra.ResumeLayout(false);
+            this.statusStripBarra.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
             this.panelPrincipal.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -1318,7 +1312,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ToolStripMenuItem modoOfflineToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelPc;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelIP;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelPcNome;

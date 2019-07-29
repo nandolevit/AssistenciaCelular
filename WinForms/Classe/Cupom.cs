@@ -16,6 +16,7 @@ namespace WinForms
         FuncNegocios funcNegocios = new FuncNegocios(Form1.Empresa.empconexao);
         VendaNegocios vendaNegocios = new VendaNegocios(Form1.Empresa.empconexao);
         CaixaNegocios caixaNegocios = new CaixaNegocios(Form1.Empresa.empconexao);
+
         int tam = 52;
         string dadosTurno = string.Empty;
 
@@ -23,15 +24,15 @@ namespace WinForms
         {
             foreach (CaixaTurnoInfo turno in caixaTurnos)
             {
-                FuncInfo funTurnoAbrir = funcNegocios.ConsultarFuncPorId(turno.caixaturnoidfuncabrir);
-                FuncInfo funTurnoFechar = funcNegocios.ConsultarFuncPorId(turno.caixaturnoidfuncfechar);
+                PessoaInfo funTurnoAbrir = funcNegocios.ConsultarPessoaId(turno.caixaturnoidfuncabrir);
+                PessoaInfo funTurnoFechar = funcNegocios.ConsultarPessoaId(turno.caixaturnoidfuncfechar);
                 string tituloTurno = "TURNO " + string.Format("{0:00}", turno.caixaturnonum);
                 string aturno = tituloTurno.Substring(0, tituloTurno.Length / 2).PadLeft(tam / 2);
                 string bturno = tituloTurno.Substring(tituloTurno.Length / 2).PadRight(tam / 2);
                 tituloTurno = aturno + bturno;
 
                 dadosTurno += tituloTurno + Environment.NewLine;
-                dadosTurno += "ABERTO POR: " + funTurnoAbrir.funNome + Environment.NewLine;
+                dadosTurno += "ABERTO POR: " + funTurnoAbrir.pssnome + Environment.NewLine;
                 dadosTurno += "DATA/HORA ABERTURA: " + turno.caixaturnodata.ToString(@"ddd, dd\/MM\/yyyy - HH:mm") + Environment.NewLine;
                 dadosTurno += "TURNO ABERTO COM: " + turno.caixaturnovalorabrir.ToString("C2").PadLeft(tam - 18) + Environment.NewLine;
                 dadosTurno += "".PadLeft(tam, '.') + Environment.NewLine;
@@ -47,7 +48,7 @@ namespace WinForms
                 dadosTurno += Environment.NewLine;
                 dadosTurno += "VALOR EM SANGRIA: " + turno.caixaturnovalorsangria.ToString("C2").PadLeft(tam - 18) + Environment.NewLine;
                 dadosTurno += "".PadLeft(tam, '.') + Environment.NewLine;
-                dadosTurno += "FECHADO POR: " + funTurnoFechar.funNome + Environment.NewLine;
+                dadosTurno += "FECHADO POR: " + funTurnoFechar.pssnome + Environment.NewLine;
                 dadosTurno += "DATA/HORA FECHAMENTO: " + turno.caixaturnodatafechamento.ToString(@"ddd, dd\/MM\/yyyy - HH:mm") + Environment.NewLine;
                 dadosTurno += "SALDO EM ESPÉCIE EM CAIXA: " + turno.caixaturnovalorsaldoespecie.ToString("C2").PadLeft(tam - 27) + Environment.NewLine;
                 dadosTurno += "SALDO TOTAL DE VENDAS: " + turno.caixaturnovalortotal.ToString("C2").PadLeft(tam - 23) + Environment.NewLine;
@@ -72,8 +73,8 @@ namespace WinForms
             string titulo = a + b;
 
             string dadosCaixa = string.Empty;
-            FuncInfo funcCaixa = funcNegocios.ConsultarFuncPorId(caixa.caixaabriridfunc);
-            dadosCaixa += "ABERTO POR: " + funcCaixa.funNome + Environment.NewLine;
+            PessoaInfo funcCaixa = funcNegocios.ConsultarPessoaId(caixa.caixaabriridfunc);
+            dadosCaixa += "ABERTO POR: " + funcCaixa.pssnome + Environment.NewLine;
             dadosCaixa += "VALOR DE ABERTURA: " + caixa.caixaabrirvalor.ToString("C2") + Environment.NewLine;
             dadosCaixa += "HORA DE ABERTURA: " + caixa.caixaabrirdata.ToShortTimeString() + Environment.NewLine;
             dadosCaixa += "QUANT TURNOS: " + caixaTurnoColecao.Count.ToString() + Environment.NewLine;
@@ -86,9 +87,9 @@ namespace WinForms
                 string bfec = fechamento.Substring(fechamento.Length / 2).PadRight(tam / 2);
                 fechamento = afec + bfec;
 
-                FuncInfo funcFechar = funcNegocios.ConsultarFuncPorId(caixaFecharInfo.caixafecharidfunc);
+                PessoaInfo funcFechar = funcNegocios.ConsultarPessoaId(caixaFecharInfo.caixafecharidfunc);
                 dadosCaixaFechar = fechamento + Environment.NewLine;
-                dadosCaixaFechar += "FECHADO POR: " + funcFechar.funNome + Environment.NewLine;
+                dadosCaixaFechar += "FECHADO POR: " + funcFechar.pssnome + Environment.NewLine;
                 dadosCaixaFechar += "DATA/HORA FECHAMENTO: " + caixaFecharInfo.caixafechardata.ToString(@"ddd, dd\/MM\/yyyy - HH:mm") + Environment.NewLine;
                 dadosCaixaFechar += "".PadLeft(tam, '.') + Environment.NewLine;
                 dadosCaixaFechar += Environment.NewLine;
@@ -171,10 +172,10 @@ namespace WinForms
                 string nomB = nomTitulo.Substring(nomTitulo.Length / 2).PadRight(tam / 2);
                 nomTitulo = nomA + nomB;
 
-                FuncInfo funcInfo = funcNegocios.ConsultarFuncPorId(venda.venidfunc);
+                PessoaInfo funcInfo = funcNegocios.ConsultarPessoaId(venda.venidfunc);
                 string dadosvenda = string.Empty;
                 dadosvenda += "CONTROLE: " + string.Format("{0:00000000}", venda.venid) + Environment.NewLine;
-                dadosvenda += "VENDEDOR: " + funcInfo.funNome + Environment.NewLine;
+                dadosvenda += "VENDEDOR: " + funcInfo.pssnome + Environment.NewLine;
                 dadosvenda += "DATA/HORA: " + venda.vendatacad + Environment.NewLine;
 
                 string dadositem = string.Empty;
@@ -204,8 +205,7 @@ namespace WinForms
                 dadosemp += "Email: " + unidade.uniemail.ToLower() + Environment.NewLine;
 
                 //dados do cliente
-                ClienteInfo clienteInfo = clienteNegocios.ConsultarClientePorId(venda.venidcliente);
-                EnderecoInfo enderecoInfo = new EnderecoInfo();
+                PessoaInfo infoPessoa = clienteNegocios.ConsultarPessoaId(venda.venidcliente);
                 string cliente = "CLIENTE " + servico;
                 string cliA = string.Empty;
                 string cliB = string.Empty;
@@ -214,30 +214,18 @@ namespace WinForms
                 cliB = cliente.Substring(cliente.Length / 2).PadRight(tam / 2);
                 cliente = cliA + cliB;
 
-                if (clienteInfo == null)
-                    clienteInfo = clienteNegocios.ConsultarClientePadrao();
-                else
-                {
-                    EnderecoColecao end = clienteNegocios.ConsultarEnderecoPorIdCliente(venda.venidcliente);
-                    if (end != null)
-                        enderecoInfo = end[0];
-                }
 
                 string dadoscliente = string.Empty;
                 dadoscliente += cliente + Environment.NewLine;
-                dadoscliente += clienteInfo.clinome + Environment.NewLine;
+                dadoscliente += infoPessoa.pssnome + Environment.NewLine;
 
-                if (clienteInfo.clipadrao == 0)
-                {
-                    dadoscliente += "End.: " + enderecoInfo.endcomplemento + ", " + Environment.NewLine
-                        + enderecoInfo.endlogradouro + Environment.NewLine;
-                    dadoscliente += enderecoInfo.endbairro + ", " + enderecoInfo.endcidade + "-" + enderecoInfo.enduf + Environment.NewLine + "Ref.: " + enderecoInfo.endreferencia + Environment.NewLine;
-                }
-                else
-                    dadoscliente += "End.: " + Environment.NewLine;
+                dadoscliente += "End.: " + infoPessoa.pssendcomplemento + ", " + Environment.NewLine
+                    + infoPessoa.pssendlogradouro + Environment.NewLine;
+                dadoscliente += infoPessoa.pssendbairro + ", " + infoPessoa.pssendcidade + "-" + infoPessoa.pssenduf + Environment.NewLine;
+                
 
-                dadoscliente += "Telefone: " + clienteInfo.clitel + Environment.NewLine;
-                dadoscliente += "Email: " + clienteInfo.cliemail + Environment.NewLine;
+                dadoscliente += "Telefone: " + infoPessoa.psstelefone + Environment.NewLine;
+                dadoscliente += "Email: " + infoPessoa.pssemail + Environment.NewLine;
 
                 //produtos
                 int item = 1;

@@ -19,6 +19,7 @@ namespace WinForms
         ProdutoEstoqueInfo produtoEstoqueInfo = new ProdutoEstoqueInfo();
         PessoaInfo infoPessoa;
         PessoaColecao colecaoPessoa;
+        PessoaNegocio negocioPessoa;
         ProdutoInfo produtoInfo = new ProdutoInfo();
         GridLancarEstoqueColecao gridLancarEstoqueColecao = new GridLancarEstoqueColecao();
         EstoqueLancamentoInfo estoqueLancamentoInfo;
@@ -40,10 +41,10 @@ namespace WinForms
 
         private void BuscarFornecedor()
         {
-            FornecedorColecao fornecedorColecao = fornecedorNegocios.ConsultarForncedor();
+            PessoaColecao colecao = negocioPessoa.ConsultarPessoaTodos(EnumPessoaTipo.Fornecedor);
             Form_ConsultarColecao form_ConsultarColecao = new Form_ConsultarColecao();
 
-            if (fornecedorColecao != null)
+            if (colecao != null)
             {
                 Form_Consultar Consultar = new Form_Consultar
                 {
@@ -53,12 +54,12 @@ namespace WinForms
 
                 form_ConsultarColecao.Add(Consultar);
 
-                foreach (FornecedorInfo info in fornecedorColecao)
+                foreach (PessoaInfo info in colecao)
                 {
                     Form_Consultar form_Consultar = new Form_Consultar
                     {
-                        Cod = string.Format("{0:000}", info.forId),
-                        Descricao = info.forNome
+                        Cod = string.Format("{0:000}", info.pssid),
+                        Descricao = info.pssnome
                     };
 
                     form_ConsultarColecao.Add(form_Consultar);
@@ -75,7 +76,6 @@ namespace WinForms
                     PreencherFormFornecedor();
                 else
                 {
-                    fornecedorInfo = null;
                     buttonInicializar.Enabled = true;
                     buttonInicializar.Select();
                 }
@@ -99,8 +99,12 @@ namespace WinForms
 
         private void buttonAddFornecedor_Click(object sender, EventArgs e)
         {
-            FormPessoa formCadastroPessoa = new FormPessoa(fornecedorInfo);
-            formCadastroPessoa.ShowDialog(this);
+            FormPessoa formCadastroPessoa = new FormPessoa(EnumPessoaTipo.Fornecedor);
+            if(formCadastroPessoa.ShowDialog(this) == DialogResult.Yes)
+            {
+
+            }
+
             formCadastroPessoa.Dispose();
         }
 
@@ -111,9 +115,7 @@ namespace WinForms
             else
             {
                 FormProdutosConsultar formProdutosConsultar = new FormProdutosConsultar();
-                formProdutosConsultar.ShowDialog(this);
-
-                if (formProdutosConsultar.DialogResult == DialogResult.Yes)
+                if (formProdutosConsultar.ShowDialog(this) == DialogResult.Yes)
                     BuscarProdutos(formProdutosConsultar.SelecionadoProduto.proId.ToString());
 
                 formProdutosConsultar.Dispose();
@@ -122,9 +124,10 @@ namespace WinForms
 
         private void PreencherListaProdutos()
         {
+
             ProdutoColecao produtoColecao = new ProdutoColecao();
-            if (fornecedorInfo != null)
-                produtoColecao = produtoNegocios.ConsultarProdutoEstoqueFornecedorId(fornecedorInfo.forId);
+            if (infoPessoa != null)
+                produtoColecao = produtoNegocios.ConsultarProdutoEstoqueFornecedorId(1);
             else
                 produtoColecao = produtoNegocios.ConsultarProdutosTodos();
 
@@ -169,7 +172,7 @@ namespace WinForms
         {
             if (textBoxFornecedorCod.Text != "000")
             {
-                FormProdutos formProdutos = new FormProdutos(fornecedorInfo);
+                FormProdutos formProdutos = new FormProdutos(infoPessoa.pssid);
                 formProdutos.ShowDialog(this);
                 formProdutos.Dispose();
             }
@@ -240,12 +243,12 @@ namespace WinForms
                 {
                     if (int.TryParse(textBoxFornecedorCod.Text, out int cod))
                     {
-                        fornecedorInfo = fornecedorNegocios.ConsultarForncedorId(cod);
+                        infoPessoa = negocioPessoa.ConsultarPessoaId(cod);
 
-                        if (fornecedorInfo != null)
+                        if (infoPessoa != null)
                         {
-                            textBoxFornecedorCod.Text = string.Format("{0:000}", fornecedorInfo.forId);
-                            labelFornecedorDescricao.Text = fornecedorInfo.forNome;
+                            textBoxFornecedorCod.Text = string.Format("{0:000}", infoPessoa.pssid);
+                            labelFornecedorDescricao.Text = infoPessoa.pssnome;
                             buttonInicializar.Enabled = true;
                             buttonInicializar.Select();
                         }
@@ -267,7 +270,7 @@ namespace WinForms
                 {
                     textBoxFornecedorCod.Text = string.Format("{0:000}", 0);
                     labelFornecedorDescricao.Text = "*FORNECEDORES DIVERSOS*";
-                    fornecedorInfo = null;
+                    infoPessoa = null;
                     buttonInicializar.Enabled = true;
                     buttonInicializar.Select();
                 }
@@ -345,7 +348,7 @@ namespace WinForms
                                 PreencherFormProduto(produto);
                             else
                             {
-                                if (produto.proidfornecedor == fornecedorInfo.forId)
+                                if (produto.proidfornecedor == infoPessoa.pssid)
                                     PreencherFormProduto(produto);
                                 else
                                 {

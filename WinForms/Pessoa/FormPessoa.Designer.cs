@@ -307,6 +307,7 @@
             this.buttonBuscarCargo.TabIndex = 6;
             this.toolTip1.SetToolTip(this.buttonBuscarCargo, "Selecionar unidade.");
             this.buttonBuscarCargo.UseVisualStyleBackColor = true;
+            this.buttonBuscarCargo.Visible = false;
             this.buttonBuscarCargo.Click += new System.EventHandler(this.buttonBuscarUnidade_Click);
             // 
             // labelCargoDescricao
@@ -480,7 +481,7 @@
             // pictureBoxLoad
             // 
             this.pictureBoxLoad.Image = global::WinForms.Properties.Resources.load;
-            this.pictureBoxLoad.Location = new System.Drawing.Point(202, 431);
+            this.pictureBoxLoad.Location = new System.Drawing.Point(10, 431);
             this.pictureBoxLoad.Name = "pictureBoxLoad";
             this.pictureBoxLoad.Size = new System.Drawing.Size(53, 40);
             this.pictureBoxLoad.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -488,7 +489,7 @@
             this.pictureBoxLoad.TabStop = false;
             this.pictureBoxLoad.Visible = false;
             // 
-            // FormCadastroPessoa
+            // FormPessoa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -499,7 +500,7 @@
             this.Controls.Add(this.buttonFechar);
             this.Controls.Add(this.groupBoxEnd);
             this.Controls.Add(this.groupBoxDadosPessoais);
-            this.Name = "FormCadastroPessoa";
+            this.Name = "FormPessoa";
             this.Text = "FormCadastroPessoa";
             this.Load += new System.EventHandler(this.FormCadastroPessoa_Load);
             this.groupBoxEnd.ResumeLayout(false);

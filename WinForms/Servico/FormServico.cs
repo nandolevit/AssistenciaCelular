@@ -17,9 +17,9 @@ namespace WinForms
     {
         Form1 form1 = new Form1();
         Thread thread;
-        PessoaInfo infoCliente;
-        FuncInfo responsavel;
-        FuncColecao colecaofunc;
+        PessoaInfo infoPessoa;
+        PessoaInfo responsavel;
+        PessoaColecao colecaoPessoa;
         ServicoColecao colecaoServ;
         ServicoIphoneInfo infoServIphone;
         ServicoIphoneColecao colecaoServIphone;
@@ -33,7 +33,7 @@ namespace WinForms
         public FormServico(PessoaInfo cliente)
         {
             Inicializar();
-            infoCliente = cliente;
+            infoPessoa = cliente;
             PreencherForm();
         }
 
@@ -61,20 +61,20 @@ namespace WinForms
 
         private void PreencherForm()
         {
-            textBoxNome.Text = infoCliente.pssid + " - " + infoCliente.pssnome;
+            textBoxNome.Text = infoPessoa.pssid + " - " + infoPessoa.pssnome;
 
             pictureBoxLoad.Visible = false;
             thread = new Thread(PreencherFormThread);
             form1.ExecutarThread(thread);
 
-            if (colecaofunc.Count == 1)
+            if (colecaoPessoa.Count == 1)
             {
-                responsavel = colecaofunc[0];
-                textBoxCodTec.Text = string.Format("{0:000}", responsavel.funId);
-                textBoxResponsavel.Text = responsavel.funNome;
+                responsavel = colecaoPessoa[0];
+                textBoxCodTec.Text = string.Format("{0:000}", responsavel.pssid);
+                textBoxResponsavel.Text = responsavel.pssnome;
             }
             else
-                ConsultarResponsavel(colecaofunc);
+                ConsultarResponsavel(colecaoPessoa);
 
             buttonAdd.Enabled = true;
             buttonAdd.Select();
@@ -83,7 +83,7 @@ namespace WinForms
 
         private void PreencherFormThread()
         {
-            colecaofunc = negocioFunc.ConsultarFuncTecnico();
+            colecaoPessoa = negocioFunc.ConsultarFuncTecnico();
             Form1.encerrarThread = true;
             pictureBoxLoad.Visible = false;
         }
@@ -100,7 +100,7 @@ namespace WinForms
 
         private void AbrirDefeito()
         {
-            FormAprelhoDefeito formProdutoDefeito = new FormAprelhoDefeito(infoCliente);
+            FormAprelhoDefeito formProdutoDefeito = new FormAprelhoDefeito(infoPessoa);
             if (formProdutoDefeito.ShowDialog(this) == DialogResult.Yes)
             {
                 infoCelular = formProdutoDefeito.SelecionadoCelular;
@@ -152,7 +152,7 @@ namespace WinForms
             infoServIphone.seridunid = Form1.Unidade.uniid;
             infoServIphone.seridfunc = Form1.User.useidfuncionario;
             infoServIphone.seridstatus = 1;
-            infoServIphone.seridtec_resp = responsavel.funId;
+            infoServIphone.seridtec_resp = responsavel.pssid;
             infoServIphone.seraparelhodescricao = infoServIphone.ToString();
 
 
@@ -203,7 +203,7 @@ namespace WinForms
             colecaoServIphone = new ServicoIphoneColecao();
                 colecaoServ = new ServicoColecao();
 
-            if (infoCliente != null)
+            if (infoPessoa != null)
                 AbrirDefeito();
         }
 
@@ -211,7 +211,7 @@ namespace WinForms
         {
             if (string.IsNullOrEmpty(textBoxCodTec.Text))
             {
-                ConsultarResponsavel(colecaofunc);
+                ConsultarResponsavel(colecaoPessoa);
             }
             else
             {
@@ -219,8 +219,8 @@ namespace WinForms
 
                 if (responsavel != null)
                 {
-                    textBoxCodTec.Text = string.Format("{0:000}", responsavel.funId);
-                    textBoxResponsavel.Text = responsavel.funNome;
+                    textBoxCodTec.Text = string.Format("{0:000}", responsavel.pssid);
+                    textBoxResponsavel.Text = responsavel.pssnome;
                 }
                 else
                 {
@@ -231,16 +231,16 @@ namespace WinForms
             }
         }
 
-        private void ConsultarResponsavel(FuncColecao funcColecao)
+        private void ConsultarResponsavel(PessoaColecao funcColecao)
         {
             Form_ConsultarColecao form_ConsultarColecao = new Form_ConsultarColecao();
 
-            foreach (FuncInfo func in funcColecao)
+            foreach (PessoaInfo func in funcColecao)
             {
                 Form_Consultar form_Consultar = new Form_Consultar
                 {
-                    Cod = string.Format("{0:000}", func.funId),
-                    Descricao = func.funNome
+                    Cod = string.Format("{0:000}", func.pssid),
+                    Descricao = func.pssnome
                 };
 
                 form_ConsultarColecao.Add(form_Consultar);
@@ -272,7 +272,7 @@ namespace WinForms
             FormClienteConsultar formClienteConsultar = new FormClienteConsultar();
             if (formClienteConsultar.ShowDialog(this) == DialogResult.Yes)
             {
-                infoCliente = formClienteConsultar.SelecionadoCliente;
+                infoPessoa = formClienteConsultar.SelecionadoCliente;
                 PreencherForm();
                 AbrirDefeito();
             }

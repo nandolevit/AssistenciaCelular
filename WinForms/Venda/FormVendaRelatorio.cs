@@ -20,11 +20,12 @@ namespace WinForms
         Thread thread;
         VendaInfo infoVenda;
         VendaColecao colecaoVenda;
-        ClienteInfo infoCliente;
+        PessoaInfo infoPessoa;
         GridViewVendaPeriodoColecao gridViewVendaPeriodoColecao;
         CaixaNegocios negociosCaixa = new CaixaNegocios(Form1.Empresa.empconexao);
         VendaNegocios negociosVenda = new VendaNegocios(Form1.Empresa.empconexao);
         ClienteNegocios negociosCliente = new ClienteNegocios(Form1.Empresa.empconexao);
+        PessoaNegocio negocioPessoa;
 
         DateTime dataIni;
         DateTime dataFim;
@@ -163,7 +164,7 @@ namespace WinForms
                         }
                     }
 
-                    infoCliente = negociosCliente.ConsultarClientePorId(venda.venidcliente);
+                    infoPessoa = negocioPessoa.ConsultarPessoaId(venda.venidcliente);
 
                     CaixaTurnoInfo turno = negociosCaixa.ConsultarCaixaTurnoId(venda.venidturno);
 
@@ -171,7 +172,7 @@ namespace WinForms
                     GridViewVendaPeriodo gridViewVendaPeriodo = new GridViewVendaPeriodo
                     {
                         Cheque = cheque,
-                        Cliente = infoCliente.clinome,
+                        Cliente = infoPessoa.pssnome,
                         Credito = credito,
                         Data = venda.vendata,
                         Debito = debito,

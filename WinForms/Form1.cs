@@ -20,10 +20,6 @@ namespace WinForms
     public partial class Form1 : Form
     {
         public static IPAddress[] localAdress;
-        //define se o modo offline será definido
-        public static bool Offline { get; set; }
-        //stringConnect para o modo offline
-        public string ConexaoOffline { get { return "server=LOCALHOST;user id=nandolevit;password=@wizykovisc87;SslMode=none;database=levittech"; } }
         public static bool ConectedSystem { get; set; }
         public static bool FecharFormCarregando { get; set; }
 
@@ -104,60 +100,7 @@ namespace WinForms
             BuscarCliente();
         }
 
-        private bool TestarOffline()
-        {
-            if (Server != null)
-                return true;
-            else
-            {
-                FormMessage.ShowMessegeWarning("Não é possível ativar o Modo Offline para este dispositivo!");
-                return false;
-            }
-        }
-
-        private void AtivarModoOffline(EmpresaInfo emp)
-        {
-            Offline = true;
-
-            if (threadLogin != null)
-                threadLogin.Abort();
-
-            string conexao = string.Empty;
-
-            userNegocio = new UserNegocio();
-            if (userNegocio.TestarConexaoSemPersistencia(ConexaoOffline))
-                conexao = ConexaoOffline;
-            else
-            {
-                IPAddress[] ipServer = Dns.GetHostAddresses(Server.comphostname);
-                conexao = ConexaoOffline.Replace("LOCALHOST", ipServer[ipServer.Length - 1].ToString());
-            }
-
-            EmpresaNegocios empresaNegocios = new EmpresaNegocios(conexao);
-            Empresa = empresaNegocios.ConsultarEmpresaSysIdOffline(emp.empcod);
-            Empresa.empconexao = conexao;
-            this.Text += " :: " + Empresa.empfantasia;
-            this.Text += " :: MODO OFFLINE";
-            panelOnline.Width = 0;
-            menuStripPrincipal.Enabled = false;
-            buttonCliente.Text = "Cliente";
-            buttonBuscarCliente.Text = "Buscar";
-            buttonOs.Text = "Servico";
-            panelPrincipal.BackColor = Color.Maroon;
-
-            if (Application.OpenForms["FormOnline"] != null)
-                Application.OpenForms["FormOnline"].Close();
-
-            buttonProduto.Enabled = false;
-            buttonProdutoBuscar.Enabled = false;
-            buttonVendas.Enabled = false;
-            buttonEntrada.Enabled = false;
-            buttonPeriodo.Enabled = false;
-            buttonCaixa.Enabled = false;
-            buttonTurno.Enabled = false;
-            buttonSenha.Enabled = false;
-            LogarNovamente();
-        }
+        
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -167,75 +110,78 @@ namespace WinForms
             toolStripStatusLabelPcNome.Text = Computer.comphostname;
             toolStripStatusLabelIP.Text = Computer.compip;
 
-            if (Offline)
+            if (Desserializar())
             {
-                AtivarModoOffline(Empresa);
-            }
-            else
-            {
-                if (Desserializar())
+                Thread t = new Thread(ConsultarNovoIphone);
+                ExecutarThread(t);
+
+                threadLogin = new Thread(UpdateUserLogin);
+                threadLogin.Start();
+
+                if (testar.TestarConexao())
                 {
-                    Thread t = new Thread(ConsultarNovoIphone);
-                    ExecutarThread(t);
-                    threadLogin = new Thread(UpdateUserLogin);
-                    threadLogin.Start();
+                    EmpresaNegocios empresaNegocios = new EmpresaNegocios(Empresa.empconexao);
 
-                    if (testar.TestarConexao())
+                    if (Unidade != null)
                     {
-                        EmpresaNegocios empresaNegocios = new EmpresaNegocios(Empresa.empconexao);
+                        ComputerColecao colecao = empresaNegocios.ConsultarComputadorIdUnid(Unidade.uniid);
 
-                        if (Unidade != null)
-                        {
-                            ComputerColecao colecao = empresaNegocios.ConsultarComputadorIdUnid(Unidade.uniid);
-
-                            if (colecao != null)
-                                foreach (ComputerInfo comp in colecao)
-                                    if (comp.compserver)
-                                    {
-                                        Server = comp;
-                                        break;
-                                    }
-                        }
-
-                        if (Empresa != null)
-                        {
-                            Empresa = empresaNegocios.ConsultarEmpresaSysId(Empresa.empcod);
-
-                            if (Empresa.empativada == 1)
-                            {
-                                TimeSpan timeSpan = Empresa.empdataativo.Subtract(DateTime.Now.Date);
-                                if (timeSpan.Days > 0)
+                        if (colecao != null)
+                            foreach (ComputerInfo comp in colecao)
+                                if (comp.compserver)
                                 {
-                                    if (timeSpan.Days < 15)
-                                        FormMessage.ShowMessegeWarning(Empresa.empobs.Replace("**", timeSpan.Days.ToString()));
-
-                                    InicializarSistema();
-                                    this.Text += " :: " + Empresa.empfantasia;
+                                    Server = comp;
+                                    break;
                                 }
-                                else
+                    }
+
+                    if (Empresa != null)
+                    {
+                        Empresa = empresaNegocios.ConsultarEmpresaSysId(Empresa.empcod);
+
+                        if (Empresa.empativada == 1)
+                        {
+                            TimeSpan timeSpan = Empresa.empdataativo.Subtract(DateTime.Now.Date);
+                            if (timeSpan.Days > 0)
+                            {
+                                if (timeSpan.Days < 7)
+                                    FormMessage.ShowMessegeWarning(Empresa.empobs.Replace("**", timeSpan.Days.ToString()));
+
+                                InicializarSistema();
+                                this.Text += " :: " + Empresa.empfantasia;
+                            }
+                            else
+                            {
+                                if (timeSpan.Days < -15)
                                 {
                                     FormMessage.ShowMessegeWarning("Seu sistema está bloqueado!");
                                     Application.Exit();
                                 }
-                            }
-                            else
-                            {
-                                FormMessage.ShowMessegeWarning("Seu sistema está bloqueado!");
-                                Application.Exit();
+                                else
+                                    FormMessage.ShowMessegeWarning("Seu sistema será bloqueado em * dias!".Replace("*", (-timeSpan.Days).ToString()));
                             }
                         }
                         else
-                            FormMessage.ShowMessegeWarning("Falha!");
+                        {
+                            FormMessage.ShowMessegeWarning("Seu sistema está bloqueado!");
+                            Application.Exit();
+                        }
                     }
                     else
-                        ModoOfflineEncerrarSistema();
+                        FormMessage.ShowMessegeWarning("Falha!");
                 }
                 else
-                    AbrirFormEmpresa();
-
-                if (Empresa != null)
-                    caixaNegocios = new CaixaNegocios(Empresa.empconexao);
+                {
+                    FormMessage.ShowMessegeWarning("Este computador está sem conexão com a internet, o sistema será encerrado!");
+                    Application.Exit();
+                }
             }
+            else
+                AbrirFormEmpresa();
+
+            if (Empresa != null)
+                    caixaNegocios = new CaixaNegocios(Empresa.empconexao);
+            
         }
 
         private void ConsultarNovoIphone()
@@ -262,19 +208,20 @@ namespace WinForms
         private void AbrirFormEmpresa()
         {
             FormEmpresa formEmpresa = new FormEmpresa();
-            formEmpresa.ShowDialog(this);
-            formEmpresa.Dispose();
-            Application.Exit();
-        }
-
-        public void ModoOfflineEncerrarSistema()
-        {
-            if (FormMessage.ShowMessegeQuestion("Falha na conexão. Deseja trabalhar no MODO OFFLINE?") == DialogResult.Yes)
+            if(formEmpresa.ShowDialog(this) == DialogResult.Yes)
             {
-                ModoOffline();
+                Desserializar();
+                negocioPessoa = new PessoaNegocio(Empresa.empconexao);
+                PessoaInfo pessoa = negocioPessoa.ConsultarPessoaPadrao(EnumPessoaTipo.Funcionario, false);
+
+                if (pessoa == null)
+                    CadPessoa(EnumPessoaTipo.Funcionario);
             }
-            else
-                Application.Exit();
+
+            formEmpresa.Dispose();
+
+            FormMessage.ShowMessegeWarning("As configurações foram realizadas com sucesso! O sistema será encerrado, abra-o novamente.");
+            Application.Exit();
         }
 
         public void ExecutarThread(Thread thread)
@@ -314,25 +261,19 @@ namespace WinForms
             if (accessLogin.UserExist())
             {
                 FormLogin formLogin = new FormLogin();
-                formLogin.ShowDialog(this);
-
-                if (formLogin.DialogResult == DialogResult.Yes)
+                if (formLogin.ShowDialog(this) == DialogResult.Yes)
                 {
                     if (User.usenovologin == 0)
                     {
                         panelPrincipal.Enabled = true;
 
-                        if (Offline == false)
-                        {
-                            menuStripPrincipal.Enabled = true;
+                        menuStripPrincipal.Enabled = true;
 
-                            //Login = userNegocio.ConsultarUserLogin(Login.loginid);
-                            panelOnline.Visible = true;
-                            FormOnline formOnline = new FormOnline();
-                            formOnline.MdiParent = this;
-                            panelOnline.Controls.Add(formOnline);
-                            formOnline.Show();
-                        }
+                        panelOnline.Visible = true;
+                        FormOnline formOnline = new FormOnline();
+                        formOnline.MdiParent = this;
+                        panelOnline.Controls.Add(formOnline);
+                        formOnline.Show();
 
                         toolStripStatusLabelUsuario.Text += User.uselogin;
                         toolStripStatusLabelLocal.Text += Unidade.uniunidade;
@@ -341,9 +282,7 @@ namespace WinForms
                     else
                     {
                         FormAlterarSenha formAlterarSenha = new FormAlterarSenha(User);
-                        formAlterarSenha.ShowDialog(this);
-
-                        if (formAlterarSenha.DialogResult == DialogResult.Yes)
+                        if (formAlterarSenha.ShowDialog(this) == DialogResult.Yes)
                             AoCarregar();
 
                         formAlterarSenha.Dispose();
@@ -352,24 +291,6 @@ namespace WinForms
 
                 formLogin.Dispose();
 
-            }
-            else
-            {
-                EmpresaNegocios empresaNegocios = new EmpresaNegocios(Empresa.empconexao);
-                UnidadeInfo unid = empresaNegocios.ConsultarUnidadeSede();
-
-                PreencherUnid();
-
-                if (unid == null)
-                    empresaNegocios.InsertUnidade(unidadeInfo, true);
-
-                //FormPessoa formCadastroPessoa = new FormPessoa(unidadeInfo);
-                //formCadastroPessoa.ShowDialog(this);
-
-                //if (formCadastroPessoa.DialogResult == DialogResult.Yes)
-                //    AoCarregar();
-
-                //formCadastroPessoa.Dispose();
             }
         }
 
@@ -705,16 +626,13 @@ namespace WinForms
             toolStripStatusLabelTime.Text = DateTime.Now.ToLongDateString() + " - " + DateTime.Now.ToLongTimeString();
             toolStripStatusLabelTime.Text.ToUpper();
 
-            if (Offline == true)
+            if (!ConectedSystem && User != null)
             {
-                if (!ConectedSystem && User != null)
+                if (Application.OpenForms["FormConexao"] == null)
                 {
-                    if (Application.OpenForms["FormConexao"] == null)
-                    {
-                        FormConexao formConexao = new FormConexao();
-                        formConexao.ShowDialog();
-                        formConexao.Dispose();
-                    }
+                    FormConexao formConexao = new FormConexao();
+                    formConexao.ShowDialog();
+                    formConexao.Dispose();
                 }
             }
         }
@@ -731,6 +649,7 @@ namespace WinForms
             {
                 PessoaInfo p = formPessoa.SelecionadoPessoa;
                 int id = negocioPessoa.InsertPessoa(p);
+
                 if (id > 0)
                 {
                     p.pssid = id;
@@ -753,6 +672,10 @@ namespace WinForms
 
                         }
                         formServicoTipo.Dispose();
+                    }
+                    else if(pessoa == EnumPessoaTipo.Funcionario)
+                    {
+                        FormMessage.ShowMessegeWarning("Um novo usuário foi criado para este funcionário. Para acessar, bastar inserir o CPF no login e senha!");
                     }
                 }
             }
@@ -871,7 +794,7 @@ namespace WinForms
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            if (Offline == false)
+            if (User != null)
             {
                 switch (e.KeyCode)
                 {
@@ -927,28 +850,6 @@ namespace WinForms
         {
             if (threadLogin != null)
                 threadLogin.Abort();
-        }
-
-        private void toolStripStatusLabel1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ModoOfflineToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ModoOffline();
-        }
-
-        private void ModoOffline()
-        {
-            if (TestarOffline())
-            {
-                if (FormMessage.ShowMessegeQuestion("Deseja ativar o modo Offline? Todas as janelas serão fechadas!") == DialogResult.Yes)
-                {
-                    EmpresaInfo emp = (serializarNegocios.DesserializarObjeto(FileNameEmp) as EmpresaInfo);
-                    AtivarModoOffline(emp);
-                }
-            }
         }
 
         private void FornecedorToolStripMenuItem_Click(object sender, EventArgs e)

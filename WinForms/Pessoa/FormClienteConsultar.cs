@@ -44,7 +44,7 @@ namespace WinForms
 
         private void RealizarPesquisaThread()
         {
-            colecaoPessoa = negocioPessoa.ConsultarPessoaDescricao(pesquisa);
+            colecaoPessoa = negocioPessoa.ConsultarPessoaDescricao(pesquisa, EnumPessoaTipo.Cliente);
             Form1.encerrarThread = true;
             pictureBoxLoad.Visible = false;
         }

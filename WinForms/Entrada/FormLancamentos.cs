@@ -60,7 +60,7 @@ namespace WinForms
         private void Consultar()
         {
             entradaSaidaInfo = entradaSaidaNegocios.ConsultarEntradaSaidaId(grid.entralancamentoid);
-            nomeFunc = funcNegocios.ConsultarFuncPorId(entradaSaidaInfo.entraidfunc).funNome;
+            nomeFunc = funcNegocios.ConsultarPessoaId(entradaSaidaInfo.entraidfunc).pssnome;
             Form1.encerrarThread = true;
             pictureBoxLoad.Visible = false;
         }

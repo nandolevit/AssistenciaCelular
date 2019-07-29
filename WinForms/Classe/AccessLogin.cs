@@ -38,10 +38,7 @@ namespace WinForms
                         Form1.User = userInfo;
                         Form1.Unidade = empresaNegocios.ConsultarUnidadeId(Convert.ToInt32(log[2]));
 
-                        if (Form1.Offline == false)
-                        {
-                            Form1.Login.loginid = negocioOnline.InsertUserLogin(userInfo);
-                        }
+                        Form1.Login.loginid = negocioOnline.InsertUserLogin(userInfo);
 
                         return 1;
                     }

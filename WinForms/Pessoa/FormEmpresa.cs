@@ -25,12 +25,12 @@ namespace WinForms
         UnidadeInfo infoUnid;
         UnidadeColecao colecaoUnid;
         ServicoNegocio negocioServ;
+        PessoaNegocio negocioPessoa;
         SerializarNegocios serializarNegocios = new SerializarNegocios(Form1.Caminho);
         bool Ativo;
 
 
         string diretorio = @"C:\Users\Public\LevitSoft\";
-        bool carregando = true;
 
         public FormEmpresa(EmpresaInfo empresa)
         {
@@ -144,7 +144,7 @@ namespace WinForms
                 compadaptador = textBoxAdapter.Text,
                 compidunid = infoUnid.uniid,
                 compmac = maskedTextBoxMac.Text,
-                compserver = radioButtonSim.Checked
+                compserver = radioButtonSim.Checked,
             };
         }
 
@@ -157,6 +157,7 @@ namespace WinForms
         {
             if (FormMessage.ShowMessegeQuestion("Deseja inserir a nova empresa?") == DialogResult.Yes)
             {
+                pictureBoxLoad.Visible = true;
                 panelUnidade.Enabled = false;
 
                 if (serializarNegocios.SerializarObjeto(infoEmpresa, Form1.FileNameEmp))
@@ -186,18 +187,73 @@ namespace WinForms
                             uniunidade = " " + infoEmpresa.empbairro + "(SEDE)",
                             unifundada = infoEmpresa.empfundada
                         };
+
                         int cod = empresaNegocios.InsertUnidade(infoUnid, true);
                         if (cod > 0)
                         {
+                            negocioPessoa = new PessoaNegocio(infoEmpresa.empconexao);
+                            PessoaInfo pessoa = new PessoaInfo
+                            {
+                                pssassistencia = EnumAssistencia.Assistencia,
+                                psscpf = infoUnid.unicnpj,
+                                pssdataregistro = DateTime.Now,
+                                pssemail = infoUnid.uniemail,
+                                pssendbairro = infoUnid.unibairro,
+                                pssendcep = infoUnid.unicep,
+                                pssendcidade = infoUnid.unicidade,
+                                pssendcomplemento = infoUnid.unicomplemento,
+                                pssendlogradouro = infoUnid.unilogradouro,
+                                pssenduf = infoUnid.uniuf,
+                                pssidtipo = EnumPessoaTipo.Funcionario,
+                                pssniver = DateTime.Now,
+                                pssnome = "FUNCIONARIO PADRAO",
+                                psstelefone = infoUnid.unitelefone,
+                                pssiduser = 0,
+                                psspadrao = true
+                            };
+                            negocioPessoa.InsertPessoa(pessoa);
+
+                            pessoa.pssidtipo = EnumPessoaTipo.Fornecedor;
+                            pessoa.pssnome = "FORNECEDOR PADRAO";
+                            negocioPessoa.InsertPessoa(pessoa);
+
+                            pessoa.pssidtipo = EnumPessoaTipo.Cliente;
+                            pessoa.pssnome = "CLIENTE AVULSO";
+                            negocioPessoa.InsertPessoa(pessoa);
+
                             textBoxUnidNome.Text = infoUnid.uniunidade;
                             infoUnid.uniid = cod;
                         }
                     }
 
-                    PreencherComputador();
+                    ComputerColecao colecao = empresaNegocios.ConsultarComputadorIdUnid(infoUnid.uniid);
+
+                    if (colecao != null)
+                    {
+                        PreencherComputador();
+                        List<string> mac = new List<string>();
+
+                        foreach (ComputerInfo comp in colecao)
+                        {
+                            mac.Add(comp.compmac);
+
+                            if (mac.Contains(infoComp.compmac))
+                            {
+                                infoComp = comp;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (infoComp == null)
+                    {
+                        PreencherComputador();
+                        infoComp.compid = empresaNegocios.InsertComputador(infoComp);
+                    }
+
                     thread = new Thread(InserirUnid);
-                    thread.Start();
-                    Relogio();
+                    form1.ExecutarThread(thread);
+                    pictureBoxLoad.Visible = false;
                 }
                 else
                     FormMessage.ShowMessegeWarning("Falha, tente novamente!");
@@ -240,8 +296,6 @@ namespace WinForms
 
         private void InserirUnid()
         {
-            if (infoComp == null)
-                infoComp.compid = empresaNegocios.InsertComputador(infoComp);
 
             serializarNegocios.SerializarObjeto(infoUnid, Form1.FileNameUnid);
             serializarNegocios.SerializarObjeto(infoComp, Form1.FileNameComp);
@@ -268,8 +322,7 @@ namespace WinForms
                 File.Copy(path1, Path.Combine(Path.GetDirectoryName(Form1.Caminho), Form1.FileIphone));
             }
 
-            FormMessage.ShowMessegeWarning("O sistema foi configurado com sucesso... O mesmo será encerrado, favor abra-o novamente!");
-            carregando = false;
+            Form1.encerrarThread = true;
             this.DialogResult = DialogResult.Yes;
         }
 
@@ -294,16 +347,5 @@ namespace WinForms
                     thread.Abort();
         }
 
-        private void Relogio()
-        {
-            buttonUnid.Visible = false;
-            pictureBoxLoad.Visible = true;
-
-            while (carregando)
-
-            thread.Abort();
-            buttonUnid.Visible = true;
-            pictureBoxLoad.Visible = false;
-        }
     }
 }
