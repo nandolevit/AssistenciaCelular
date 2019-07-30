@@ -353,6 +353,16 @@ namespace WinForms.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_Gmail_32 {
+            get {
+                object obj = ResourceManager.GetObject("icons8_Gmail_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_iMac_32 {
             get {
                 object obj = ResourceManager.GetObject("icons8_iMac_32", resourceCulture);

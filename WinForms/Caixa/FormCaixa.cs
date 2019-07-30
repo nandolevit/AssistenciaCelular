@@ -125,7 +125,7 @@ namespace WinForms
             caixaaberto.caixafechardata = DateTime.Now;
 
             Form1.encerrarThread = true;
-            pictureBoxLoad.Visible = false;
+            //pictureBoxLoad.Visible = false;
         }
 
         private void textBoxProxCaixaValor_TextChanged(object sender, EventArgs e)

@@ -117,6 +117,12 @@
     <Compile Include="Classe\AccessLogin.cs" />
     <Compile Include="Classe\Caixa.cs" />
     <Compile Include="Classe\Cupom.cs" />
+    <Compile Include="Email\FormEmail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Email\FormEmail.Designer.cs">
+      <DependentUpon>FormEmail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -386,6 +392,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="SqlServerTypes\Loader.cs" />
+    <EmbeddedResource Include="Email\FormEmail.resx">
+      <DependentUpon>FormEmail.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -672,6 +681,7 @@
     <None Include="Resources\icons8_iMac_32.png" />
     <None Include="Resources\icons8_Smartphone_Tablet_32.png" />
     <None Include="Resources\load.gif" />
+    <None Include="Resources\icons8_Gmail_32.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

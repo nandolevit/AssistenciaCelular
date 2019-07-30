@@ -82,6 +82,7 @@
   <ItemGroup>
     <Compile Include="CaixaNegocios.cs" />
     <Compile Include="ClienteNegocios.cs" />
+    <Compile Include="EmailNegocio.cs" />
     <Compile Include="EmpresaNegocios.cs" />
     <Compile Include="EntradaSaidaNegocios.cs" />
     <Compile Include="EstoqueNegocios.cs" />

@@ -520,6 +520,7 @@ namespace WinForms
 
         private void BuscarFornecedor()
         {
+            negocioPessoa = new PessoaNegocio(Form1.Empresa.empconexao);
             PessoaColecao colecao = negocioPessoa.ConsultarPessoaTodos(EnumPessoaTipo.Fornecedor);
             Form_ConsultarColecao form_ConsultarColecao = new Form_ConsultarColecao();
 

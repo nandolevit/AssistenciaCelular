@@ -100,7 +100,7 @@ namespace WinForms
             BuscarCliente();
         }
 
-        
+
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -180,8 +180,8 @@ namespace WinForms
                 AbrirFormEmpresa();
 
             if (Empresa != null)
-                    caixaNegocios = new CaixaNegocios(Empresa.empconexao);
-            
+                caixaNegocios = new CaixaNegocios(Empresa.empconexao);
+
         }
 
         private void ConsultarNovoIphone()
@@ -199,7 +199,7 @@ namespace WinForms
                         IphoneColecao.Add(mod);
                 }
 
-                if(serializarNegocios.ExcluirArquivo(FileIphone))
+                if (serializarNegocios.ExcluirArquivo(FileIphone))
                     serializarNegocios.SerializarObjeto(IphoneColecao, FileIphone);
             }
             encerrarThread = true;
@@ -208,7 +208,7 @@ namespace WinForms
         private void AbrirFormEmpresa()
         {
             FormEmpresa formEmpresa = new FormEmpresa();
-            if(formEmpresa.ShowDialog(this) == DialogResult.Yes)
+            if (formEmpresa.ShowDialog(this) == DialogResult.Yes)
             {
                 Desserializar();
                 negocioPessoa = new PessoaNegocio(Empresa.empconexao);
@@ -586,7 +586,7 @@ namespace WinForms
                 FormLancamentos formLancamentos = new FormLancamentos(true);
                 FormAbertos(formLancamentos);
             }
-            
+
         }
 
         private void MenuItemSangria_Click(object sender, EventArgs e)
@@ -597,7 +597,7 @@ namespace WinForms
                 FormSangria formSangria = new FormSangria();
                 FormAbertos(formSangria);
             }
-            
+
         }
 
         private void MenuItemTrocaDeTurno_Click(object sender, EventArgs e)
@@ -636,7 +636,7 @@ namespace WinForms
                 }
             }
         }
-        
+
         private void buttonCliente_Click(object sender, EventArgs e)
         {
             CadPessoa(EnumPessoaTipo.Cliente);
@@ -662,18 +662,18 @@ namespace WinForms
                         if (formServicoTipo.ShowDialog(this) == DialogResult.Yes)
                         {
                             FormServico formServico = new FormServico(p);
-                            if(formServico.ShowDialog(this) == DialogResult.Yes)
+                            if (formServico.ShowDialog(this) == DialogResult.Yes)
                             {
                                 FormMessage.ShowMessegeInfo("Registro salvo com sucesso!");
                             }
                         }
-                        else if(formServicoTipo.ShowDialog(this) == DialogResult.OK)
+                        else if (formServicoTipo.ShowDialog(this) == DialogResult.OK)
                         {
 
                         }
                         formServicoTipo.Dispose();
                     }
-                    else if(pessoa == EnumPessoaTipo.Funcionario)
+                    else if (pessoa == EnumPessoaTipo.Funcionario)
                     {
                         FormMessage.ShowMessegeWarning("Um novo usuário foi criado para este funcionário. Para acessar, bastar inserir o CPF no login e senha!");
                     }
@@ -854,13 +854,19 @@ namespace WinForms
 
         private void FornecedorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           CadPessoa(EnumPessoaTipo.Fornecedor);
+            CadPessoa(EnumPessoaTipo.Fornecedor);
         }
 
 
         private void ButtonFornecedor_Click(object sender, EventArgs e)
         {
             CadPessoa(EnumPessoaTipo.Fornecedor);
+        }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            FormEmail formEmail = new FormEmail();
+            formEmail.ShowDialog(this);
         }
     }
 }

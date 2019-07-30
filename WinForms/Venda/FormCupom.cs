@@ -22,6 +22,7 @@ namespace WinForms
         public int Ident { get; set; }
         public string Servico { get; set; }
         EnumCaixa enumCaixa;
+        CaixaAbrirInfo caixaAbrirInfo;
 
 
         Cupom cupom = new Cupom();
@@ -98,13 +99,25 @@ namespace WinForms
             thread = new Thread(PreencherCaixaThread);
             form1.ExecutarThread(thread);
             this.Activate();
+            EmailNegocio negocioEmail = new EmailNegocio();
+            EmailInfo email = new EmailInfo
+            {
+                emailAssunto = "Caixa Fechado - " + caixaAbrirInfo.caixaabrirdata.Date.ToShortDateString(),
+                emailMessage = ArrCupom[0],
+                emailTo = new string[]{"nandolevit2012@gmail.com"},
+                emailCC = new string[0],
+                emailCCo = new string [0]
+            };
+
+            negocioEmail.EnviarEmailGmail(email);
+
             PreencherForm(ArrCupom[0]);
         }
 
         private void PreencherCaixaThread()
         {
             CaixaNegocios caixaNegocios = new CaixaNegocios(Form1.Empresa.empconexao);
-            CaixaAbrirInfo caixaAbrirInfo = caixaNegocios.ConsultarCaixaPorId(Ident);
+            caixaAbrirInfo = caixaNegocios.ConsultarCaixaPorId(Ident);
             ArrCupom[0] = cupom.CriarCupomCaixa(caixaAbrirInfo, enumCaixa);
             Form1.encerrarThread = true;
             pictureBoxLoad.Visible = false;

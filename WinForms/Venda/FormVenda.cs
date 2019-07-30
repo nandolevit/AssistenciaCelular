@@ -423,39 +423,15 @@ namespace WinForms
             else if (formVendaVip.DialogResult == DialogResult.OK)
             {
                 ClienteNegocios clienteNegocios = new ClienteNegocios(Form1.Empresa.empconexao);
-                infoPessoa = clienteNegocios.ConsultarPessoaCpf("12345678910"); //seleciona cliente avulso
+                infoPessoa = clienteNegocios.ConsultarPessoaPadrao(EnumPessoaTipo.Cliente); //seleciona cliente avulso
 
-                if (infoPessoa == null)
-                    infoPessoa = CriarClientePadrao();
-                else
-                {
-                    labelCliente.Text = "Cliente: " + infoPessoa.pssnome;
-                    AtivarForm(true);
-                    VendaVip = false;
-                }
+                labelCliente.Text = "Cliente: " + infoPessoa.pssnome;
+                AtivarForm(true);
+                VendaVip = false;
             }
 
             formVendaVip.Dispose();
             
-        }
-
-        private PessoaInfo CriarClientePadrao()
-        {
-            ClienteNegocios clienteNegocios = new ClienteNegocios(Form1.Empresa.empconexao);
-            PessoaInfo padrao = new PessoaInfo
-            {
-                psscpf = "12345678910",
-                pssemail = "sem@email.com",
-                pssiduser = Form1.User.useidfuncionario,
-                pssnome = "CLIENTE AVULSO",
-                pssniver = DateTime.Now.Date,
-                psstelefone = "71000000000",
-            };
-
-            if (clienteNegocios.InsertPessoa(padrao) > 0)
-                return padrao;
-            else
-                return null;
         }
 
         private void ConsultarProduto()
