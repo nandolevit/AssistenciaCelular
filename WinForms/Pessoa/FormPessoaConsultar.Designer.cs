@@ -1,6 +1,6 @@
 ﻿namespace WinForms
 {
-    partial class FormClienteConsultar
+    partial class FormPessoaConsultar
     {
         /// <summary>
         /// Required designer variable.
@@ -30,16 +30,16 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridViewPesquisarCliente = new System.Windows.Forms.DataGridView();
-            this.colId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColNome = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColTel = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.labelPesquisar = new System.Windows.Forms.Label();
             this.textBoxPesquisar = new System.Windows.Forms.TextBox();
             this.buttonFechar = new System.Windows.Forms.Button();
             this.buttonSelecionar = new System.Windows.Forms.Button();
             this.buttonBuscar = new System.Windows.Forms.Button();
             this.pictureBoxLoad = new System.Windows.Forms.PictureBox();
+            this.colId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColNome = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColTel = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPesquisarCliente)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLoad)).BeginInit();
             this.SuspendLayout();
@@ -61,41 +61,6 @@
             this.dataGridViewPesquisarCliente.Size = new System.Drawing.Size(1090, 490);
             this.dataGridViewPesquisarCliente.TabIndex = 3;
             this.dataGridViewPesquisarCliente.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewPesquisarCliente_CellDoubleClick);
-            // 
-            // colId
-            // 
-            this.colId.DataPropertyName = "cliid";
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.Format = "000000";
-            this.colId.DefaultCellStyle = dataGridViewCellStyle1;
-            this.colId.HeaderText = "Id:";
-            this.colId.Name = "colId";
-            this.colId.ReadOnly = true;
-            this.colId.Width = 75;
-            // 
-            // ColNome
-            // 
-            this.ColNome.DataPropertyName = "clinome";
-            this.ColNome.HeaderText = "Nome:";
-            this.ColNome.Name = "ColNome";
-            this.ColNome.ReadOnly = true;
-            this.ColNome.Width = 475;
-            // 
-            // ColEmail
-            // 
-            this.ColEmail.DataPropertyName = "cliemail";
-            this.ColEmail.HeaderText = "Email:";
-            this.ColEmail.Name = "ColEmail";
-            this.ColEmail.ReadOnly = true;
-            this.ColEmail.Width = 300;
-            // 
-            // ColTel
-            // 
-            this.ColTel.DataPropertyName = "clitel";
-            this.ColTel.HeaderText = "Telefone:";
-            this.ColTel.Name = "ColTel";
-            this.ColTel.ReadOnly = true;
-            this.ColTel.Width = 200;
             // 
             // labelPesquisar
             // 
@@ -165,7 +130,42 @@
             this.pictureBoxLoad.TabStop = false;
             this.pictureBoxLoad.Visible = false;
             // 
-            // FormClienteConsultar
+            // colId
+            // 
+            this.colId.DataPropertyName = "pssid";
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.Format = "000000";
+            this.colId.DefaultCellStyle = dataGridViewCellStyle1;
+            this.colId.HeaderText = "Id:";
+            this.colId.Name = "colId";
+            this.colId.ReadOnly = true;
+            this.colId.Width = 75;
+            // 
+            // ColNome
+            // 
+            this.ColNome.DataPropertyName = "pssnome";
+            this.ColNome.HeaderText = "Nome:";
+            this.ColNome.Name = "ColNome";
+            this.ColNome.ReadOnly = true;
+            this.ColNome.Width = 475;
+            // 
+            // ColEmail
+            // 
+            this.ColEmail.DataPropertyName = "pssemail";
+            this.ColEmail.HeaderText = "Email:";
+            this.ColEmail.Name = "ColEmail";
+            this.ColEmail.ReadOnly = true;
+            this.ColEmail.Width = 300;
+            // 
+            // ColTel
+            // 
+            this.ColTel.DataPropertyName = "psstelefone";
+            this.ColTel.HeaderText = "Telefone:";
+            this.ColTel.Name = "ColTel";
+            this.ColTel.ReadOnly = true;
+            this.ColTel.Width = 200;
+            // 
+            // FormPessoaConsultar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -178,7 +178,7 @@
             this.Controls.Add(this.labelPesquisar);
             this.Controls.Add(this.dataGridViewPesquisarCliente);
             this.KeyPreview = true;
-            this.Name = "FormClienteConsultar";
+            this.Name = "FormPessoaConsultar";
             this.Text = "Consultar Cliente";
             this.Load += new System.EventHandler(this.FormClienteConsultar_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormClienteConsultar_KeyDown);
@@ -197,10 +197,10 @@
         private System.Windows.Forms.Button buttonFechar;
         private System.Windows.Forms.Button buttonSelecionar;
         private System.Windows.Forms.Button buttonBuscar;
+        private System.Windows.Forms.PictureBox pictureBoxLoad;
         private System.Windows.Forms.DataGridViewTextBoxColumn colId;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColNome;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColEmail;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColTel;
-        private System.Windows.Forms.PictureBox pictureBoxLoad;
     }
 }

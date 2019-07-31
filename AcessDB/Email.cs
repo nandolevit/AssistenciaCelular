@@ -16,7 +16,6 @@ namespace AccessDB
     {
         MailMessage mail = new MailMessage();
         SmtpClient smtp = new SmtpClient();
-
         public string smtpEmailFrom { get; set; }
         public string smtpSenha { get; set; }
         public string Host { get; set; }
@@ -45,18 +44,22 @@ namespace AccessDB
 
             if (email.emailTo.Length > 0)
                 foreach (string item in email.emailTo)
-                    mail.To.Add(new MailAddress(item));
+                    mail.To.Add(new MailAddress(item.Trim()));
 
             if (email.emailCC.Length > 0)
                 foreach (string item in email.emailCC)
-                    mail.CC.Add(new MailAddress(item));
+                    mail.CC.Add(new MailAddress(item.Trim()));
 
             if (email.emailCCo.Length > 0)
                 foreach (string item in email.emailCCo)
-                    mail.Bcc.Add(new MailAddress(item));
+                    mail.Bcc.Add(new MailAddress(item.Trim()));
 
             mail.Subject = email.emailAssunto;
             mail.Body = email.emailMessage;
+
+            if (email.emailAnexo.Length > 0)
+                foreach (string item in email.emailAnexo)
+                    mail.Attachments.Add(new Attachment(item));
 
             return mail;
         }

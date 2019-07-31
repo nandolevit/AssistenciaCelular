@@ -171,11 +171,11 @@
     <Compile Include="Caixa\FormCaixa.Designer.cs">
       <DependentUpon>FormCaixa.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pessoa\FormClienteConsultar.cs">
+    <Compile Include="Pessoa\FormPessoaConsultar.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Pessoa\FormClienteConsultar.Designer.cs">
-      <DependentUpon>FormClienteConsultar.cs</DependentUpon>
+    <Compile Include="Pessoa\FormPessoaConsultar.Designer.cs">
+      <DependentUpon>FormPessoaConsultar.cs</DependentUpon>
     </Compile>
     <Compile Include="FormConexao.cs">
       <SubType>Form</SubType>
@@ -419,8 +419,8 @@
     <EmbeddedResource Include="Caixa\FormCaixa.resx">
       <DependentUpon>FormCaixa.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pessoa\FormClienteConsultar.resx">
-      <DependentUpon>FormClienteConsultar.cs</DependentUpon>
+    <EmbeddedResource Include="Pessoa\FormPessoaConsultar.resx">
+      <DependentUpon>FormPessoaConsultar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormConexao.resx">
       <DependentUpon>FormConexao.cs</DependentUpon>
@@ -682,6 +682,7 @@
     <None Include="Resources\icons8_Smartphone_Tablet_32.png" />
     <None Include="Resources\load.gif" />
     <None Include="Resources\icons8_Gmail_32.png" />
+    <None Include="Resources\icons8_Attach_32.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

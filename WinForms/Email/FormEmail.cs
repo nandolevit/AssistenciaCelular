@@ -15,8 +15,10 @@ namespace WinForms
 {
     public partial class FormEmail : Form
     {
-        EmailNegocio negocioEmail = new EmailNegocio();
+        EmailNegocio negocioEmail;
         EmailInfo infoEmail;
+        PessoaInfo infoPessoa;
+        List<string> listAnexo = new List<string>();
         public FormEmail()
         {
             InitializeComponent();
@@ -31,6 +33,9 @@ namespace WinForms
             if (CampoObrigatorio())
             {
                 PreencherEmail();
+
+                negocioEmail = new EmailNegocio(Form1.EmpresaEmail);
+
                 if (negocioEmail.EnviarEmailGmail(infoEmail))
                     FormMessage.ShowMessegeWarning("Mensagem enviada por email");
             }
@@ -46,6 +51,14 @@ namespace WinForms
                 emailCCo = string.IsNullOrEmpty(textBoxCCo.Text) ? new string[0] : textBoxCCo.Text.Split(';'),
                 emailMessage = textBoxMessage.Text
             };
+
+            if (listBoxAnexo.Items.Count > 0)
+            {
+                foreach (string item in listBoxAnexo.Items)
+                    listAnexo.Add(item);
+
+                infoEmail.emailAnexo = listAnexo.ToArray();
+            }
         }
 
         private bool CampoObrigatorio()
@@ -72,6 +85,85 @@ namespace WinForms
             }
 
             return true;
+        }
+
+        private void ButtonTo_Click(object sender, EventArgs e)
+        {
+            Consultar(textBoxPara);
+        }
+
+        private void Consultar(object txt)
+        {
+            TextBox box = (TextBox)txt;
+
+
+            FormPessoaConsultar formPessoaConsultar = new FormPessoaConsultar(true);
+            if (formPessoaConsultar.ShowDialog(this) == DialogResult.Yes)
+            {
+                infoPessoa = formPessoaConsultar.SelecionadoCliente;
+
+                if (infoPessoa.pssemail == "sem@email.com")
+                {
+                    FormMessage.ShowMessegeWarning("A pessoa selecionada não possui e-mail cadastrado!");
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(box.Text))
+                    box.Text = infoPessoa.pssemail;
+                else
+                    box.Text += ";" + infoPessoa.pssemail;
+            }
+
+            
+        }
+
+        private void ButtonCC_Click(object sender, EventArgs e)
+        {
+            Consultar(textBoxCC);
+        }
+
+        private void ButtonCCo_Click(object sender, EventArgs e)
+        {
+            Consultar(textBoxCCo);
+        }
+
+        private void TextBoxMessage_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ButtonAnexo_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog dialog = new OpenFileDialog())
+            {
+                dialog.Multiselect = true;
+
+                if (dialog.ShowDialog(this) == DialogResult.OK)
+                {
+                    foreach (string item in dialog.FileNames)
+                        listBoxAnexo.Items.Add(item);
+                }
+            }
+        }
+
+        private void FormEmail_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Escape:
+                    this.DialogResult = DialogResult.Cancel;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void ButtonRemove_Click(object sender, EventArgs e)
+        {
+            if (listBoxAnexo.SelectedIndex > 0)
+                listBoxAnexo.Items.RemoveAt(listBoxAnexo.SelectedIndex);
+            else
+                FormMessage.ShowMessegeWarning("Selecione o anexo que deseja remover!");
         }
     }
 }

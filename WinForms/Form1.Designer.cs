@@ -116,6 +116,7 @@
             this.abrirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timerPrincipal = new System.Windows.Forms.Timer(this.components);
             this.panelPrincipal = new System.Windows.Forms.Panel();
+            this.buttonEmail = new System.Windows.Forms.Button();
             this.buttonFornecedor = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -139,7 +140,6 @@
             this.toolTipInforme = new System.Windows.Forms.ToolTip(this.components);
             this.panelOnline = new System.Windows.Forms.Panel();
             this.panelCentral = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
             this.menuStripPrincipal.SuspendLayout();
             this.statusStripBarra.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -161,7 +161,7 @@
             this.encerrarToolStripMenuItem});
             this.menuStripPrincipal.Location = new System.Drawing.Point(0, 0);
             this.menuStripPrincipal.Name = "menuStripPrincipal";
-            this.menuStripPrincipal.Size = new System.Drawing.Size(1008, 24);
+            this.menuStripPrincipal.Size = new System.Drawing.Size(1089, 24);
             this.menuStripPrincipal.TabIndex = 0;
             this.menuStripPrincipal.Text = "menuStrip1";
             // 
@@ -729,7 +729,7 @@
             this.toolStripStatusLabelTime});
             this.statusStripBarra.Location = new System.Drawing.Point(0, 707);
             this.statusStripBarra.Name = "statusStripBarra";
-            this.statusStripBarra.Size = new System.Drawing.Size(1008, 22);
+            this.statusStripBarra.Size = new System.Drawing.Size(1089, 22);
             this.statusStripBarra.TabIndex = 3;
             this.statusStripBarra.Text = "statusStrip1";
             // 
@@ -821,7 +821,7 @@
             // panelPrincipal
             // 
             this.panelPrincipal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.panelPrincipal.Controls.Add(this.button1);
+            this.panelPrincipal.Controls.Add(this.buttonEmail);
             this.panelPrincipal.Controls.Add(this.buttonFornecedor);
             this.panelPrincipal.Controls.Add(this.label7);
             this.panelPrincipal.Controls.Add(this.label6);
@@ -846,8 +846,27 @@
             this.panelPrincipal.Enabled = false;
             this.panelPrincipal.Location = new System.Drawing.Point(0, 24);
             this.panelPrincipal.Name = "panelPrincipal";
-            this.panelPrincipal.Size = new System.Drawing.Size(1008, 100);
+            this.panelPrincipal.Size = new System.Drawing.Size(1089, 100);
             this.panelPrincipal.TabIndex = 1;
+            // 
+            // buttonEmail
+            // 
+            this.buttonEmail.BackColor = System.Drawing.Color.Transparent;
+            this.buttonEmail.FlatAppearance.BorderSize = 0;
+            this.buttonEmail.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonEmail.ForeColor = System.Drawing.Color.White;
+            this.buttonEmail.Image = global::WinForms.Properties.Resources.icons8_Gmail_32;
+            this.buttonEmail.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.buttonEmail.Location = new System.Drawing.Point(760, 3);
+            this.buttonEmail.Name = "buttonEmail";
+            this.buttonEmail.Size = new System.Drawing.Size(70, 70);
+            this.buttonEmail.TabIndex = 21;
+            this.buttonEmail.Text = "E-mail";
+            this.buttonEmail.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.toolTipInforme.SetToolTip(this.buttonEmail, "Trocar turno");
+            this.buttonEmail.UseVisualStyleBackColor = false;
+            this.buttonEmail.Click += new System.EventHandler(this.ButtonEmail_Click);
             // 
             // buttonFornecedor
             // 
@@ -869,7 +888,7 @@
             this.label7.ForeColor = System.Drawing.Color.Silver;
             this.label7.Location = new System.Drawing.Point(757, 75);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(150, 16);
+            this.label7.Size = new System.Drawing.Size(215, 16);
             this.label7.TabIndex = 19;
             this.label7.Text = "Outros";
             this.label7.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -954,7 +973,7 @@
             this.buttonSair.ForeColor = System.Drawing.Color.White;
             this.buttonSair.Image = global::WinForms.Properties.Resources.icons8_Shutdown_32;
             this.buttonSair.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.buttonSair.Location = new System.Drawing.Point(837, 3);
+            this.buttonSair.Location = new System.Drawing.Point(902, 3);
             this.buttonSair.Name = "buttonSair";
             this.buttonSair.Size = new System.Drawing.Size(70, 70);
             this.buttonSair.TabIndex = 0;
@@ -973,7 +992,7 @@
             this.buttonSenha.ForeColor = System.Drawing.Color.White;
             this.buttonSenha.Image = global::WinForms.Properties.Resources.icons8_Secure_32;
             this.buttonSenha.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.buttonSenha.Location = new System.Drawing.Point(771, 3);
+            this.buttonSenha.Location = new System.Drawing.Point(836, 3);
             this.buttonSenha.Name = "buttonSenha";
             this.buttonSenha.Size = new System.Drawing.Size(70, 70);
             this.buttonSenha.TabIndex = 15;
@@ -1171,33 +1190,14 @@
             this.panelCentral.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelCentral.Location = new System.Drawing.Point(215, 124);
             this.panelCentral.Name = "panelCentral";
-            this.panelCentral.Size = new System.Drawing.Size(793, 583);
+            this.panelCentral.Size = new System.Drawing.Size(874, 583);
             this.panelCentral.TabIndex = 5;
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.Transparent;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Image = global::WinForms.Properties.Resources.icons8_Time_Machine_32;
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.button1.Location = new System.Drawing.Point(903, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(70, 70);
-            this.button1.TabIndex = 21;
-            this.button1.Text = "Turno";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.toolTipInforme.SetToolTip(this.button1, "Trocar turno");
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1008, 729);
+            this.ClientSize = new System.Drawing.Size(1089, 729);
             this.Controls.Add(this.panelCentral);
             this.Controls.Add(this.panelOnline);
             this.Controls.Add(this.panelPrincipal);
@@ -1338,7 +1338,7 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelPcNome;
         private System.Windows.Forms.ToolStripMenuItem fornecedorToolStripMenuItem;
         private System.Windows.Forms.Button buttonFornecedor;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonEmail;
     }
 }
 

@@ -46,7 +46,7 @@ namespace WinForms
         {
             FuncNegocios funcNegocios = new FuncNegocios(Form1.Empresa.empconexao);
             PessoaColecao colecao = new PessoaColecao();
-            PessoaColecao funcColecao = funcNegocios.ConsultarPessoaTodos(EnumPessoaTipo.Funcionario);
+            PessoaColecao funcColecao = funcNegocios.ConsultarPessoaPorTipo(EnumPessoaTipo.Funcionario);
 
             PessoaInfo funcInfo = new PessoaInfo
             {

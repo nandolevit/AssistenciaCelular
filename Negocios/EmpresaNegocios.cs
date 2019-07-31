@@ -24,6 +24,37 @@ namespace Negocios
         AccessDbMySql accessDbMySql = new AccessDbMySql();
         EmpresaAccessDB empresaAccessDB = new EmpresaAccessDB();
 
+        public EmpresaEmailInfo ConsultarEmpresaEmail(int id)
+        {
+            if (accessDbMySql.ConectarSys())
+            {
+                accessDbMySql.AddParametrosMySql("@id", id);
+                DataTable dataTable = accessDbMySql.dataTableMySql("spConsultarEmpresaEmail");
+
+                if (dataTable != null)
+                    return PreencherEmpresaEmail(dataTable);
+                else
+                    return null;
+            }
+            else
+                return null;
+        }
+
+        private EmpresaEmailInfo PreencherEmpresaEmail(DataTable dataTable)
+        {
+            EmpresaEmailInfo email = new EmpresaEmailInfo
+            {
+                emailenviar = Convert.ToString(dataTable.Rows[0]["emailenviar"]).Split(';'),
+                emailid = Convert.ToInt32(dataTable.Rows[0]["emailid"]),
+                emailidemp = Convert.ToInt32(dataTable.Rows[0]["emailidemp"]),
+                emaillogin = Convert.ToString(dataTable.Rows[0]["emaillogin"]),
+                emailsenha = Convert.ToString(dataTable.Rows[0]["emailsenha"])
+            };
+
+            return email;
+
+        }
+
         public int UpdateComputadorLog(ComputerInfo comp)
         {
             if (accessDbMySql.Conectar(EmpConexao))
@@ -268,7 +299,8 @@ namespace Negocios
                     empconexao = Convert.ToString(row["empconexao"]),
                     empativada = Convert.ToInt32(row["empativada"]),
                     empdataativo = Convert.ToDateTime(row["empdataativo"]),
-                    empobs = Convert.ToString(row["empobs"])
+                    empobs = Convert.ToString(row["empobs"]),
+                    empid = Convert.ToInt32(row["empid"])
                 };
 
                 empresaColecao.Add(empresaInfo);

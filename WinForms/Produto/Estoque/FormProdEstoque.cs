@@ -41,7 +41,7 @@ namespace WinForms
 
         private void BuscarFornecedor()
         {
-            PessoaColecao colecao = negocioPessoa.ConsultarPessoaTodos(EnumPessoaTipo.Fornecedor);
+            PessoaColecao colecao = negocioPessoa.ConsultarPessoaPorTipo(EnumPessoaTipo.Fornecedor);
             Form_ConsultarColecao form_ConsultarColecao = new Form_ConsultarColecao();
 
             if (colecao != null)

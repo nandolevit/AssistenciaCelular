@@ -9,6 +9,7 @@ namespace ObjTransfer
     [Serializable]
     public class EmpresaInfo
     {
+        public int empid { get; set; }
         public string empcnpj { get; set; }
         public string emprazaosocial { get; set; }
         public string empfantasia { get; set; }

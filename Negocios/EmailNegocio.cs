@@ -12,11 +12,22 @@ namespace Negocios
     public class EmailNegocio
     {
         Email email;
+        EmpresaEmailInfo empresa;
+
+        public EmailNegocio(EmpresaEmailInfo emp)
+        {
+            empresa = emp;
+        }
 
         public bool EnviarEmailGmail(EmailInfo emailInfo)
         {
-            email = new Email("smtp.gmail.com", "nandolevit2012@gmail.com", "wizykovisc");
-            return email.EnviarEmail(emailInfo);
+            if (empresa != null)
+            {
+                email = new Email("smtp.gmail.com", empresa.emaillogin, empresa.emailsenha);
+                return email.EnviarEmail(emailInfo);
+            }
+            else
+                return false;
         }
     }
 }

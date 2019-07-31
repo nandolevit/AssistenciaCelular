@@ -13,6 +13,7 @@ namespace ObjTransfer
         public string[] emailCCo { get; set; }
         public string emailAssunto { get; set; }
         public string emailMessage { get; set; }
+        public string[] emailAnexo { get; set; }
 
     }
 }

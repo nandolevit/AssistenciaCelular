@@ -74,9 +74,24 @@ namespace Negocios
                 return null;
         }
 
-        public PessoaColecao ConsultarPessoaTodos(EnumPessoaTipo tipo, bool assistencia = true)
+        public PessoaColecao ConsultarPessoaPorTipo(EnumPessoaTipo tipo, bool assistencia = true)
         {
             return ConsultarPessoaDescricao("%", tipo, assistencia);
+        }
+
+        public PessoaColecao ConsultarPessoaDescricaoTodos(string descricao)
+        {
+            if (accessDbMySql.Conectar(EmpConexao))
+            {
+                accessDbMySql.AddParametrosMySql("@descricao", descricao);
+                DataTable dataTable = accessDbMySql.dataTableMySql("spConsultarPessoaDescricaoTodos");
+                if (dataTable != null)
+                    return PreencherPessoa(dataTable);
+                else
+                    return null;
+            }
+            else
+                return null;
         }
 
         public PessoaColecao ConsultarPessoaDescricao(string descricao, EnumPessoaTipo tipo, bool assistencia = true)

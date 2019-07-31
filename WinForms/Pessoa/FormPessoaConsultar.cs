@@ -13,17 +13,24 @@ using ObjTransfer;
 
 namespace WinForms
 {
-    public partial class FormClienteConsultar : Form
+    public partial class FormPessoaConsultar : Form
     {
         Form1 form1 = new Form1();
         Thread thread;
         PessoaNegocio negocioPessoa;
         PessoaInfo inforPessoa;
         PessoaColecao colecaoPessoa;
+        public bool Todos { get; set; }
         public PessoaInfo SelecionadoCliente { get; set; }
         string pesquisa;
 
-        public FormClienteConsultar()
+        public FormPessoaConsultar(bool todos)
+        {
+            Inicializar();
+            Todos = todos;
+        }
+
+        public FormPessoaConsultar()
         {
             Inicializar();
         }
@@ -44,7 +51,11 @@ namespace WinForms
 
         private void RealizarPesquisaThread()
         {
-            colecaoPessoa = negocioPessoa.ConsultarPessoaDescricao(pesquisa, EnumPessoaTipo.Cliente);
+            if (Todos)
+                colecaoPessoa = negocioPessoa.ConsultarPessoaDescricaoTodos(pesquisa);
+            else
+                colecaoPessoa = negocioPessoa.ConsultarPessoaDescricao(pesquisa, EnumPessoaTipo.Cliente);
+
             Form1.encerrarThread = true;
             pictureBoxLoad.Visible = false;
         }

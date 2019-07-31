@@ -75,6 +75,7 @@
     <Compile Include="CodDescricaoInfo.cs" />
     <Compile Include="ComputerColecao.cs" />
     <Compile Include="ComputerInfo.cs" />
+    <Compile Include="Pessoa\Empresa\EmpresaEmailInfo.cs" />
     <Compile Include="Pessoa\Enum\EnumAssistencia.cs" />
     <Compile Include="Pessoa\Enum\EnumPessoaTipo.cs" />
     <Compile Include="Pessoa\PessoaColecao.cs" />
@@ -129,8 +130,8 @@
     <Compile Include="Pessoa\CepInfo.cs" />
     <Compile Include="Produto\ContagemProdColecao.cs" />
     <Compile Include="Produto\ContagemProdInfo.cs" />
-    <Compile Include="Pessoa\EmpresaColecao.cs" />
-    <Compile Include="Pessoa\EmpresaInfo.cs" />
+    <Compile Include="Pessoa\Empresa\EmpresaColecao.cs" />
+    <Compile Include="Pessoa\Empresa\EmpresaInfo.cs" />
     <Compile Include="Entrada\EntradaSaidaColecao.cs" />
     <Compile Include="Entrada\EntradaSaidaInfo.cs" />
     <Compile Include="Entrada\EntradaSaidaPesquisar.cs" />

@@ -99,17 +99,21 @@ namespace WinForms
             thread = new Thread(PreencherCaixaThread);
             form1.ExecutarThread(thread);
             this.Activate();
-            EmailNegocio negocioEmail = new EmailNegocio();
-            EmailInfo email = new EmailInfo
-            {
-                emailAssunto = "Caixa Fechado - " + caixaAbrirInfo.caixaabrirdata.Date.ToShortDateString(),
-                emailMessage = ArrCupom[0],
-                emailTo = new string[]{"nandolevit2012@gmail.com"},
-                emailCC = new string[0],
-                emailCCo = new string [0]
-            };
 
-            negocioEmail.EnviarEmailGmail(email);
+            if (Form1.EmpresaEmail != null)
+            {
+                EmailNegocio negocioEmail = new EmailNegocio(Form1.EmpresaEmail);
+                EmailInfo email = new EmailInfo
+                {
+                    emailAssunto = "Caixa Fechado - " + caixaAbrirInfo.caixaabrirdata.Date.ToShortDateString(),
+                    emailMessage = ArrCupom[0],
+                    emailTo = Form1.EmpresaEmail.emailenviar,
+                    emailCC = new string[0],
+                    emailCCo = new string[0]
+                };
+
+                negocioEmail.EnviarEmailGmail(email);
+            }
 
             PreencherForm(ArrCupom[0]);
         }

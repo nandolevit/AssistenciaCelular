@@ -24,6 +24,7 @@ namespace WinForms
         public static bool FecharFormCarregando { get; set; }
 
         public static EmpresaInfo Empresa { get; set; }
+        public static EmpresaEmailInfo EmpresaEmail { get; set; }
         public static UnidadeInfo Unidade { get; set; }
         public static UserInfo User { get; set; }
         public static ComputerInfo Server { get; set; }
@@ -265,6 +266,10 @@ namespace WinForms
                 {
                     if (User.usenovologin == 0)
                     {
+                        EmpresaEmail = negocioEmp.ConsultarEmpresaEmail(Empresa.empid);
+                        if (EmpresaEmail == null)
+                            buttonEmail.Enabled = false;
+
                         panelPrincipal.Enabled = true;
 
                         menuStripPrincipal.Enabled = true;
@@ -707,7 +712,7 @@ namespace WinForms
 
         private void BuscarCliente()
         {
-            FormClienteConsultar formClienteConsultar = new FormClienteConsultar();
+            FormPessoaConsultar formClienteConsultar = new FormPessoaConsultar();
             FormAbertos(formClienteConsultar);
         }
 
@@ -863,7 +868,7 @@ namespace WinForms
             CadPessoa(EnumPessoaTipo.Fornecedor);
         }
 
-        private void Button1_Click(object sender, EventArgs e)
+        private void ButtonEmail_Click(object sender, EventArgs e)
         {
             FormEmail formEmail = new FormEmail();
             formEmail.ShowDialog(this);

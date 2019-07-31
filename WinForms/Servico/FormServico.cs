@@ -269,7 +269,7 @@ namespace WinForms
 
         private void ButtonCliente_Click(object sender, EventArgs e)
         {
-            FormClienteConsultar formClienteConsultar = new FormClienteConsultar();
+            FormPessoaConsultar formClienteConsultar = new FormPessoaConsultar();
             if (formClienteConsultar.ShowDialog(this) == DialogResult.Yes)
             {
                 infoPessoa = formClienteConsultar.SelecionadoCliente;

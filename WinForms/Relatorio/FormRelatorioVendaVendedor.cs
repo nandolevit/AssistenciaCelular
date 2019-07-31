@@ -119,7 +119,7 @@ namespace WinForms
 
             funcColecao.Add(funcInfo);
 
-            PessoaColecao colecao = funcNegocios.ConsultarPessoaTodos(EnumPessoaTipo.Funcionario);
+            PessoaColecao colecao = funcNegocios.ConsultarPessoaPorTipo(EnumPessoaTipo.Funcionario);
 
             foreach (PessoaInfo func in colecao)
                 funcColecao.Add(func);

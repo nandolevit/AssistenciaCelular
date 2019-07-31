@@ -29,7 +29,7 @@ namespace WinForms
         {
             PessoaColecao funcColecao = new PessoaColecao();
 
-            funcColecao = funcNegocios.ConsultarPessoaTodos(EnumPessoaTipo.Funcionario);
+            funcColecao = funcNegocios.ConsultarPessoaPorTipo(EnumPessoaTipo.Funcionario);
 
             dataGridViewFunc.DataSource = null;
             dataGridViewFunc.DataSource = funcColecao;

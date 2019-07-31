@@ -691,7 +691,7 @@ namespace WinForms
         {
             if (VendaVip)
             {
-                FormClienteConsultar formClienteConsultar = new FormClienteConsultar();
+                FormPessoaConsultar formClienteConsultar = new FormPessoaConsultar();
                 formClienteConsultar.ShowDialog(this);
                 infoPessoa =  new PessoaInfo();
 
@@ -748,7 +748,7 @@ namespace WinForms
             {
                 Form_ConsultarColecao form_ConsultarColecao = new Form_ConsultarColecao();
                 PessoaColecao funcColecao = new PessoaColecao();
-                funcColecao = funcNegocios.ConsultarPessoaTodos(EnumPessoaTipo.Funcionario);
+                funcColecao = funcNegocios.ConsultarPessoaPorTipo(EnumPessoaTipo.Funcionario);
 
                 foreach (PessoaInfo func in funcColecao)
                 {
