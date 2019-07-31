@@ -212,7 +212,6 @@
             this.groupBoxServico.TabIndex = 0;
             this.groupBoxServico.TabStop = false;
             this.groupBoxServico.Text = "Serviço:";
-            this.groupBoxServico.Visible = false;
             // 
             // pictureBoxLoad
             // 

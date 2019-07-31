@@ -20,6 +20,8 @@ namespace WinForms
         PessoaNegocio negocioPessoa;
         PessoaInfo inforPessoa;
         PessoaColecao colecaoPessoa;
+
+        EnumPessoaTipo enumPessoa;
         public bool Todos { get; set; }
         public PessoaInfo SelecionadoCliente { get; set; }
         string pesquisa;
@@ -30,9 +32,11 @@ namespace WinForms
             Todos = todos;
         }
 
-        public FormPessoaConsultar()
+        public FormPessoaConsultar(EnumPessoaTipo pessoa)
         {
             Inicializar();
+            enumPessoa = pessoa;
+            labelTitle.Text += pessoa.ToString();
         }
 
         private void Inicializar()
@@ -54,7 +58,7 @@ namespace WinForms
             if (Todos)
                 colecaoPessoa = negocioPessoa.ConsultarPessoaDescricaoTodos(pesquisa);
             else
-                colecaoPessoa = negocioPessoa.ConsultarPessoaDescricao(pesquisa, EnumPessoaTipo.Cliente);
+                colecaoPessoa = negocioPessoa.ConsultarPessoaDescricao(pesquisa, enumPessoa);
 
             Form1.encerrarThread = true;
             pictureBoxLoad.Visible = false;
@@ -74,6 +78,7 @@ namespace WinForms
         {
             if (colecaoPessoa != null)
             {
+                pictureBoxLoad.Visible = false;
                 dataGridViewPesquisarCliente.DataSource = colecaoPessoa;
                 dataGridViewPesquisarCliente.Select();
             }

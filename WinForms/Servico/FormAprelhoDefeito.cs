@@ -102,20 +102,25 @@ namespace WinForms
                     infoCelular = colecaoCelular[0];
                 }
             }
+            else
+                AbrirIphoneModelo();
         }
 
         private void AbrirListaAparelho(bool modelo = false)
         {
             Form_ConsultarColecao colecao = new Form_ConsultarColecao();
-            foreach (IphoneCelularInfo aparelho in colecaoCelular)
+            if (colecaoCelular != null)
             {
-                Form_Consultar form_Consultar = new Form_Consultar
+                foreach (IphoneCelularInfo aparelho in colecaoCelular)
                 {
-                    Cod = string.Format("{0:00000}", aparelho.celid),
-                    Descricao = aparelho.ToString()
-                };
+                    Form_Consultar form_Consultar = new Form_Consultar
+                    {
+                        Cod = string.Format("{0:00000}", aparelho.celid),
+                        Descricao = aparelho.ToString()
+                    };
 
-                colecao.Add(form_Consultar);
+                    colecao.Add(form_Consultar);
+                }
             }
 
             FormConsultar_Cod_Descricao formConsultar_Cod_Descricao = new FormConsultar_Cod_Descricao(colecao, "Aparelho");
@@ -177,6 +182,11 @@ namespace WinForms
         }
 
         private void ButtonAddAparelho_Click(object sender, EventArgs e)
+        {
+            AbrirIphoneModelo();
+        }
+
+        private void AbrirIphoneModelo()
         {
             FormIphoneModelo formIphoneModelo = new FormIphoneModelo(infoCliente);
             if (formIphoneModelo.ShowDialog(this) == DialogResult.Yes)

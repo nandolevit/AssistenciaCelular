@@ -111,6 +111,29 @@ namespace Negocios
                 return null;
         }
 
+        public int UpdatePessoa(PessoaInfo pessoa)
+        {
+            if (accessDbMySql.Conectar(EmpConexao))
+            {
+                accessDbMySql.AddParametrosMySql("@id", pessoa.pssid);
+                accessDbMySql.AddParametrosMySql("@cpf", pessoa.psscpf);
+                accessDbMySql.AddParametrosMySql("@email", pessoa.pssemail);
+                accessDbMySql.AddParametrosMySql("@bairro", pessoa.pssendbairro);
+                accessDbMySql.AddParametrosMySql("@cep", pessoa.pssendcep);
+                accessDbMySql.AddParametrosMySql("@cidade", pessoa.pssendcidade);
+                accessDbMySql.AddParametrosMySql("@comp", pessoa.pssendcomplemento);
+                accessDbMySql.AddParametrosMySql("@log", pessoa.pssendlogradouro);
+                accessDbMySql.AddParametrosMySql("@uf", pessoa.pssenduf);
+                accessDbMySql.AddParametrosMySql("@niver", pessoa.pssniver);
+                accessDbMySql.AddParametrosMySql("@nome", pessoa.pssnome);
+                accessDbMySql.AddParametrosMySql("@telefone", pessoa.psstelefone);
+
+                return accessDbMySql.ExecutarScalarMySql("spUpdatePessoa");
+            }
+            else
+                return 0;
+        }
+
         public int InsertPessoa(PessoaInfo pessoa)
         {
             if (accessDbMySql.Conectar(EmpConexao))

@@ -28,18 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridViewPesquisarCliente = new System.Windows.Forms.DataGridView();
+            this.colId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColNome = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColTel = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.labelPesquisar = new System.Windows.Forms.Label();
             this.textBoxPesquisar = new System.Windows.Forms.TextBox();
             this.buttonFechar = new System.Windows.Forms.Button();
             this.buttonSelecionar = new System.Windows.Forms.Button();
             this.buttonBuscar = new System.Windows.Forms.Button();
             this.pictureBoxLoad = new System.Windows.Forms.PictureBox();
-            this.colId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColNome = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColTel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.labelTitle = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPesquisarCliente)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLoad)).BeginInit();
             this.SuspendLayout();
@@ -54,18 +55,53 @@
             this.ColNome,
             this.ColEmail,
             this.ColTel});
-            this.dataGridViewPesquisarCliente.Location = new System.Drawing.Point(12, 51);
+            this.dataGridViewPesquisarCliente.Location = new System.Drawing.Point(12, 80);
             this.dataGridViewPesquisarCliente.Name = "dataGridViewPesquisarCliente";
             this.dataGridViewPesquisarCliente.ReadOnly = true;
             this.dataGridViewPesquisarCliente.RowHeadersWidth = 10;
-            this.dataGridViewPesquisarCliente.Size = new System.Drawing.Size(1090, 490);
+            this.dataGridViewPesquisarCliente.Size = new System.Drawing.Size(1090, 461);
             this.dataGridViewPesquisarCliente.TabIndex = 3;
             this.dataGridViewPesquisarCliente.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewPesquisarCliente_CellDoubleClick);
+            // 
+            // colId
+            // 
+            this.colId.DataPropertyName = "pssid";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.Format = "000000";
+            this.colId.DefaultCellStyle = dataGridViewCellStyle4;
+            this.colId.HeaderText = "Id:";
+            this.colId.Name = "colId";
+            this.colId.ReadOnly = true;
+            this.colId.Width = 75;
+            // 
+            // ColNome
+            // 
+            this.ColNome.DataPropertyName = "pssnome";
+            this.ColNome.HeaderText = "Nome:";
+            this.ColNome.Name = "ColNome";
+            this.ColNome.ReadOnly = true;
+            this.ColNome.Width = 475;
+            // 
+            // ColEmail
+            // 
+            this.ColEmail.DataPropertyName = "pssemail";
+            this.ColEmail.HeaderText = "Email:";
+            this.ColEmail.Name = "ColEmail";
+            this.ColEmail.ReadOnly = true;
+            this.ColEmail.Width = 300;
+            // 
+            // ColTel
+            // 
+            this.ColTel.DataPropertyName = "psstelefone";
+            this.ColTel.HeaderText = "Telefone:";
+            this.ColTel.Name = "ColTel";
+            this.ColTel.ReadOnly = true;
+            this.ColTel.Width = 200;
             // 
             // labelPesquisar
             // 
             this.labelPesquisar.AutoSize = true;
-            this.labelPesquisar.Location = new System.Drawing.Point(12, 9);
+            this.labelPesquisar.Location = new System.Drawing.Point(12, 38);
             this.labelPesquisar.Name = "labelPesquisar";
             this.labelPesquisar.Size = new System.Drawing.Size(218, 13);
             this.labelPesquisar.TabIndex = 0;
@@ -73,7 +109,7 @@
             // 
             // textBoxPesquisar
             // 
-            this.textBoxPesquisar.Location = new System.Drawing.Point(12, 25);
+            this.textBoxPesquisar.Location = new System.Drawing.Point(12, 54);
             this.textBoxPesquisar.Name = "textBoxPesquisar";
             this.textBoxPesquisar.Size = new System.Drawing.Size(1034, 20);
             this.textBoxPesquisar.TabIndex = 1;
@@ -112,7 +148,7 @@
             this.buttonBuscar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.buttonBuscar.FlatAppearance.BorderSize = 0;
             this.buttonBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonBuscar.Location = new System.Drawing.Point(1052, 25);
+            this.buttonBuscar.Location = new System.Drawing.Point(1052, 53);
             this.buttonBuscar.Name = "buttonBuscar";
             this.buttonBuscar.Size = new System.Drawing.Size(28, 20);
             this.buttonBuscar.TabIndex = 2;
@@ -130,46 +166,23 @@
             this.pictureBoxLoad.TabStop = false;
             this.pictureBoxLoad.Visible = false;
             // 
-            // colId
+            // labelTitle
             // 
-            this.colId.DataPropertyName = "pssid";
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.Format = "000000";
-            this.colId.DefaultCellStyle = dataGridViewCellStyle1;
-            this.colId.HeaderText = "Id:";
-            this.colId.Name = "colId";
-            this.colId.ReadOnly = true;
-            this.colId.Width = 75;
-            // 
-            // ColNome
-            // 
-            this.ColNome.DataPropertyName = "pssnome";
-            this.ColNome.HeaderText = "Nome:";
-            this.ColNome.Name = "ColNome";
-            this.ColNome.ReadOnly = true;
-            this.ColNome.Width = 475;
-            // 
-            // ColEmail
-            // 
-            this.ColEmail.DataPropertyName = "pssemail";
-            this.ColEmail.HeaderText = "Email:";
-            this.ColEmail.Name = "ColEmail";
-            this.ColEmail.ReadOnly = true;
-            this.ColEmail.Width = 300;
-            // 
-            // ColTel
-            // 
-            this.ColTel.DataPropertyName = "psstelefone";
-            this.ColTel.HeaderText = "Telefone:";
-            this.ColTel.Name = "ColTel";
-            this.ColTel.ReadOnly = true;
-            this.ColTel.Width = 200;
+            this.labelTitle.Font = new System.Drawing.Font("Impact", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTitle.ForeColor = System.Drawing.Color.Maroon;
+            this.labelTitle.Location = new System.Drawing.Point(12, 9);
+            this.labelTitle.Name = "labelTitle";
+            this.labelTitle.Size = new System.Drawing.Size(1090, 29);
+            this.labelTitle.TabIndex = 8;
+            this.labelTitle.Text = "Consultar ";
+            this.labelTitle.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // FormPessoaConsultar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1114, 599);
+            this.Controls.Add(this.labelTitle);
             this.Controls.Add(this.pictureBoxLoad);
             this.Controls.Add(this.buttonBuscar);
             this.Controls.Add(this.buttonSelecionar);
@@ -202,5 +215,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColNome;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColEmail;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColTel;
+        private System.Windows.Forms.Label labelTitle;
     }
 }

@@ -18,12 +18,12 @@ namespace WinForms
     {
         Form1 form1 = new Form1();
         string cpf;
-        int codCargo;
 
         EnumPessoaTipo enumPessoa = new EnumPessoaTipo();
         PessoaInfo infoPessoa;
         public PessoaInfo SelecionadoPessoa { get; set; }
 
+        PessoaNegocio negocioPessoa;
         ClienteNegocios negocioCliente = new ClienteNegocios(Form1.Empresa.empconexao);
         FuncNegocios funcNegocios = new FuncNegocios(Form1.Empresa.empconexao);
         EmpresaNegocios empresaNegocios = new EmpresaNegocios(Form1.Empresa.empconexao);
@@ -40,6 +40,7 @@ namespace WinForms
         {
             Inicializar();
             infoPessoa = pessoa;
+            PreencherFormPessoa();
         }
 
         private void Inicializar()
@@ -66,9 +67,34 @@ namespace WinForms
             maskedTextBoxCep.Text = "44071700";
             textBoxCidade.Text = "Feira de Santana";
             textBoxComplemento.Text = "Santo Antônio dos Prazeres";
-            textBoxPontoReferencia.Text = "Santo Antônio dos Prazeres";
             textBoxLogradouro.Text = "2ª Travessa Quito";
             textBoxUF.Text = "ba";
+        }
+
+        private void PreencherFormPessoa()
+        {
+            textBoxId.Text = string.Format("{0:00000}", infoPessoa.pssid);
+            maskedTextBoxCpf.Text = infoPessoa.psscpf;
+            textBoxEmail.Text = infoPessoa.pssemail;
+            textBoxNome.Text = infoPessoa.pssnome;
+            textBoxNiver.Text = infoPessoa.pssniver.Date.ToShortDateString();
+
+            string[] tel = infoPessoa.psstelefone.Split(';');
+
+            if (tel.Length > 1)
+            {
+                maskedTextBoxTel1.Text = tel[0];
+                maskedTextBoxTel2.Text = tel[1];
+            }
+            else
+                maskedTextBoxTel1.Text = tel[0];
+
+            textBoxBairro.Text = infoPessoa.pssendbairro;
+            maskedTextBoxCep.Text = infoPessoa.pssendcep;
+            textBoxCidade.Text = infoPessoa.pssendcidade;
+            textBoxComplemento.Text = infoPessoa.pssendcomplemento;
+            textBoxLogradouro.Text = infoPessoa.pssendlogradouro;
+            textBoxUF.Text = infoPessoa.pssenduf;
         }
 
         private bool CamposObrigatorios()
@@ -98,41 +124,89 @@ namespace WinForms
                 return true;
         }
 
+        private void LimparForm()
+        {
+            textBoxId.Clear();
+            maskedTextBoxCpf.Clear();
+            textBoxEmail.Clear();
+            textBoxNome.Clear();
+            textBoxNiver.Clear();
+
+            maskedTextBoxTel1.Clear();
+            maskedTextBoxTel2.Clear();
+
+            textBoxBairro.Clear();
+            maskedTextBoxCep.Clear();
+            textBoxCidade.Clear();
+            textBoxComplemento.Clear();
+            textBoxLogradouro.Clear();
+            textBoxUF.Clear();
+
+            maskedTextBoxCpf.Select();
+        }
 
         private void PreencherPessoaInfo()
         {
-            infoPessoa = new PessoaInfo
-            {
-                pssendbairro = textBoxBairro.Text,
-                pssendcep = maskedTextBoxCep.Text,
-                pssendcidade = textBoxCidade.Text,
-                psscpf = maskedTextBoxCpf.Text,
-                pssendcomplemento = textBoxComplemento.Text,
-                pssemail = textBoxEmail.Text,
-                pssendlogradouro = textBoxLogradouro.Text,
-                pssnome = textBoxNome.Text,
-                psstelefone = maskedTextBoxTel1.Text + (string.IsNullOrEmpty(maskedTextBoxTel2.Text) ? "" : "/" + maskedTextBoxTel2.Text),
-                pssenduf = textBoxUF.Text,
-                pssiduser = Form1.User == null ? 0 : Form1.User.useidfuncionario,
-                pssidtipo = enumPessoa,
-                pssniver = string.IsNullOrEmpty(textBoxNiver.Text) ? DateTime.Now.Date : Convert.ToDateTime(textBoxNiver.Text).Date                
-            };
+            if (infoPessoa == null)
+                infoPessoa = new PessoaInfo();
+
+            infoPessoa.pssendbairro = textBoxBairro.Text;
+            infoPessoa.pssendcep = maskedTextBoxCep.Text;
+            infoPessoa.pssendcidade = textBoxCidade.Text;
+            infoPessoa.psscpf = maskedTextBoxCpf.Text;
+            infoPessoa.pssendcomplemento = textBoxComplemento.Text;
+            infoPessoa.pssemail = textBoxEmail.Text;
+            infoPessoa.pssendlogradouro = textBoxLogradouro.Text;
+            infoPessoa.pssnome = textBoxNome.Text;
+            infoPessoa.psstelefone = maskedTextBoxTel1.Text + (string.IsNullOrEmpty(maskedTextBoxTel2.Text) ? "" : "/" + maskedTextBoxTel2.Text);
+            infoPessoa.pssenduf = textBoxUF.Text;
+            infoPessoa.pssiduser = Form1.User == null ? 0 : Form1.User.useidfuncionario;
+            infoPessoa.pssidtipo = enumPessoa;
+            infoPessoa.pssniver = string.IsNullOrEmpty(textBoxNiver.Text) ? DateTime.Now.Date : Convert.ToDateTime(textBoxNiver.Text).Date;
 
             SelecionadoPessoa = infoPessoa;
         }
 
-        
+
 
         private void buttonSalvar_Click(object sender, EventArgs e)
         {
             if (CamposObrigatorios())
             {
+                negocioPessoa = new PessoaNegocio(Form1.Empresa.empconexao);
                 PreencherPessoaInfo();
-                this.DialogResult = DialogResult.Yes;
+
+                if (infoPessoa.pssid == 0)
+                {
+                    if (FormMessage.ShowMessegeQuestion("Deseja salvar este registro?") == DialogResult.Yes)
+                    {
+                        infoPessoa.pssid = negocioPessoa.InsertPessoa(infoPessoa);
+                        SelecionadoPessoa = infoPessoa;
+                        FormMessage.ShowMessegeInfo("Registro salvo com sucesso!");
+
+                        if (enumPessoa == EnumPessoaTipo.Funcionario)
+                            FormMessage.ShowMessegeInfo("O usuário e senha foram criados, no primeiro acesso deverá ser utilizado o CPF como LOGIN/SENHA!");
+
+                        if (this.Modal)
+                            this.DialogResult = DialogResult.Yes;
+                        else
+                            this.Close();
+                    }
+                }
+                else
+                {
+                    if (FormMessage.ShowMessegeQuestion("Deseja salvar as alterações para este registro?") == DialogResult.Yes)
+                    {
+                        negocioPessoa.UpdatePessoa(infoPessoa);
+                        FormMessage.ShowMessegeInfo("Alterações realizadas com sucesso!");
+                        this.DialogResult = DialogResult.OK;
+                    }
+                }
+
             }
         }
 
-        
+
 
         private void linkLabelCep_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -195,13 +269,21 @@ namespace WinForms
         }
         private void ConsultarCpf()
         {
-            //colecaoCliente = negocioCliente.ConsultarPorCpf(cpf);
+            if (infoPessoa == null)
+            {
+                infoPessoa = negocioCliente.ConsultarPessoaCpf(cpf);
 
-            //if (colecaoCliente != null)
-            //{
-            //    infoCliente = colecaoCliente[0];
-            //    PreencherFormCliente();
-            //}
+                if (infoPessoa != null)
+                {
+                    if (FormMessage.ShowMessegeQuestion("Cliente: " + infoPessoa.pssnome + " já está cadastrada com este CPF/CNPJ. Deseja abrir este registro?") == DialogResult.Yes)
+                        PreencherFormPessoa();
+                    else
+                    {
+                        infoPessoa = null;
+                        LimparForm();
+                    }
+                }
+            }
         }
 
         private void maskedTextBoxCpf_Enter(object sender, EventArgs e)
@@ -211,15 +293,15 @@ namespace WinForms
 
         private void buttonFechar_Click(object sender, EventArgs e)
         {
-            //if (config)
-            //    Application.Exit();
-            //else
-            //    this.Close();
+            if (this.Modal)
+               this.DialogResult = DialogResult.Cancel;
+            else
+                this.Close();
         }
 
         private void pictureBoxBuscarUnidade_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void buttonEnd_Click(object sender, EventArgs e)
@@ -266,7 +348,7 @@ namespace WinForms
 
             if (formConsultar_Cod_Descricao.DialogResult == DialogResult.Yes)
             {
-                codCargo = Convert.ToInt32(formConsultar_Cod_Descricao.Selecionado.Cod);
+                //codCargo = Convert.ToInt32(formConsultar_Cod_Descricao.Selecionado.Cod);
                 labelCargoDescricao.Text = formConsultar_Cod_Descricao.Selecionado.Descricao;
             }
         }

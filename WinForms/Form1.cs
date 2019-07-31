@@ -98,7 +98,7 @@ namespace WinForms
 
         private void MenuItemCliente_Click(object sender, EventArgs e)
         {
-            BuscarCliente();
+            BuscarPessoa(EnumPessoaTipo.Cliente);
         }
 
 
@@ -216,7 +216,11 @@ namespace WinForms
                 PessoaInfo pessoa = negocioPessoa.ConsultarPessoaPadrao(EnumPessoaTipo.Funcionario, false);
 
                 if (pessoa == null)
-                    CadPessoa(EnumPessoaTipo.Funcionario);
+                {
+                    FormPessoa formPessoa = new FormPessoa(pessoa);
+                    formPessoa.ShowDialog(this);
+                    formPessoa.Dispose();
+                }
             }
 
             formEmpresa.Dispose();
@@ -259,6 +263,8 @@ namespace WinForms
             accessLogin = new AccessLogin(Form1.Empresa.empconexao);
             negocioEmp = new EmpresaNegocios(Form1.Empresa.empconexao);
             negocioPessoa = new PessoaNegocio(Form1.Empresa.empconexao);
+
+        Iniciar:
             if (accessLogin.UserExist())
             {
                 FormLogin formLogin = new FormLogin();
@@ -296,6 +302,16 @@ namespace WinForms
 
                 formLogin.Dispose();
 
+            }
+            else
+            {
+                FormPessoa formPessoa = new FormPessoa(EnumPessoaTipo.Funcionario);
+                if (formPessoa.ShowDialog(this) == DialogResult.Yes)
+                {
+                    goto Iniciar;
+                }
+                else
+                    Application.Exit();
             }
         }
 
@@ -443,8 +459,7 @@ namespace WinForms
 
         private void MenuItemConsultarFunc_Click(object sender, EventArgs e)
         {
-            FormFuncConsultar formFuncConsultar = new FormFuncConsultar();
-            FormAbertos(formFuncConsultar);
+            BuscarPessoa(EnumPessoaTipo.Funcionario);
         }
 
         private void MenuItemSair_Click(object sender, EventArgs e)
@@ -650,18 +665,15 @@ namespace WinForms
         private void CadPessoa(EnumPessoaTipo pessoa)
         {
             FormPessoa formPessoa = new FormPessoa(pessoa);
-            if (formPessoa.ShowDialog(this) == DialogResult.Yes)
+
+            if (pessoa == EnumPessoaTipo.Cliente)
             {
-                PessoaInfo p = formPessoa.SelecionadoPessoa;
-                int id = negocioPessoa.InsertPessoa(p);
-
-                if (id > 0)
+                if (formPessoa.ShowDialog(this) == DialogResult.Yes)
                 {
-                    p.pssid = id;
+                    PessoaInfo p = formPessoa.SelecionadoPessoa;
+                    int id = p.pssid;
 
-                    FormMessage.ShowMessegeInfo("Registro salvo com sucesso!");
-
-                    if (pessoa == EnumPessoaTipo.Cliente)
+                    if (id > 0)
                     {
                         FormServicoTipo formServicoTipo = new FormServicoTipo();
                         if (formServicoTipo.ShowDialog(this) == DialogResult.Yes)
@@ -677,15 +689,16 @@ namespace WinForms
 
                         }
                         formServicoTipo.Dispose();
-                    }
-                    else if (pessoa == EnumPessoaTipo.Funcionario)
-                    {
-                        FormMessage.ShowMessegeWarning("Um novo usuário foi criado para este funcionário. Para acessar, bastar inserir o CPF no login e senha!");
+                        
                     }
                 }
-            }
 
-            formPessoa.Dispose();
+                formPessoa.Dispose();
+            }
+            else
+                FormAbertos(formPessoa);
+
+            
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -707,12 +720,12 @@ namespace WinForms
 
         private void buttonBuscarCliente_Click(object sender, EventArgs e)
         {
-            BuscarCliente();
+            BuscarPessoa(EnumPessoaTipo.Cliente);
         }
 
-        private void BuscarCliente()
+        private void BuscarPessoa(EnumPessoaTipo enumPessoa)
         {
-            FormPessoaConsultar formClienteConsultar = new FormPessoaConsultar();
+            FormPessoaConsultar formClienteConsultar = new FormPessoaConsultar(enumPessoa);
             FormAbertos(formClienteConsultar);
         }
 
@@ -807,7 +820,7 @@ namespace WinForms
                         CadPessoa(EnumPessoaTipo.Cliente);
                         break;
                     case Keys.F2:
-                        BuscarCliente();
+                        BuscarPessoa(EnumPessoaTipo.Cliente);
                         break;
                     case Keys.F3:
                         BuscarServico();

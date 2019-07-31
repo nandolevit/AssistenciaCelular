@@ -60,7 +60,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(110, 12);
+            this.label1.Location = new System.Drawing.Point(110, 15);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(32, 13);
             this.label1.TabIndex = 1;
@@ -84,7 +84,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(110, 96);
+            this.label2.Location = new System.Drawing.Point(110, 99);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(30, 13);
             this.label2.TabIndex = 7;
@@ -100,7 +100,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(110, 54);
+            this.label3.Location = new System.Drawing.Point(110, 57);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(24, 13);
             this.label3.TabIndex = 4;
@@ -116,7 +116,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 138);
+            this.label4.Location = new System.Drawing.Point(12, 141);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(48, 13);
             this.label4.TabIndex = 10;
@@ -134,6 +134,7 @@
             this.textBoxMessage.Location = new System.Drawing.Point(12, 196);
             this.textBoxMessage.Multiline = true;
             this.textBoxMessage.Name = "textBoxMessage";
+            this.textBoxMessage.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBoxMessage.Size = new System.Drawing.Size(805, 283);
             this.textBoxMessage.TabIndex = 12;
             this.textBoxMessage.TextChanged += new System.EventHandler(this.TextBoxMessage_TextChanged);
@@ -142,7 +143,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.ForeColor = System.Drawing.Color.Maroon;
-            this.label5.Location = new System.Drawing.Point(169, 12);
+            this.label5.Location = new System.Drawing.Point(169, 15);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(622, 13);
             this.label5.TabIndex = 13;

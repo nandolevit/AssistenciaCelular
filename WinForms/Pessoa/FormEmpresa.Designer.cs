@@ -439,6 +439,7 @@
             this.groupBoxServer.TabIndex = 41;
             this.groupBoxServer.TabStop = false;
             this.groupBoxServer.Text = "Este é o servidor?";
+            this.groupBoxServer.Visible = false;
             // 
             // radioButtonNao
             // 

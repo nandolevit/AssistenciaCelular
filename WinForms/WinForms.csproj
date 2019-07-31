@@ -220,12 +220,6 @@
       <DependentUpon>FormEstoqueContagem.cs</DependentUpon>
     </Compile>
     <Compile Include="Classe\FormFormat.cs" />
-    <Compile Include="Pessoa\FormFuncConsultar.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Pessoa\FormFuncConsultar.Designer.cs">
-      <DependentUpon>FormFuncConsultar.cs</DependentUpon>
-    </Compile>
     <Compile Include="Iphone\FormIphoneModelo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -442,9 +436,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Produto\Estoque\FormEstoqueContagem.resx">
       <DependentUpon>FormEstoqueContagem.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Pessoa\FormFuncConsultar.resx">
-      <DependentUpon>FormFuncConsultar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Iphone\FormIphoneModelo.resx">
       <DependentUpon>FormIphoneModelo.cs</DependentUpon>

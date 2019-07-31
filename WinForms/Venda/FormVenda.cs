@@ -691,7 +691,7 @@ namespace WinForms
         {
             if (VendaVip)
             {
-                FormPessoaConsultar formClienteConsultar = new FormPessoaConsultar();
+                FormPessoaConsultar formClienteConsultar = new FormPessoaConsultar(EnumPessoaTipo.Cliente);
                 formClienteConsultar.ShowDialog(this);
                 infoPessoa =  new PessoaInfo();
 

@@ -40,8 +40,6 @@
             this.labelBairro = new System.Windows.Forms.Label();
             this.textBoxLogradouro = new System.Windows.Forms.TextBox();
             this.labelLogradouro = new System.Windows.Forms.Label();
-            this.textBoxPontoReferencia = new System.Windows.Forms.TextBox();
-            this.labelPontoReferencia = new System.Windows.Forms.Label();
             this.maskedTextBoxCep = new System.Windows.Forms.MaskedTextBox();
             this.labelCep = new System.Windows.Forms.Label();
             this.textBoxComplemento = new System.Windows.Forms.TextBox();
@@ -86,8 +84,6 @@
             this.groupBoxEnd.Controls.Add(this.labelBairro);
             this.groupBoxEnd.Controls.Add(this.textBoxLogradouro);
             this.groupBoxEnd.Controls.Add(this.labelLogradouro);
-            this.groupBoxEnd.Controls.Add(this.textBoxPontoReferencia);
-            this.groupBoxEnd.Controls.Add(this.labelPontoReferencia);
             this.groupBoxEnd.Controls.Add(this.maskedTextBoxCep);
             this.groupBoxEnd.Controls.Add(this.labelCep);
             this.groupBoxEnd.Controls.Add(this.textBoxComplemento);
@@ -195,22 +191,6 @@
             this.labelLogradouro.Size = new System.Drawing.Size(64, 13);
             this.labelLogradouro.TabIndex = 7;
             this.labelLogradouro.Text = "Logradouro:";
-            // 
-            // textBoxPontoReferencia
-            // 
-            this.textBoxPontoReferencia.Location = new System.Drawing.Point(14, 96);
-            this.textBoxPontoReferencia.Name = "textBoxPontoReferencia";
-            this.textBoxPontoReferencia.Size = new System.Drawing.Size(501, 20);
-            this.textBoxPontoReferencia.TabIndex = 6;
-            // 
-            // labelPontoReferencia
-            // 
-            this.labelPontoReferencia.AutoSize = true;
-            this.labelPontoReferencia.Location = new System.Drawing.Point(14, 83);
-            this.labelPontoReferencia.Name = "labelPontoReferencia";
-            this.labelPontoReferencia.Size = new System.Drawing.Size(108, 13);
-            this.labelPontoReferencia.TabIndex = 5;
-            this.labelPontoReferencia.Text = "Ponto de Referência:";
             // 
             // maskedTextBoxCep
             // 
@@ -524,8 +504,6 @@
         private System.Windows.Forms.Label labelBairro;
         private System.Windows.Forms.TextBox textBoxLogradouro;
         private System.Windows.Forms.Label labelLogradouro;
-        private System.Windows.Forms.TextBox textBoxPontoReferencia;
-        private System.Windows.Forms.Label labelPontoReferencia;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxCep;
         private System.Windows.Forms.Label labelCep;
         private System.Windows.Forms.TextBox textBoxComplemento;

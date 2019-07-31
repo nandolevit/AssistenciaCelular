@@ -27,13 +27,13 @@ namespace ObjTransfer
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.AppendLine(string.IsNullOrEmpty(celiphonedescricao) ? "" : celiphonedescricao);
-            sb.AppendLine(string.IsNullOrEmpty(celmodelo) ? "" : ", Modelo: " + celmodelo);
-            sb.AppendLine(string.IsNullOrEmpty(celimei) ? "" : ", IMEI: " + celimei);
-            sb.AppendLine(string.IsNullOrEmpty(celserie) ? "" : ", SÉRIE: " + celserie);
-            sb.AppendLine(string.IsNullOrEmpty(celanocompra) ? "" : ", Ano: " + celanocompra);
-            sb.AppendLine(string.IsNullOrEmpty(celcapacidade) ? "" : ", Capacidade: " + celcapacidade);
-            sb.AppendLine(string.IsNullOrEmpty(celcor) ? "" : ", Cor: " + celcor);
+            sb.Append(string.IsNullOrEmpty(celiphonedescricao) ? "" : celiphonedescricao);
+            sb.Append(string.IsNullOrEmpty(celmodelo) ? "" : ", Modelo: " + celmodelo);
+            sb.Append(string.IsNullOrEmpty(celimei) ? "" : ", IMEI: " + celimei);
+            sb.Append(string.IsNullOrEmpty(celserie) ? "" : ", SÉRIE: " + celserie);
+            sb.Append(string.IsNullOrEmpty(celanocompra) ? "" : ", Ano: " + celanocompra);
+            sb.Append(string.IsNullOrEmpty(celcapacidade) ? "" : ", Capacidade: " + celcapacidade);
+            sb.Append(string.IsNullOrEmpty(celcor) ? "" : ", Cor: " + celcor);
 
             return sb.ToString();
         }

@@ -24,8 +24,22 @@ namespace WinForms
             InitializeComponent();
             this.AcceptButton = buttonEnviar;
             textBoxPara.Select();
-            //FormFormat formFormat = new FormFormat(this);
-            //formFormat.formatar();
+            MensagemPadrao();
+        }
+
+        private void MensagemPadrao()
+        {
+            string mensagem = string.Empty;
+
+            mensagem += "Prezado(a) cliente, ";
+
+            for (int i = 0; i < 5; i++)
+                mensagem += Environment.NewLine;
+
+            mensagem += "Att," + Environment.NewLine;
+            mensagem += "Equipe " + Form1.Empresa.empfantasia + ".";
+
+            textBoxMessage.Text = mensagem;
         }
 
         private void ButtonEnviar_Click(object sender, EventArgs e)
@@ -59,6 +73,8 @@ namespace WinForms
 
                 infoEmail.emailAnexo = listAnexo.ToArray();
             }
+            else
+                infoEmail.emailAnexo = new string[0];
         }
 
         private bool CampoObrigatorio()

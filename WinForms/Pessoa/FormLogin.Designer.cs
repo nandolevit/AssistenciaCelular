@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormLogin));
             this.textBoxLogin = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.maskedTextBoxSenha = new System.Windows.Forms.MaskedTextBox();
@@ -42,9 +43,11 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.buttonLogar = new System.Windows.Forms.Button();
             this.buttonFechar = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // textBoxLogin
@@ -110,7 +113,7 @@
             this.checkBoxSalvarLogin.AutoSize = true;
             this.checkBoxSalvarLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxSalvarLogin.ForeColor = System.Drawing.Color.White;
-            this.checkBoxSalvarLogin.Location = new System.Drawing.Point(407, 147);
+            this.checkBoxSalvarLogin.Location = new System.Drawing.Point(332, 147);
             this.checkBoxSalvarLogin.Name = "checkBoxSalvarLogin";
             this.checkBoxSalvarLogin.Size = new System.Drawing.Size(97, 17);
             this.checkBoxSalvarLogin.TabIndex = 4;
@@ -122,7 +125,7 @@
             this.panel1.BackColor = System.Drawing.Color.Gray;
             this.panel1.Controls.Add(this.labelLogin);
             this.panel1.Controls.Add(this.textBoxLogin);
-            this.panel1.Location = new System.Drawing.Point(141, 73);
+            this.panel1.Location = new System.Drawing.Point(66, 73);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(363, 31);
             this.panel1.TabIndex = 2;
@@ -143,7 +146,7 @@
             this.panel2.BackColor = System.Drawing.Color.Gray;
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.maskedTextBoxSenha);
-            this.panel2.Location = new System.Drawing.Point(141, 110);
+            this.panel2.Location = new System.Drawing.Point(66, 110);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(363, 31);
             this.panel2.TabIndex = 3;
@@ -153,7 +156,7 @@
             this.panel3.BackColor = System.Drawing.Color.Gray;
             this.panel3.Controls.Add(this.labelUnidadeDescricao);
             this.panel3.Controls.Add(this.labelUnidade);
-            this.panel3.Location = new System.Drawing.Point(141, 36);
+            this.panel3.Location = new System.Drawing.Point(66, 36);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(363, 31);
             this.panel3.TabIndex = 0;
@@ -166,7 +169,7 @@
             this.buttonLogar.ForeColor = System.Drawing.Color.PaleGreen;
             this.buttonLogar.Image = global::WinForms.Properties.Resources.icons8_Enter_16;
             this.buttonLogar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonLogar.Location = new System.Drawing.Point(141, 170);
+            this.buttonLogar.Location = new System.Drawing.Point(66, 170);
             this.buttonLogar.Name = "buttonLogar";
             this.buttonLogar.Size = new System.Drawing.Size(260, 40);
             this.buttonLogar.TabIndex = 5;
@@ -182,7 +185,7 @@
             this.buttonFechar.ForeColor = System.Drawing.Color.White;
             this.buttonFechar.Image = global::WinForms.Properties.Resources.icons8_Exit_16;
             this.buttonFechar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonFechar.Location = new System.Drawing.Point(407, 170);
+            this.buttonFechar.Location = new System.Drawing.Point(332, 170);
             this.buttonFechar.Name = "buttonFechar";
             this.buttonFechar.Size = new System.Drawing.Size(97, 40);
             this.buttonFechar.TabIndex = 6;
@@ -191,14 +194,25 @@
             this.buttonFechar.UseVisualStyleBackColor = false;
             this.buttonFechar.Click += new System.EventHandler(this.buttonFechar_Click);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(435, 8);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(259, 202);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 7;
+            this.pictureBox1.TabStop = false;
+            // 
             // FormLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Maroon;
+            this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ClientSize = new System.Drawing.Size(641, 245);
+            this.ClientSize = new System.Drawing.Size(702, 245);
             this.ControlBox = false;
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -221,6 +235,7 @@
             this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -240,5 +255,6 @@
         private System.Windows.Forms.Label labelLogin;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

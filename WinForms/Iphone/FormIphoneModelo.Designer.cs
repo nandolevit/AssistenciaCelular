@@ -488,7 +488,6 @@
             this.textBoxModelo.Size = new System.Drawing.Size(233, 23);
             this.textBoxModelo.TabIndex = 1;
             this.textBoxModelo.TabStop = false;
-            this.textBoxModelo.Text = "IPHONE XS MAX";
             // 
             // textBoxCor
             // 
