@@ -22,9 +22,7 @@ namespace WinForms
 
         public FormAlterarSenha(UserInfo user)
         {
-            InitializeComponent();
-            FormFormat formFormat = new FormFormat(this);
-            formFormat.formatar();
+            Inicializar();
             userInfo = user;
             labelLoginMensagem.Visible = true;
             ativado = false;
@@ -32,9 +30,7 @@ namespace WinForms
 
         public FormAlterarSenha(bool Ativado)
         {
-            InitializeComponent();
-            FormFormat formFormat = new FormFormat(this);
-            formFormat.formatar();
+            Inicializar();
             textBoxNovoLogin.Enabled = false;
             textBoxNovoLogin.Text = Form1.User.uselogin;
             userInfo = Form1.User;
@@ -43,6 +39,14 @@ namespace WinForms
                 buttonFechar.Text = "Sair";
 
             ativado = Ativado;
+        }
+
+        private void Inicializar()
+        {
+            InitializeComponent();
+            FormFormat formFormat = new FormFormat(this);
+            formFormat.formatar();
+            this.AcceptButton = buttonSalvar;
         }
 
         private void buttonFechar_Click(object sender, EventArgs e)

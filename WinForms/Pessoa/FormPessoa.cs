@@ -99,29 +99,71 @@ namespace WinForms
 
         private bool CamposObrigatorios()
         {
-            string Nome, Tel, Email;
+            string Nome, Tel, Email, Cpf;
             Nome = textBoxNome.Text.Trim();
             Tel = maskedTextBoxTel1.Text.Trim();
             Email = textBoxEmail.Text.Trim();
+            Cpf = maskedTextBoxCpf.Text;
 
-
-            if (String.IsNullOrEmpty(Nome) || String.IsNullOrEmpty(Tel) || String.IsNullOrEmpty(Email))
+            switch (enumPessoa)
             {
-                if (String.IsNullOrEmpty(Nome))
-                    labelNome.ForeColor = Color.Red;
+                case EnumPessoaTipo.Cliente:
 
-                if (String.IsNullOrEmpty(Tel))
-                    labelTel.ForeColor = Color.Red;
+                    if (String.IsNullOrEmpty(Nome) || String.IsNullOrEmpty(Tel) || String.IsNullOrEmpty(Email))
+                    {
+                        if (String.IsNullOrEmpty(Nome))
+                            labelNome.ForeColor = Color.Red;
 
-                if (String.IsNullOrEmpty(Email))
-                    labelEmail.ForeColor = Color.Red;
+                        if (String.IsNullOrEmpty(Tel))
+                            labelTel.ForeColor = Color.Red;
 
-                MessageBox.Show("Todos os campos, em vermelho, devem ser preenchidos!", "ADVERTÊNCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        if (String.IsNullOrEmpty(Email))
+                            labelEmail.ForeColor = Color.Red;
 
-                return false;
+                        MessageBox.Show("Todos os campos, em vermelho, devem ser preenchidos!", "ADVERTÊNCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                        return false;
+                    }
+                    else
+                        return true;
+
+                case EnumPessoaTipo.Funcionario:
+
+                    if (String.IsNullOrEmpty(Nome) || String.IsNullOrEmpty(Cpf))
+                    {
+                        if (String.IsNullOrEmpty(Nome))
+                            labelNome.ForeColor = Color.Red;
+
+                        if (String.IsNullOrEmpty(Cpf))
+                            labelCpf.ForeColor = Color.Red;
+
+                        if (String.IsNullOrEmpty(Email))
+                            labelEmail.ForeColor = Color.Red;
+
+                        MessageBox.Show("Todos os campos, em vermelho, devem ser preenchidos!", "ADVERTÊNCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                        return false;
+                    }
+                    else
+                        return true;
+
+                case EnumPessoaTipo.Fornecedor:
+
+                    if (String.IsNullOrEmpty(Nome))
+                    {
+                        if (String.IsNullOrEmpty(Nome))
+                            labelNome.ForeColor = Color.Red;
+
+                        MessageBox.Show("Todos os campos, em vermelho, devem ser preenchidos!", "ADVERTÊNCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                        return false;
+                    }
+                    else
+                        return true;
+
+                default:
+                    return false;
             }
-            else
-                return true;
         }
 
         private void LimparForm()

@@ -45,6 +45,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.buttonLogar = new System.Windows.Forms.Button();
             this.buttonFechar = new System.Windows.Forms.Button();
+            this.buttonEsqueci = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -218,6 +219,20 @@
             this.buttonFechar.UseVisualStyleBackColor = false;
             this.buttonFechar.Click += new System.EventHandler(this.buttonFechar_Click);
             // 
+            // buttonEsqueci
+            // 
+            this.buttonEsqueci.FlatAppearance.BorderSize = 0;
+            this.buttonEsqueci.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonEsqueci.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonEsqueci.ForeColor = System.Drawing.Color.Red;
+            this.buttonEsqueci.Location = new System.Drawing.Point(66, 175);
+            this.buttonEsqueci.Name = "buttonEsqueci";
+            this.buttonEsqueci.Size = new System.Drawing.Size(117, 23);
+            this.buttonEsqueci.TabIndex = 8;
+            this.buttonEsqueci.Text = "Esqueci minha senha";
+            this.buttonEsqueci.UseVisualStyleBackColor = true;
+            this.buttonEsqueci.Click += new System.EventHandler(this.ButtonEsqueci_Click);
+            // 
             // FormLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -226,6 +241,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(744, 288);
             this.ControlBox = false;
+            this.Controls.Add(this.buttonEsqueci);
             this.Controls.Add(this.buttonUnid);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.panel3);
@@ -272,5 +288,6 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button buttonUnid;
+        private System.Windows.Forms.Button buttonEsqueci;
     }
 }

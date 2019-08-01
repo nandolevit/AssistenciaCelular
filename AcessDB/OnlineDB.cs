@@ -94,9 +94,10 @@ namespace AccessDB
                 {
                     return Convert.ToInt32(cmd.ExecuteScalar());
                 }
-                catch (MySqlException ex)
+                catch (MySqlException)
                 {
-                    throw new Exception("Error: " + ex.Message);
+                    return 0;
+                    //throw new Exception("Error: " + ex.Message);
                 }
                 finally
                 {

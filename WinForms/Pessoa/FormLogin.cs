@@ -108,8 +108,9 @@ namespace WinForms
 
         private void FormLogin_Load(object sender, EventArgs e)
         {
-            //unidade = Form1.Unidade.uniid;
-            //labelUnidadeDescricao.Text = Form1.Unidade.uniunidade;
+            if (Form1.EmpresaEmail == null)
+                buttonEsqueci.Enabled = false;
+
             textBoxLogin.Select();
         }
 
@@ -169,6 +170,15 @@ namespace WinForms
                     }
             }
             formConsultar_Cod_Descricao.Dispose();
+        }
+
+        private void ButtonEsqueci_Click(object sender, EventArgs e)
+        {
+            FormUserEsqueciSenha formUserEsqueciSenha = new FormUserEsqueciSenha();
+            if (formUserEsqueciSenha.ShowDialog(this) == DialogResult.Yes)
+                FormMessage.ShowMessegeInfo("Seu Login e senha foi enviado para o seu email com sucesso!");
+            else
+                FormMessage.ShowMessegeInfo("Falha, não foi possível recuperar a sua senha!");
         }
     }
 }

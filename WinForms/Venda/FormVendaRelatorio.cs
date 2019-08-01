@@ -164,6 +164,7 @@ namespace WinForms
                         }
                     }
 
+                    negocioPessoa = new PessoaNegocio(Form1.Empresa.empconexao, Form1.Unidade.uniassistencia);
                     infoPessoa = negocioPessoa.ConsultarPessoaId(venda.venidcliente);
 
                     CaixaTurnoInfo turno = negociosCaixa.ConsultarCaixaTurnoId(venda.venidturno);

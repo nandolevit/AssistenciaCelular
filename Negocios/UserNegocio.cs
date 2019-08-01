@@ -10,13 +10,14 @@ using System.Data;
 
 namespace Negocios
 {
-    public class UserNegocio
+    public class UserNegocio : PessoaNegocio
     {
         private static string EmpConexao { get; set; }
 
-        public UserNegocio(){}
+        //public UserNegocio() : base(conexao, EnumAssistencia.Assistencia)
+        //{ }
 
-        public UserNegocio(string conexao)
+        public UserNegocio(string conexao) : base(conexao, EnumAssistencia.Assistencia)
         {
             EmpConexao = conexao;
         }
@@ -73,6 +74,24 @@ namespace Negocios
             }
             else
                 return 0;
+        }
+
+        public UserInfo ConsultarUsuarioFuncId(int id)
+        {
+            if (accessDbMySql.Conectar(EmpConexao))
+            {
+                DeletarUserLogin();
+                accessDbMySql.AddParametrosMySql("@id", id);
+
+                DataTable dataTable = new DataTable();
+                dataTable = accessDbMySql.dataTableMySql("spConsultarUsuarioFuncId");
+                if (dataTable != null)
+                    return PreencherUserColecao(dataTable)[0];
+                else
+                    return null;
+            }
+            else
+                return null;
         }
 
         public UserInfo ConsultarUsuarioId(int id)

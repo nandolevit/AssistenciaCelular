@@ -105,7 +105,6 @@ namespace WinForms
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            UserNegocio testar = new UserNegocio();
             Computer = new ComputerInfo();
             ConfiguracaoRede();
             toolStripStatusLabelPcNome.Text = Computer.comphostname;
@@ -119,6 +118,7 @@ namespace WinForms
                 threadLogin = new Thread(UpdateUserLogin);
                 threadLogin.Start();
 
+                UserNegocio testar = new UserNegocio(Empresa.empconexao);
                 if (testar.TestarConexao())
                 {
                     EmpresaNegocios empresaNegocios = new EmpresaNegocios(Empresa.empconexao);
@@ -149,6 +149,7 @@ namespace WinForms
                                     FormMessage.ShowMessegeWarning(Empresa.empobs.Replace("**", timeSpan.Days.ToString()));
 
                                 colecaoUnidade = empresaNegocios.ConsultarUnidade();
+                                EmpresaEmail = negocioEmp.ConsultarEmpresaEmail(Empresa.empid);
                                 InicializarSistema();
                                 this.Text += " :: " + Empresa.empfantasia;
                             }
@@ -273,7 +274,6 @@ namespace WinForms
                 {
                     if (User.usenovologin == 0)
                     {
-                        EmpresaEmail = negocioEmp.ConsultarEmpresaEmail(Empresa.empid);
                         if (EmpresaEmail == null)
                             buttonEmail.Enabled = false;
 
@@ -306,7 +306,9 @@ namespace WinForms
                 }
 
                 formLogin.Dispose();
-                negocioPessoa = new PessoaNegocio(Form1.Empresa.empconexao, Form1.Unidade.uniassistencia);
+
+                if (Unidade != null)
+                    negocioPessoa = new PessoaNegocio(Empresa.empconexao, Unidade.uniassistencia);
             }
             else
             {
@@ -343,15 +345,12 @@ namespace WinForms
 
                     if (!ConectedSystem)
                     {
-                        if (test == true)
-                            FormMessage.ShowMessegeWarning("A internet caiu! Aguarde, tentaremos restabelecer a conexão...");
-
                         test = false;
                     }
                     else
                     {
                         if (test == false)
-                            FormMessage.ShowMessegeWarning("Conexão estabelecida...");
+                            FormMessage.ShowMessegeWarning("Conexão com a internet restabelecida...");
 
                         test = true;
                     }

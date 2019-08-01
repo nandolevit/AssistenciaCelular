@@ -82,11 +82,12 @@ namespace Negocios
             return ConsultarPessoaDescricao("%", tipo);
         }
 
-        public PessoaColecao ConsultarPessoaDescricaoTodos(string descricao)
+        public PessoaColecao ConsultarPessoaDescricaoTodos(string descricao, EnumAssistencia assistencia)
         {
             if (accessDbMySql.Conectar(EmpConexao))
             {
                 accessDbMySql.AddParametrosMySql("@descricao", descricao);
+                accessDbMySql.AddParametrosMySql("@assist", assistencia);
                 DataTable dataTable = accessDbMySql.dataTableMySql("spConsultarPessoaDescricaoTodos");
                 if (dataTable != null)
                     return PreencherPessoa(dataTable);

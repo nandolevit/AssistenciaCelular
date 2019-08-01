@@ -22,5 +22,10 @@ namespace WinForms
             if (Form1.ConectedSystem)
                 this.DialogResult = DialogResult.Yes;
         }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

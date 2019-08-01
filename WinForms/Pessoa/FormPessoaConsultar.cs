@@ -56,7 +56,7 @@ namespace WinForms
         private void RealizarPesquisaThread()
         {
             if (Todos)
-                colecaoPessoa = negocioPessoa.ConsultarPessoaDescricaoTodos(pesquisa);
+                colecaoPessoa = negocioPessoa.ConsultarPessoaDescricaoTodos(pesquisa, Form1.Unidade.uniassistencia);
             else
                 colecaoPessoa = negocioPessoa.ConsultarPessoaDescricao(pesquisa, enumPessoa);
 
