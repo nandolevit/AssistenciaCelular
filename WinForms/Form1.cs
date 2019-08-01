@@ -213,7 +213,7 @@ namespace WinForms
             if (formEmpresa.ShowDialog(this) == DialogResult.Yes)
             {
                 Desserializar();
-                negocioPessoa = new PessoaNegocio(Empresa.empconexao, Form1.Unidade.uniassistencia);
+                negocioPessoa = new PessoaNegocio(Empresa.empconexao, EnumAssistencia.Assistencia);
                 PessoaInfo pessoa = negocioPessoa.ConsultarPessoaPadrao(EnumPessoaTipo.Funcionario, false);
 
                 if (pessoa == null)

@@ -150,10 +150,11 @@ namespace WinForms
             infoServIphone.serid = 000000000;
             infoServIphone.serdataagend = dateTimePickerData.Value.Date;
             infoServIphone.seridunid = Form1.Unidade.uniid;
-            infoServIphone.seridfunc = Form1.User.useidfuncionario;
+            infoServIphone.seridatendente = Form1.User.useidfuncionario;
             infoServIphone.seridstatus = 1;
             infoServIphone.seridtec_resp = responsavel.pssid;
             infoServIphone.seraparelhodescricao = infoServIphone.ToString();
+            infoServIphone.seridcliente = infoPessoa.pssid;
 
 
             negocioServ.InsertServicoIphone(infoServIphone);

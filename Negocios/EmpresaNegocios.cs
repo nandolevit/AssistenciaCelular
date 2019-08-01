@@ -170,6 +170,23 @@ namespace Negocios
                 return null;
         }
 
+        public UnidadeColecao ConsultarAssistencia()
+        {
+            if (accessDbMySql.Conectar(EmpConexao))
+            {
+                DataTable dataTable = new DataTable();
+
+                dataTable = accessDbMySql.dataTableMySql("spConsultarAssistencia");
+
+                if (dataTable != null)
+                    return PreencherUnidadeColecao(dataTable);
+                else
+                    return null;
+            }
+            else
+                return null;
+        }
+
         public UnidadeColecao ConsultarUnidade()
         {
             if (accessDbMySql.Conectar(EmpConexao))

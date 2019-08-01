@@ -52,12 +52,11 @@
             this.labelCountLista = new System.Windows.Forms.Label();
             this.buttonFechar = new System.Windows.Forms.Button();
             this.dataGridViewConsultar = new System.Windows.Forms.DataGridView();
-            this.colEntrada = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colOs = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colEntrada = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colEletro = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colAtendente = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLoad)).BeginInit();
             this.groupBoxDetalhada.SuspendLayout();
@@ -326,24 +325,17 @@
             // 
             this.dataGridViewConsultar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewConsultar.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.colEntrada,
             this.colOs,
+            this.colEntrada,
             this.colStatus,
             this.colEletro,
-            this.colCliente,
-            this.colAtendente});
+            this.colCliente});
             this.dataGridViewConsultar.Location = new System.Drawing.Point(12, 153);
             this.dataGridViewConsultar.Name = "dataGridViewConsultar";
             this.dataGridViewConsultar.RowHeadersVisible = false;
             this.dataGridViewConsultar.Size = new System.Drawing.Size(1329, 375);
             this.dataGridViewConsultar.TabIndex = 4;
             this.dataGridViewConsultar.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewConsultar_CellDoubleClick);
-            // 
-            // colEntrada
-            // 
-            this.colEntrada.DataPropertyName = "entrada";
-            this.colEntrada.HeaderText = "Entrada:";
-            this.colEntrada.Name = "colEntrada";
             // 
             // colOs
             // 
@@ -353,6 +345,12 @@
             this.colOs.HeaderText = "OS:";
             this.colOs.Name = "colOs";
             this.colOs.Width = 75;
+            // 
+            // colEntrada
+            // 
+            this.colEntrada.DataPropertyName = "entrada";
+            this.colEntrada.HeaderText = "Entrada:";
+            this.colEntrada.Name = "colEntrada";
             // 
             // colStatus
             // 
@@ -366,21 +364,14 @@
             this.colEletro.DataPropertyName = "aparelho";
             this.colEletro.HeaderText = "Aparelho:";
             this.colEletro.Name = "colEletro";
-            this.colEletro.Width = 485;
+            this.colEletro.Width = 600;
             // 
             // colCliente
             // 
             this.colCliente.DataPropertyName = "cliente";
             this.colCliente.HeaderText = "Cliente:";
             this.colCliente.Name = "colCliente";
-            this.colCliente.Width = 275;
-            // 
-            // colAtendente
-            // 
-            this.colAtendente.DataPropertyName = "atendente";
-            this.colAtendente.HeaderText = "Atendente:";
-            this.colAtendente.Name = "colAtendente";
-            this.colAtendente.Width = 200;
+            this.colCliente.Width = 350;
             // 
             // FormServicoListar
             // 
@@ -428,12 +419,11 @@
         private System.Windows.Forms.ComboBox comboBoxAtendente;
         private System.Windows.Forms.Button buttonPesquisarDetalhada;
         private System.Windows.Forms.Button buttonAdicionar;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colEntrada;
+        private System.Windows.Forms.PictureBox pictureBoxLoad;
         private System.Windows.Forms.DataGridViewTextBoxColumn colOs;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colEntrada;
         private System.Windows.Forms.DataGridViewTextBoxColumn colStatus;
         private System.Windows.Forms.DataGridViewTextBoxColumn colEletro;
         private System.Windows.Forms.DataGridViewTextBoxColumn colCliente;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colAtendente;
-        private System.Windows.Forms.PictureBox pictureBoxLoad;
     }
 }

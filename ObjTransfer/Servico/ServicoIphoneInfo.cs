@@ -34,27 +34,65 @@ namespace ObjTransfer
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
+            if (!string.IsNullOrEmpty(iphdeftouchdisplay))
+                sb.AppendLine("**Touch/Display: " + iphdeftouchdisplay);
 
-            sb.AppendLine(string.IsNullOrEmpty(iphdeftouchdisplay) ? "" : "**Touch/Display: " + iphdeftouchdisplay);
-            sb.AppendLine(string.IsNullOrEmpty(iphdefcamfrontal) ? "" : "**Câmera frontal: " + iphdefcamfrontal);
-            sb.AppendLine(string.IsNullOrEmpty(iphdefsensorprox) ? "" : "**Sensor de proximidade: " + iphdefsensorprox);
-            sb.AppendLine(string.IsNullOrEmpty(iphdefhome) ? "" : "**Botão home/Touch ID: " + iphdefhome);
-            sb.AppendLine(string.IsNullOrEmpty(iphdefautofrontal) ? "" : "**Auto-falante frontal: " + iphdefautofrontal);
-            sb.AppendLine(string.IsNullOrEmpty(iphdefconector) ? "" : "**Conector Lightning: " + iphdefconector);
-            sb.AppendLine(string.IsNullOrEmpty(iphdeffone) ? "" : "**Miniconector de fone de ouvido: " + iphdeffone);
-            sb.AppendLine(string.IsNullOrEmpty(iphdefautointerno) ? "" : "**Auto-falante interno: " + iphdefautointerno);
-            sb.AppendLine(string.IsNullOrEmpty(iphdefmicrofone) ? "" : "**Microfone: " + iphdefmicrofone);
-            sb.AppendLine(string.IsNullOrEmpty(iphdefparafuso) ? "" : "**Parafuso da carcaça: " + iphdefparafuso);
-            sb.AppendLine(string.IsNullOrEmpty(iphdefparafuso) ? "" : "**Parafuso da carcaça: " + iphdefparafuso);
-            sb.AppendLine(string.IsNullOrEmpty(iphdefcarcaca) ? "" : "**Estado da carcaça: " + iphdefcarcaca);
-            sb.AppendLine(string.IsNullOrEmpty(iphdefcamtraseira) ? "" : "**Câmera traseira: " + iphdefcamtraseira);
-            sb.AppendLine(string.IsNullOrEmpty(iphdefmicrofonetraseiro) ? "" : "**Microfone traseiro: " + iphdefmicrofonetraseiro);
-            sb.AppendLine(string.IsNullOrEmpty(iphdefflash) ? "" : "**Flash: " + iphdefflash);
-            sb.AppendLine(string.IsNullOrEmpty(iphdefautointerno) ? "" : "**Auto-falante interno: " + iphdefautointerno);
-            sb.AppendLine(string.IsNullOrEmpty(iphdefvolume) ? "" : "**Botão de Volume: " + iphdefvolume);
-            sb.AppendLine(string.IsNullOrEmpty(iphdefbandeja) ? "" : "**Bandeja de Chip: " + iphdefbandeja);
-            sb.AppendLine(string.IsNullOrEmpty(iphdefdesligar) ? "" : "**Botão Ligar/Desligar: " + iphdefdesligar);
-            sb.AppendLine(string.IsNullOrEmpty(iphdefsilencioso) ? "" : "**Botão Tocar/Silencioso: " + iphdefsilencioso);
+            if (!string.IsNullOrEmpty(iphdefcamfrontal))
+                sb.AppendLine("**Câmera frontal: " + iphdefcamfrontal);
+
+            if (!string.IsNullOrEmpty(iphdefsensorprox))
+                sb.AppendLine("**Sensor de proximidade: " + iphdefsensorprox);
+
+            if (!string.IsNullOrEmpty(iphdefhome))
+                sb.AppendLine("**Botão home/Touch ID: " + iphdefhome);
+
+            if (!string.IsNullOrEmpty(iphdefautofrontal))
+                sb.AppendLine("**Auto-falante frontal: " + iphdefautofrontal);
+
+            if (!string.IsNullOrEmpty(iphdefconector))
+                sb.AppendLine("**Conector Lightning: " + iphdefconector);
+
+            if (!string.IsNullOrEmpty(iphdeffone))
+                sb.AppendLine("**Miniconector de fone de ouvido: " + iphdeffone);
+
+            if (!string.IsNullOrEmpty(iphdefautointerno))
+                sb.AppendLine("**Auto-falante interno: " + iphdefautointerno);
+
+            if (!string.IsNullOrEmpty(iphdefmicrofone))
+                sb.AppendLine("**Microfone: " + iphdefmicrofone);
+
+            if (!string.IsNullOrEmpty(iphdefparafuso))
+                sb.AppendLine("**Parafuso da carcaça: " + iphdefparafuso);
+
+            if (!string.IsNullOrEmpty(iphdefparafuso))
+                sb.AppendLine("**Parafuso da carcaça: " + iphdefparafuso);
+
+            if (!string.IsNullOrEmpty(iphdefcarcaca))
+                sb.AppendLine("**Estado da carcaça: " + iphdefcarcaca);
+
+            if (!string.IsNullOrEmpty(iphdefcamtraseira))
+                sb.AppendLine("**Câmera traseira: " + iphdefcamtraseira);
+
+            if (!string.IsNullOrEmpty(iphdefmicrofonetraseiro))
+                sb.AppendLine("**Microfone traseiro: " + iphdefmicrofonetraseiro);
+
+            if (!string.IsNullOrEmpty(iphdefflash))
+                sb.AppendLine("**Flash: " + iphdefflash);
+
+            if (!string.IsNullOrEmpty(iphdefautointerno))
+                sb.AppendLine("**Auto-falante interno: " + iphdefautointerno);
+
+            if (!string.IsNullOrEmpty(iphdefvolume))
+                sb.AppendLine("**Botão de Volume: " + iphdefvolume);
+
+            if (!string.IsNullOrEmpty(iphdefbandeja))
+                sb.AppendLine("**Bandeja de Chip: " + iphdefbandeja);
+
+            if (!string.IsNullOrEmpty(iphdefdesligar))
+                sb.AppendLine("**Botão Ligar/Desligar: " + iphdefdesligar);
+
+            if (!string.IsNullOrEmpty(iphdefsilencioso))
+                sb.AppendLine("**Botão Tocar/Silencioso: " + iphdefsilencioso);
 
             return sb.ToString();
         }

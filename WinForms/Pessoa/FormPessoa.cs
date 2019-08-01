@@ -79,7 +79,7 @@ namespace WinForms
             textBoxNome.Text = infoPessoa.pssnome;
             textBoxNiver.Text = infoPessoa.pssniver.Date.ToShortDateString();
 
-            string[] tel = infoPessoa.psstelefone.Split(';');
+            string[] tel = infoPessoa.psstelefone.Split('/');
 
             if (tel.Length > 1)
             {

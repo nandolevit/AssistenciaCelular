@@ -86,6 +86,14 @@ namespace WinForms
             this.textBoxStatus.TextChanged += new System.EventHandler(this.LimparTextBoxAoAlterar);
 
             textBoxDescricao.Select();
+
+            if (infoProd == null)
+            {
+                negocioPessoa = new PessoaNegocio(Form1.Empresa.empconexao, Form1.Unidade.uniassistencia);
+                PessoaInfo forn = negocioPessoa.ConsultarPessoaPadrao(EnumPessoaTipo.Fornecedor);
+                textBoxCodFornecedor.Text = string.Format("{0:000}", forn.pssid);
+                labelValorFornecedor.Text = forn.pssnome;
+            }
         }
 
         private void LimparTextBoxAoAlterar(object sender, EventArgs e)

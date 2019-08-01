@@ -102,17 +102,21 @@ namespace WinForms
 
             if (Form1.EmpresaEmail != null)
             {
-                EmailNegocio negocioEmail = new EmailNegocio(Form1.EmpresaEmail);
-                EmailInfo email = new EmailInfo
+                if (enumCaixa == EnumCaixa.Caixa)
                 {
-                    emailAssunto = "Caixa Fechado - " + caixaAbrirInfo.caixaabrirdata.Date.ToShortDateString(),
-                    emailMessage = ArrCupom[0],
-                    emailTo = Form1.EmpresaEmail.emailenviar,
-                    emailCC = new string[0],
-                    emailCCo = new string[0]
-                };
+                    EmailNegocio negocioEmail = new EmailNegocio(Form1.EmpresaEmail);
+                    EmailInfo email = new EmailInfo
+                    {
+                        emailAssunto = "Caixa Fechado - " + caixaAbrirInfo.caixaabrirdata.Date.ToShortDateString(),
+                        emailMessage = ArrCupom[0],
+                        emailTo = Form1.EmpresaEmail.emailenviar,
+                        emailCC = new string[0],
+                        emailCCo = new string[0],
+                        emailAnexo = new string[0]
+                    };
 
-                negocioEmail.EnviarEmailGmail(email);
+                    negocioEmail.EnviarEmailGmail(email);
+                }
             }
 
             PreencherForm(ArrCupom[0]);

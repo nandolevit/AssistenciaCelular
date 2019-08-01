@@ -87,7 +87,7 @@ namespace WinForms
                 textBoxTel.Text = infoEmpresa.emptelefone;
 
                 empresaNegocios = new EmpresaNegocios(infoEmpresa.empconexao);
-                colecaoUnid = empresaNegocios.ConsultarUnidade();
+                colecaoUnid = empresaNegocios.ConsultarAssistencia();
 
                 Form1.Computer = new ComputerInfo();
                 Form1.ConfiguracaoRede();
@@ -150,7 +150,7 @@ namespace WinForms
 
         private void buttonInserir_Click(object sender, EventArgs e)
         {
-            Inserir();
+
         }
 
         private void Inserir()
@@ -193,6 +193,7 @@ namespace WinForms
                         int cod = empresaNegocios.InsertUnidade(infoUnid);
                         if (cod > 0)
                         {
+                            Form1.Unidade = infoUnid;
                             infoUnid.uniativa = 1;
                             infoUnid.uniunidade = "LOJA IPHONE";
                             infoUnid.unisede = false;
@@ -234,26 +235,7 @@ namespace WinForms
                         }
                     }
 
-                    ComputerColecao colecao = empresaNegocios.ConsultarComputadorIdUnid(infoUnid.uniid);
-
-                    if (colecao != null)
-                    {
-                        PreencherComputador();
-                        List<string> mac = new List<string>();
-
-                        foreach (ComputerInfo comp in colecao)
-                        {
-                            mac.Add(comp.compmac);
-
-                            if (mac.Contains(infoComp.compmac))
-                            {
-                                infoComp = comp;
-                                break;
-                            }
-                        }
-                    }
-
-                    if (infoComp == null)
+                    if (!VerificaComputador())
                     {
                         PreencherComputador();
                         infoComp.compid = empresaNegocios.InsertComputador(infoComp);
@@ -266,6 +248,32 @@ namespace WinForms
                 else
                     FormMessage.ShowMessegeWarning("Falha, tente novamente!");
             }
+        }
+
+        private bool VerificaComputador()
+        {
+            ComputerColecao colecao = empresaNegocios.ConsultarComputadorIdUnid(infoUnid.uniid);
+
+            if (colecao != null)
+            {
+                PreencherComputador();
+                List<string> mac = new List<string>();
+
+                foreach (ComputerInfo comp in colecao)
+                {
+                    mac.Add(comp.compmac);
+
+                    if (mac.Contains(infoComp.compmac))
+                    {
+                        infoComp = comp;
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+            else
+                return false;
         }
 
         private void buttonDeletar_Click(object sender, EventArgs e)
@@ -299,7 +307,17 @@ namespace WinForms
 
         private void ButtonUnid_Click(object sender, EventArgs e)
         {
-            Inserir();
+            if (colecaoComp.Count < infoUnid.unicomputador)
+                Inserir();
+            else
+            {
+                if (VerificaComputador())
+                {
+                    Inserir();
+                }
+                else
+                    FormMessage.ShowMessegeWarning("Esta unidade possui a lincença para " + infoUnid.unicomputador + "e todas já estão ativas!");
+            }
         }
 
 

@@ -91,10 +91,13 @@ namespace Negocios
             if (accessDbMySql.Conectar(EmpConexao))
             {
                 accessDbMySql.AddParametrosMySql("@agend", servico.serdataagend);
-                accessDbMySql.AddParametrosMySql("@func", servico.seridfunc);
+                accessDbMySql.AddParametrosMySql("@atend", servico.seridatendente);
                 accessDbMySql.AddParametrosMySql("@idstat", servico.seridstatus);
                 accessDbMySql.AddParametrosMySql("@resp", servico.seridtec_resp);
                 accessDbMySql.AddParametrosMySql("@unid", servico.seridunid);
+                accessDbMySql.AddParametrosMySql("@tipo", servico.seridtipoaparelho);
+                accessDbMySql.AddParametrosMySql("@descricao", servico.seraparelhodescricao);
+                accessDbMySql.AddParametrosMySql("@cliente", servico.seridcliente);
 
                 return accessDbMySql.ExecutarScalarMySql("spInsertServico");
             }
