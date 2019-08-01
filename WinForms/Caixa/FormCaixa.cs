@@ -21,7 +21,7 @@ namespace WinForms
         Form1 form1 = new Form1();
         Thread thread;
         CaixaNegocios caixaNegocios = new CaixaNegocios(Form1.Empresa.empconexao);
-        FuncNegocios funcNegocios = new FuncNegocios(Form1.Empresa.empconexao);
+        FuncNegocios funcNegocios = new FuncNegocios(Form1.Empresa.empconexao, Form1.Unidade.uniassistencia);
         EntradaSaidaNegocios entradaSaidaNegocios = new EntradaSaidaNegocios(Form1.Empresa.empconexao);
         CaixaTurnoInfo caixaTurnoInfo = new CaixaTurnoInfo();
         CaixaAbrirInfo caixaaberto = new CaixaAbrirInfo();

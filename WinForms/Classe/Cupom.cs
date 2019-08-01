@@ -11,9 +11,9 @@ namespace WinForms
 {
     public class Cupom
     {
-        ClienteNegocios clienteNegocios = new ClienteNegocios(Form1.Empresa.empconexao);
+        ClienteNegocios clienteNegocios = new ClienteNegocios(Form1.Empresa.empconexao, Form1.Unidade.uniassistencia);
         ProdutoNegocios produtoNegocios = new ProdutoNegocios(Form1.Empresa.empconexao);
-        FuncNegocios funcNegocios = new FuncNegocios(Form1.Empresa.empconexao);
+        FuncNegocios funcNegocios = new FuncNegocios(Form1.Empresa.empconexao, Form1.Unidade.uniassistencia);
         VendaNegocios vendaNegocios = new VendaNegocios(Form1.Empresa.empconexao);
         CaixaNegocios caixaNegocios = new CaixaNegocios(Form1.Empresa.empconexao);
 

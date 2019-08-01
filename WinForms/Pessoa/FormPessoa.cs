@@ -24,8 +24,8 @@ namespace WinForms
         public PessoaInfo SelecionadoPessoa { get; set; }
 
         PessoaNegocio negocioPessoa;
-        ClienteNegocios negocioCliente = new ClienteNegocios(Form1.Empresa.empconexao);
-        FuncNegocios funcNegocios = new FuncNegocios(Form1.Empresa.empconexao);
+        ClienteNegocios negocioCliente = new ClienteNegocios(Form1.Empresa.empconexao, Form1.Unidade.uniassistencia);
+        FuncNegocios funcNegocios = new FuncNegocios(Form1.Empresa.empconexao, Form1.Unidade.uniassistencia);
         EmpresaNegocios empresaNegocios = new EmpresaNegocios(Form1.Empresa.empconexao);
 
 
@@ -163,6 +163,7 @@ namespace WinForms
             infoPessoa.pssiduser = Form1.User == null ? 0 : Form1.User.useidfuncionario;
             infoPessoa.pssidtipo = enumPessoa;
             infoPessoa.pssniver = string.IsNullOrEmpty(textBoxNiver.Text) ? DateTime.Now.Date : Convert.ToDateTime(textBoxNiver.Text).Date;
+            infoPessoa.pssassistencia = EnumAssistencia.Assistencia;
 
             SelecionadoPessoa = infoPessoa;
         }
@@ -173,7 +174,7 @@ namespace WinForms
         {
             if (CamposObrigatorios())
             {
-                negocioPessoa = new PessoaNegocio(Form1.Empresa.empconexao);
+                negocioPessoa = new PessoaNegocio(Form1.Empresa.empconexao, Form1.Unidade.uniassistencia);
                 PreencherPessoaInfo();
 
                 if (infoPessoa.pssid == 0)

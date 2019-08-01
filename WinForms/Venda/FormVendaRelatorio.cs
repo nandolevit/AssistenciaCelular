@@ -24,7 +24,7 @@ namespace WinForms
         GridViewVendaPeriodoColecao gridViewVendaPeriodoColecao;
         CaixaNegocios negociosCaixa = new CaixaNegocios(Form1.Empresa.empconexao);
         VendaNegocios negociosVenda = new VendaNegocios(Form1.Empresa.empconexao);
-        ClienteNegocios negociosCliente = new ClienteNegocios(Form1.Empresa.empconexao);
+        ClienteNegocios negociosCliente = new ClienteNegocios(Form1.Empresa.empconexao, Form1.Unidade.uniassistencia);
         PessoaNegocio negocioPessoa;
 
         DateTime dataIni;

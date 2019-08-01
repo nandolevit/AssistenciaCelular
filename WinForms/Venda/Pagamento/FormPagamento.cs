@@ -19,7 +19,7 @@ namespace WinForms
         Form1 form1 = new Form1();
         VendaNegocios vendaNegocios = new VendaNegocios(Form1.Empresa.empconexao);
         CaixaNegocios caixaNegocios = new CaixaNegocios(Form1.Empresa.empconexao);
-        ClienteNegocios clienteNegocios = new ClienteNegocios(Form1.Empresa.empconexao);
+        ClienteNegocios clienteNegocios = new ClienteNegocios(Form1.Empresa.empconexao, Form1.Unidade.uniassistencia);
 
         VendaInfo vendaInfo;
         CodDescricaoColecao pagtipo;

@@ -18,9 +18,9 @@ namespace WinForms
     public partial class FormVenda : Form
     {
         Form1 form1 = new Form1();
-        FuncNegocios funcNegocios = new FuncNegocios(Form1.Empresa.empconexao);
+        FuncNegocios funcNegocios = new FuncNegocios(Form1.Empresa.empconexao, Form1.Unidade.uniassistencia);
         ProdutoNegocios produtoNegocios = new ProdutoNegocios(Form1.Empresa.empconexao);
-        ClienteNegocios clienteNegocios = new ClienteNegocios(Form1.Empresa.empconexao);
+        ClienteNegocios clienteNegocios = new ClienteNegocios(Form1.Empresa.empconexao, Form1.Unidade.uniassistencia);
         VendaNegocios vendaNegocios = new VendaNegocios(Form1.Empresa.empconexao);
 
         Thread thread;
@@ -422,7 +422,7 @@ namespace WinForms
             }
             else if (formVendaVip.DialogResult == DialogResult.OK)
             {
-                ClienteNegocios clienteNegocios = new ClienteNegocios(Form1.Empresa.empconexao);
+                ClienteNegocios clienteNegocios = new ClienteNegocios(Form1.Empresa.empconexao, Form1.Unidade.uniassistencia);
                 infoPessoa = clienteNegocios.ConsultarPessoaPadrao(EnumPessoaTipo.Cliente); //seleciona cliente avulso
 
                 labelCliente.Text = "Cliente: " + infoPessoa.pssnome;

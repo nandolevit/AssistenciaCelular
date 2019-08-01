@@ -17,7 +17,7 @@ namespace WinForms
     {
         Form1 form1 = new Form1();
 
-        FuncNegocios funcNegocios = new FuncNegocios(Form1.Empresa.empconexao);
+        FuncNegocios funcNegocios = new FuncNegocios(Form1.Empresa.empconexao, Form1.Unidade.uniassistencia);
         EntradaSaidaNegocios entradaSaidaNegocios = new EntradaSaidaNegocios(Form1.Empresa.empconexao);
         EntradaSaidaInfo entradaSaidaInfo;
         GridEntradaSaidaInfo grid;

@@ -45,7 +45,7 @@ namespace WinForms
             FormFormat formFormat = new FormFormat(this);
             formFormat.formatar();
             this.AcceptButton = buttonBuscar;
-            negocioPessoa = new PessoaNegocio(Form1.Empresa.empconexao);
+            negocioPessoa = new PessoaNegocio(Form1.Empresa.empconexao, Form1.Unidade.uniassistencia);
         }
 
         private void buttonPesquisar_Click(object sender, EventArgs e)

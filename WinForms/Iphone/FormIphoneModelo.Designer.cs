@@ -896,7 +896,6 @@
             this.buttonFoto.Text = "FOTO";
             this.buttonFoto.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.buttonFoto.UseVisualStyleBackColor = true;
-            this.buttonFoto.Visible = false;
             this.buttonFoto.Click += new System.EventHandler(this.ButtonFoto_Click);
             // 
             // textBoxNum

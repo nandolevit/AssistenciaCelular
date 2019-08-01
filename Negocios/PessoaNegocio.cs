@@ -15,9 +15,11 @@ namespace Negocios
         private string EmpConexao { get; set; }
         AccessDbMySql accessDbMySql = new AccessDbMySql();
         EnumPessoaTipo enumTipo;
-        public PessoaNegocio(string conexao)
+        EnumAssistencia Assistencia;
+        public PessoaNegocio(string conexao, EnumAssistencia assistencia)
         {
             EmpConexao = conexao;
+            Assistencia = assistencia;
         }
 
         public PessoaInfo ConsultarPessoaPadrao(EnumPessoaTipo tipo, bool pad = true)
@@ -41,6 +43,7 @@ namespace Negocios
             if (accessDbMySql.Conectar(EmpConexao))
             {
                 accessDbMySql.AddParametrosMySql("@cpf", cpf);
+                accessDbMySql.AddParametrosMySql("@assist", Assistencia);
 
                 DataTable dataTable = accessDbMySql.dataTableMySql("spConsultarPessoaCpf");
                 if (dataTable != null)
@@ -74,9 +77,9 @@ namespace Negocios
                 return null;
         }
 
-        public PessoaColecao ConsultarPessoaPorTipo(EnumPessoaTipo tipo, bool assistencia = true)
+        public PessoaColecao ConsultarPessoaPorTipo(EnumPessoaTipo tipo)
         {
-            return ConsultarPessoaDescricao("%", tipo, assistencia);
+            return ConsultarPessoaDescricao("%", tipo);
         }
 
         public PessoaColecao ConsultarPessoaDescricaoTodos(string descricao)
@@ -94,13 +97,13 @@ namespace Negocios
                 return null;
         }
 
-        public PessoaColecao ConsultarPessoaDescricao(string descricao, EnumPessoaTipo tipo, bool assistencia = true)
+        public PessoaColecao ConsultarPessoaDescricao(string descricao, EnumPessoaTipo tipo)
         {
             if (accessDbMySql.Conectar(EmpConexao))
             {
                 accessDbMySql.AddParametrosMySql("@descricao", descricao);
                 accessDbMySql.AddParametrosMySql("@tipo", tipo);
-                accessDbMySql.AddParametrosMySql("@assist", assistencia);
+                accessDbMySql.AddParametrosMySql("@assist", Assistencia);
                 DataTable dataTable = accessDbMySql.dataTableMySql("spConsultarPessoaDescricao");
                 if (dataTable != null)
                     return PreencherPessoa(dataTable);
@@ -138,7 +141,7 @@ namespace Negocios
         {
             if (accessDbMySql.Conectar(EmpConexao))
             {
-                accessDbMySql.AddParametrosMySql("@assist", pessoa.pssassistencia);
+                accessDbMySql.AddParametrosMySql("@assist", Assistencia);
                 accessDbMySql.AddParametrosMySql("@cpf", pessoa.psscpf);
                 accessDbMySql.AddParametrosMySql("@email", pessoa.pssemail);
                 accessDbMySql.AddParametrosMySql("@bairro", pessoa.pssendbairro);

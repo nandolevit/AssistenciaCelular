@@ -44,7 +44,7 @@ namespace WinForms
 
         private void PreencherComboboxAtendente()
         {
-            FuncNegocios funcNegocios = new FuncNegocios(Form1.Empresa.empconexao);
+            FuncNegocios funcNegocios = new FuncNegocios(Form1.Empresa.empconexao, Form1.Unidade.uniassistencia);
             PessoaColecao colecao = new PessoaColecao();
             PessoaColecao funcColecao = funcNegocios.ConsultarPessoaPorTipo(EnumPessoaTipo.Funcionario);
 

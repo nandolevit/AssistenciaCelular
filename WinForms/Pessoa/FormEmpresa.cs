@@ -184,14 +184,22 @@ namespace WinForms
                             unisite = infoEmpresa.empsite,
                             unitelefone = infoEmpresa.emptelefone,
                             uniuf = infoEmpresa.empuf,
-                            uniunidade = " " + infoEmpresa.empbairro + "(SEDE)",
-                            unifundada = infoEmpresa.empfundada
+                            uniunidade = "ASSISTÊNCIA",
+                            unifundada = infoEmpresa.empfundada,
+                            uniassistencia = EnumAssistencia.Assistencia,
+                            unisede = true
                         };
 
-                        int cod = empresaNegocios.InsertUnidade(infoUnid, true);
+                        int cod = empresaNegocios.InsertUnidade(infoUnid);
                         if (cod > 0)
                         {
-                            negocioPessoa = new PessoaNegocio(infoEmpresa.empconexao);
+                            infoUnid.uniativa = 1;
+                            infoUnid.uniunidade = "LOJA IPHONE";
+                            infoUnid.unisede = false;
+                            infoUnid.uniassistencia = EnumAssistencia.Loja;
+                            empresaNegocios.InsertUnidade(infoUnid);
+
+                            negocioPessoa = new PessoaNegocio(infoEmpresa.empconexao, Form1.Unidade.uniassistencia);
                             PessoaInfo pessoa = new PessoaInfo
                             {
                                 pssassistencia = EnumAssistencia.Assistencia,
@@ -251,7 +259,7 @@ namespace WinForms
                         infoComp.compid = empresaNegocios.InsertComputador(infoComp);
                     }
 
-                    thread = new Thread(InserirUnid);
+                    thread = new Thread(ExecutarConsulta);
                     form1.ExecutarThread(thread);
                     pictureBoxLoad.Visible = false;
                 }
@@ -294,17 +302,11 @@ namespace WinForms
             Inserir();
         }
 
-        private void InserirUnid()
-        {
-
-            serializarNegocios.SerializarObjeto(infoUnid, Form1.FileNameUnid);
-            serializarNegocios.SerializarObjeto(infoComp, Form1.FileNameComp);
-            ExecutarConsulta();
-        }
-
 
         private void ExecutarConsulta()
         {
+            serializarNegocios.SerializarObjeto(infoComp, Form1.FileNameComp);
+
             negocioServ = new ServicoNegocio(Form1.Empresa.empconexao);
 
             string path = Directory.GetCurrentDirectory();
@@ -331,7 +333,6 @@ namespace WinForms
             if (this.Modal)
             {
                 serializarNegocios.ExcluirArquivo(Form1.FileNameEmp);
-                serializarNegocios.ExcluirArquivo(Form1.FileNameUnid);
                 serializarNegocios.ExcluirArquivo(Form1.FileNameComp);
 
             }

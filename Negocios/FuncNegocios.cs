@@ -14,7 +14,7 @@ namespace Negocios
     {
         private string EmpConexao { get; set; }
 
-        public FuncNegocios(string conexao) : base(conexao)
+        public FuncNegocios(string conexao, EnumAssistencia assistencia) : base(conexao, assistencia)
         {
             EmpConexao = conexao;
         }

@@ -28,5 +28,8 @@ namespace ObjTransfer
         public string unisite { get; set; }
         public DateTime unifundada { get; set; }
         public string unihostserver { get; set; }
+        public int unicomputador { get; set; }
+        public EnumAssistencia uniassistencia { get; set; }
+        public bool unisede { get; set; }
     }
 }

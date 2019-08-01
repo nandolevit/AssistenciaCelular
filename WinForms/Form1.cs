@@ -26,6 +26,7 @@ namespace WinForms
         public static EmpresaInfo Empresa { get; set; }
         public static EmpresaEmailInfo EmpresaEmail { get; set; }
         public static UnidadeInfo Unidade { get; set; }
+        public static UnidadeColecao colecaoUnidade { get; set; }
         public static UserInfo User { get; set; }
         public static ComputerInfo Server { get; set; }
         public static ComputerInfo Computer { get; set; }
@@ -80,12 +81,11 @@ namespace WinForms
         private bool Desserializar()
         {
             Empresa = (serializarNegocios.DesserializarObjeto(FileNameEmp) as EmpresaInfo);
-            Unidade = (serializarNegocios.DesserializarObjeto(FileNameUnid) as UnidadeInfo);
             Computer = (serializarNegocios.DesserializarObjeto(FileNameComp) as ComputerInfo);
             IphoneColecao = (serializarNegocios.DesserializarObjeto(FileIphone) as IphoneModeloColecao);
             IphoneCorColecao = (serializarNegocios.DesserializarObjeto(FileIphoneCores) as IphoneModeloCorColecao);
 
-            if (Empresa == null || Unidade == null || Computer == null || IphoneColecao == null || IphoneCorColecao == null)
+            if (Empresa == null || Computer == null || IphoneColecao == null || IphoneCorColecao == null)
                 return false;
             else
                 return true;
@@ -148,6 +148,7 @@ namespace WinForms
                                 if (timeSpan.Days < 7)
                                     FormMessage.ShowMessegeWarning(Empresa.empobs.Replace("**", timeSpan.Days.ToString()));
 
+                                colecaoUnidade = empresaNegocios.ConsultarUnidade();
                                 InicializarSistema();
                                 this.Text += " :: " + Empresa.empfantasia;
                             }
@@ -212,12 +213,12 @@ namespace WinForms
             if (formEmpresa.ShowDialog(this) == DialogResult.Yes)
             {
                 Desserializar();
-                negocioPessoa = new PessoaNegocio(Empresa.empconexao);
+                negocioPessoa = new PessoaNegocio(Empresa.empconexao, Form1.Unidade.uniassistencia);
                 PessoaInfo pessoa = negocioPessoa.ConsultarPessoaPadrao(EnumPessoaTipo.Funcionario, false);
 
                 if (pessoa == null)
                 {
-                    FormPessoa formPessoa = new FormPessoa(pessoa);
+                    FormPessoa formPessoa = new FormPessoa(EnumPessoaTipo.Funcionario);
                     formPessoa.ShowDialog(this);
                     formPessoa.Dispose();
                 }
@@ -262,7 +263,7 @@ namespace WinForms
 
             accessLogin = new AccessLogin(Form1.Empresa.empconexao);
             negocioEmp = new EmpresaNegocios(Form1.Empresa.empconexao);
-            negocioPessoa = new PessoaNegocio(Form1.Empresa.empconexao);
+            
 
         Iniciar:
             if (accessLogin.UserExist())
@@ -277,8 +278,12 @@ namespace WinForms
                             buttonEmail.Enabled = false;
 
                         panelPrincipal.Enabled = true;
-
                         menuStripPrincipal.Enabled = true;
+
+                        if (Unidade.uniassistencia == EnumAssistencia.Loja)
+                            buttonOs.Enabled = false;
+                        else
+                            buttonOs.Enabled = true;
 
                         panelOnline.Visible = true;
                         FormOnline formOnline = new FormOnline();
@@ -301,7 +306,7 @@ namespace WinForms
                 }
 
                 formLogin.Dispose();
-
+                negocioPessoa = new PessoaNegocio(Form1.Empresa.empconexao, Form1.Unidade.uniassistencia);
             }
             else
             {
@@ -665,31 +670,33 @@ namespace WinForms
         private void CadPessoa(EnumPessoaTipo pessoa)
         {
             FormPessoa formPessoa = new FormPessoa(pessoa);
-
             if (pessoa == EnumPessoaTipo.Cliente)
             {
                 if (formPessoa.ShowDialog(this) == DialogResult.Yes)
                 {
-                    PessoaInfo p = formPessoa.SelecionadoPessoa;
-                    int id = p.pssid;
-
-                    if (id > 0)
+                    if (Unidade.uniassistencia == EnumAssistencia.Assistencia)
                     {
-                        FormServicoTipo formServicoTipo = new FormServicoTipo();
-                        if (formServicoTipo.ShowDialog(this) == DialogResult.Yes)
+                        PessoaInfo p = formPessoa.SelecionadoPessoa;
+                        int id = p.pssid;
+
+                        if (id > 0)
                         {
-                            FormServico formServico = new FormServico(p);
-                            if (formServico.ShowDialog(this) == DialogResult.Yes)
+                            FormServicoTipo formServicoTipo = new FormServicoTipo();
+                            if (formServicoTipo.ShowDialog(this) == DialogResult.Yes)
                             {
-                                FormMessage.ShowMessegeInfo("Registro salvo com sucesso!");
+                                FormServico formServico = new FormServico(p);
+                                if (formServico.ShowDialog(this) == DialogResult.Yes)
+                                {
+                                    FormMessage.ShowMessegeInfo("Registro salvo com sucesso!");
+                                }
                             }
-                        }
-                        else if (formServicoTipo.ShowDialog(this) == DialogResult.OK)
-                        {
+                            else if (formServicoTipo.ShowDialog(this) == DialogResult.OK)
+                            {
+
+                            }
+                            formServicoTipo.Dispose();
 
                         }
-                        formServicoTipo.Dispose();
-                        
                     }
                 }
 
@@ -714,8 +721,11 @@ namespace WinForms
 
         private void BuscarServico()
         {
-            FormServicoListar formServicoListar = new FormServicoListar();
-            FormAbertos(formServicoListar, true);
+            if (Unidade.uniassistencia == EnumAssistencia.Assistencia)
+            {
+                FormServicoListar formServicoListar = new FormServicoListar();
+                FormAbertos(formServicoListar, true);
+            }
         }
 
         private void buttonBuscarCliente_Click(object sender, EventArgs e)

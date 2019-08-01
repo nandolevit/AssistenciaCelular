@@ -14,7 +14,7 @@ namespace WinForms
     public class Caixa
     {
         CaixaNegocios caixaNegocios = new CaixaNegocios(Form1.Empresa.empconexao);
-        FuncNegocios funcNegocios = new FuncNegocios(Form1.Empresa.empconexao);
+        FuncNegocios funcNegocios = new FuncNegocios(Form1.Empresa.empconexao, Form1.Unidade.uniassistencia);
         EntradaSaidaNegocios entradaSaidaNegocios = new EntradaSaidaNegocios(Form1.Empresa.empconexao);
         CaixaAbrirInfo caixaAbrirInfo = new CaixaAbrirInfo();
         CaixaAbrirInfo caixaFechado = new CaixaAbrirInfo();

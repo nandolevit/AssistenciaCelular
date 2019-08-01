@@ -15,7 +15,7 @@ namespace Negocios
         enum Tipo { Id, Cpf, Nome, Email, Telefone }
         private string EmpConexao { get; set; }
 
-        public ClienteNegocios(string conexao) : base(conexao)
+        public ClienteNegocios(string conexao, EnumAssistencia assistencia) : base(conexao, assistencia)
         {
             EmpConexao = conexao;
         }

@@ -187,7 +187,7 @@ namespace Negocios
                 return null;
         }
         
-        public int InsertUnidade(UnidadeInfo unidadeInfo, bool sede = false)
+        public int InsertUnidade(UnidadeInfo unidadeInfo)
         {
             if (accessDbMySql.Conectar(EmpConexao))
             {
@@ -207,11 +207,11 @@ namespace Negocios
                 accessDbMySql.AddParametrosMySql("@uf", unidadeInfo.uniuf);
                 accessDbMySql.AddParametrosMySql("@unidade", unidadeInfo.uniunidade);
                 accessDbMySql.AddParametrosMySql("@fundada", unidadeInfo.unifundada);
+                accessDbMySql.AddParametrosMySql("@assist", unidadeInfo.uniassistencia);
+                accessDbMySql.AddParametrosMySql("@sede", unidadeInfo.unisede);
+                accessDbMySql.AddParametrosMySql("@ativa", unidadeInfo.uniativa);
 
-                if (sede)
-                    return accessDbMySql.ExecutarScalarMySql("spInsertUnidadeSede");
-                else
-                    return accessDbMySql.ExecutarScalarMySql("spInsertUnidade");
+                return accessDbMySql.ExecutarScalarMySql("spInsertUnidade");
             }
             else
                 return 0;
@@ -335,7 +335,13 @@ namespace Negocios
                     unitelefone = Convert.ToString(row["unitelefone"]),
                     uniuf = Convert.ToString(row["uniuf"]),
                     uniunidade = Convert.ToString(row["uniunidade"]).Trim(),
+                    unisede = Convert.ToBoolean(row["unisede"])
                 };
+
+                if (Convert.ToBoolean(row["uniassistencia"]))
+                    unidadeInfo.uniassistencia = EnumAssistencia.Assistencia;
+                else
+                    unidadeInfo.uniassistencia = EnumAssistencia.Loja;
 
                 unidadeColecao.Add(unidadeInfo);
             }

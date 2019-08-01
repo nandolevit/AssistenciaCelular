@@ -26,7 +26,7 @@ namespace WinForms
         IphoneCelularInfo infoCelular;
 
         ServicoNegocio negocioServ = new ServicoNegocio(Form1.Empresa.empconexao);
-        FuncNegocios negocioFunc = new FuncNegocios(Form1.Empresa.empconexao);
+        FuncNegocios negocioFunc = new FuncNegocios(Form1.Empresa.empconexao, Form1.Unidade.uniassistencia);
 
         bool saved; //confirma se a OS foi salva, para quando fechar a janela atualizar a lista
 

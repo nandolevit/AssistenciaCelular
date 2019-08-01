@@ -20,21 +20,21 @@ namespace WinForms
         UserNegocio userNegocio = new UserNegocio(Form1.Empresa.empconexao);
         SerializarNegocios serializarNegocios = new SerializarNegocios(Form1.Caminho);
         AccessLogin accessLogin = new AccessLogin(Form1.Empresa.empconexao);
+        UnidadeInfo infoUnid;
 
         private string FileNameLogin { get { return "log.lvt"; } }
         string[] login = new string[3];
         string senha = string.Empty;
-        int unidade = 0;
 
         public FormLogin()
         {
             InitializeComponent();
-            
+
             if (serializarNegocios.ArquivoExiste(FileNameLogin))
             {
                 UserInfo user = (serializarNegocios.DesserializarObjeto(FileNameLogin) as UserInfo);
 
-                if(user != null)
+                if (user != null)
                 {
                     textBoxLogin.Text = user.uselogin;
                     maskedTextBoxSenha.Text = user.usesenha;
@@ -43,24 +43,28 @@ namespace WinForms
 
             }
         }
-        
+
         private void buttonSair_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
         private void Logar()
         {
+            Iniciar:
             if (!(string.IsNullOrEmpty(textBoxLogin.Text) || string.IsNullOrEmpty(maskedTextBoxSenha.Text)))
             {
                 if (!string.IsNullOrEmpty(labelUnidadeDescricao.Text))
                 {
                     login[0] = textBoxLogin.Text;
                     login[1] = maskedTextBoxSenha.Text;
-                    login[2] = unidade.ToString();
                     Login();
                 }
                 else
+                {
                     FormMessage.ShowMessegeWarning("Selecione uma unidade!");
+                    ConsultarUnidade();
+                    goto Iniciar;
+                }
             }
             else
                 FormMessage.ShowMessegeWarning("Digite o seu LOGIN E SENHA!");
@@ -101,11 +105,11 @@ namespace WinForms
                 Logar();
             }
         }
-        
+
         private void FormLogin_Load(object sender, EventArgs e)
         {
-            unidade = Form1.Unidade.uniid;
-            labelUnidadeDescricao.Text = Form1.Unidade.uniunidade;
+            //unidade = Form1.Unidade.uniid;
+            //labelUnidadeDescricao.Text = Form1.Unidade.uniunidade;
             textBoxLogin.Select();
         }
 
@@ -117,38 +121,7 @@ namespace WinForms
         private void buttonLogar_Click(object sender, EventArgs e)
         {
             Logar();
-            
-        }
-        
-        private void buttonBuscar_Click(object sender, EventArgs e)
-        {
 
-            UnidadeColecao unidadeColecao = empresaNegocios.ConsultarUnidade();
-            Form_ConsultarColecao form_ConsultarColecao = new Form_ConsultarColecao();
-
-            if (unidadeColecao != null)
-            {
-                foreach (UnidadeInfo uni in unidadeColecao)
-                {
-                    Form_Consultar form_Consultar = new Form_Consultar
-                    {
-                        Cod = string.Format("{0:000}", uni.uniid),
-                        Descricao = uni.uniunidade
-                    };
-
-                    form_ConsultarColecao.Add(form_Consultar);
-                }
-            }
-
-            FormConsultar_Cod_Descricao formConsultar_Cod_Descricao = new FormConsultar_Cod_Descricao(form_ConsultarColecao, "Unidades");
-            formConsultar_Cod_Descricao.ShowDialog(this);
-
-            if (formConsultar_Cod_Descricao.DialogResult == DialogResult.Yes)
-            {
-                unidade = Convert.ToInt32(formConsultar_Cod_Descricao.Selecionado.Cod);
-                labelUnidadeDescricao.Text = formConsultar_Cod_Descricao.Selecionado.Descricao;
-                textBoxLogin.Select();
-            }
         }
 
         private void textBoxLogin_TextChanged(object sender, EventArgs e)
@@ -159,6 +132,43 @@ namespace WinForms
         private void maskedTextBoxSenha_TextChanged(object sender, EventArgs e)
         {
             checkBoxSalvarLogin.Checked = false;
+        }
+
+        private void ButtonUnid_Click(object sender, EventArgs e)
+        {
+            ConsultarUnidade();
+        }
+
+        private void ConsultarUnidade()
+        {
+            UnidadeColecao colecao = Form1.colecaoUnidade;
+            Form_ConsultarColecao formColecao = new Form_ConsultarColecao();
+            foreach (UnidadeInfo unid in colecao)
+            {
+                Form_Consultar form_Consultar = new Form_Consultar
+                {
+                    Cod = string.Format("{0:000}", unid.uniid),
+                    Descricao = unid.uniunidade
+                };
+
+                formColecao.Add(form_Consultar);
+            }
+
+            FormConsultar_Cod_Descricao formConsultar_Cod_Descricao = new FormConsultar_Cod_Descricao(formColecao, "SELECIONAR UNIDADE");
+            if (formConsultar_Cod_Descricao.ShowDialog(this) == DialogResult.Yes)
+            {
+                Form_Consultar form_Consultar = formConsultar_Cod_Descricao.Selecionado;
+
+                foreach (UnidadeInfo unid in colecao)
+                    if (unid.uniid == Convert.ToInt32(form_Consultar.Cod))
+                    {
+                        login[2] = form_Consultar.Cod;
+                        labelUnidadeDescricao.Text = unid.uniunidade;
+                        textBoxLogin.Select();
+                        break;
+                    }
+            }
+            formConsultar_Cod_Descricao.Dispose();
         }
     }
 }

@@ -16,7 +16,7 @@ namespace WinForms
 {
     public partial class FormUnidade : Form
     {
-        ClienteNegocios clienteNegocios = new ClienteNegocios(Form1.Empresa.empconexao);
+        ClienteNegocios clienteNegocios = new ClienteNegocios(Form1.Empresa.empconexao, Form1.Unidade.uniassistencia);
         UnidadeInfo unidadeInfo = new UnidadeInfo();
         EmpresaNegocios empresaNegocios = new EmpresaNegocios(Form1.Empresa.empconexao);
 

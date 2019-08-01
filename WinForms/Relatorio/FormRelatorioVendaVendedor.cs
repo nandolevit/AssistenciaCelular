@@ -22,7 +22,7 @@ namespace WinForms
         GridViewComissaoInfo gridViewComissaoInfo;
         GridViewComissaoColecao gridViewComissaoColecao;
         VendaNegocios vendaNegocios = new VendaNegocios(Form1.Empresa.empconexao);
-        FuncNegocios funcNegocios = new FuncNegocios(Form1.Empresa.empconexao);
+        FuncNegocios funcNegocios = new FuncNegocios(Form1.Empresa.empconexao, Form1.Unidade.uniassistencia);
         decimal valor;
         decimal dbQuant;
         int combo;

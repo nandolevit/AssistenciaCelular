@@ -43,7 +43,7 @@ namespace WinForms
                     int cod = vendaNegocios.InsertVendaCancelada(Form1.User.useidfuncionario, vendaInfo.venid, textBoxDescricao.Text);
                     if (cod > 0)
                     {
-                        ClienteNegocios clienteNegocios = new ClienteNegocios(Form1.Empresa.empconexao);
+                        ClienteNegocios clienteNegocios = new ClienteNegocios(Form1.Empresa.empconexao, Form1.Unidade.uniassistencia);
                         PessoaInfo infoPessoa = clienteNegocios.ConsultarPessoaId(vendaInfo.venidcliente);
 
                         CaixaNegocios caixaNegocios = new CaixaNegocios(Form1.Empresa.empconexao);
