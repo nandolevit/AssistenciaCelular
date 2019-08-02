@@ -197,6 +197,9 @@ namespace WinForms
 		{
 			mask.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
             mask.Click += new EventHandler(FormatMaskedTextBox_Click);
+
+            if (mask.Mask == "(00) 0 0000-0000")
+                mask.TextChanged += new EventHandler(FormatMaskedTelefone_TextChange);
         }
 		
 		private static void FormatTextBox_AoAlterar(object sender, EventArgs e)
@@ -230,5 +233,20 @@ namespace WinForms
 			MaskedTextBox mask = sender as MaskedTextBox;
 			mask.Select(0, 0);
 		}
+
+        private static void FormatMaskedTelefone_TextChange(object sender, EventArgs e)
+        {
+            MaskedTextBox mask = sender as MaskedTextBox;
+
+            if (mask.Text.Length > 2)
+            {
+                char n = mask.Text[2];
+
+                if (n == '9')
+                    mask.Mask = "(00) 0 0000-0000";
+                else
+                    mask.Mask = "(00) 0000-0000";
+            }
+        }
     }
 }

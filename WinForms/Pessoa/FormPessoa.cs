@@ -273,40 +273,21 @@ namespace WinForms
 
             if (cpf != "00000000000")
             {
-                if (cpf.Length >= 11)
-                {
-                    if (cpf.Length > 11)
-                    {
-                        if (validarCpfCnpj.CpfCpnjValido())
-                        {
-                            maskedTextBoxCpf.Mask = "00,000,000/0000-00";
-                            ConsultarCpf();
-                        }
-                        else
-                        {
-                            FormMessage.ShowMessegeWarning("CNPJ inválido! Tente novamente...");
-                            maskedTextBoxCpf.Clear();
-                            maskedTextBoxCpf.Focus();
-                        }
-                    }
-                    else
-                    {
-                        if (validarCpfCnpj.CpfCpnjValido())
-                        {
-                            maskedTextBoxCpf.Mask = "000,000,000-00";
-                            ConsultarCpf();
-                        }
-                        else
-                        {
-                            FormMessage.ShowMessegeWarning("CPF inválido! Tente novamente...");
-                            maskedTextBoxCpf.Clear();
-                            maskedTextBoxCpf.Focus();
-                        }
-                    }
-
-                }
+                if (validarCpfCnpj.CpfCpnjValido())
+                    ConsultarCpf();
                 else
+                {
+                    if (radioButtonCnpj.Checked)
+                        FormMessage.ShowMessegeWarning("CNPJ inválido! Tente novamente...");
+                    else
+                        FormMessage.ShowMessegeWarning("CPF inválido! Tente novamente...");
+
                     maskedTextBoxCpf.Clear();
+                    maskedTextBoxCpf.Focus();
+                }
+
+                
+
             }
         }
         private void ConsultarCpf()
@@ -336,7 +317,7 @@ namespace WinForms
         private void buttonFechar_Click(object sender, EventArgs e)
         {
             if (this.Modal)
-               this.DialogResult = DialogResult.Cancel;
+                this.DialogResult = DialogResult.Cancel;
             else
                 this.Close();
         }
@@ -399,7 +380,7 @@ namespace WinForms
             }
             else
             {
-                maskedTextBoxCpf.Mask = "000.000.000/0000-00";
+                maskedTextBoxCpf.Mask = "00.000.000/0000-00";
                 labelCpf.Text = "CNPJ:";
             }
         }
