@@ -199,6 +199,7 @@ namespace WinForms
                             infoUnid.unisede = false;
                             infoUnid.uniassistencia = EnumAssistencia.Loja;
                             empresaNegocios.InsertUnidade(infoUnid);
+                            infoUnid.uniassistencia = EnumAssistencia.Assistencia;
 
                             negocioPessoa = new PessoaNegocio(infoEmpresa.empconexao, Form1.Unidade.uniassistencia);
                             PessoaInfo pessoa = new PessoaInfo
@@ -220,7 +221,9 @@ namespace WinForms
                                 pssiduser = 0,
                                 psspadrao = true
                             };
-                            negocioPessoa.InsertPessoa(pessoa);
+                            int id = negocioPessoa.InsertPessoa(pessoa);
+                            UserNegocio negocio = new UserNegocio(Form1.Empresa.empconexao);
+                            negocio.UpdateUserAdmin(id);
 
                             pessoa.pssidtipo = EnumPessoaTipo.Fornecedor;
                             pessoa.pssnome = "FORNECEDOR PADRAO";
@@ -307,17 +310,22 @@ namespace WinForms
 
         private void ButtonUnid_Click(object sender, EventArgs e)
         {
-            if (colecaoComp.Count < infoUnid.unicomputador)
-                Inserir();
-            else
+            if (infoUnid != null)
             {
-                if (VerificaComputador())
-                {
+                if (colecaoComp.Count < infoUnid.unicomputador)
                     Inserir();
-                }
                 else
-                    FormMessage.ShowMessegeWarning("Esta unidade possui a lincença para " + infoUnid.unicomputador + "e todas já estão ativas!");
+                {
+                    if (VerificaComputador())
+                    {
+                        Inserir();
+                    }
+                    else
+                        FormMessage.ShowMessegeWarning("Esta unidade possui a lincença para " + infoUnid.unicomputador + "e todas já estão ativas!");
+                }
             }
+            else
+                Inserir();
         }
 
 

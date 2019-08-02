@@ -76,8 +76,6 @@
             this.labelEmail.Name = "labelEmail";
             this.labelEmail.Size = new System.Drawing.Size(445, 20);
             this.labelEmail.TabIndex = 4;
-            this.labelEmail.Text = "E-mail:";
-            this.labelEmail.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelNome
             // 
@@ -86,8 +84,6 @@
             this.labelNome.Name = "labelNome";
             this.labelNome.Size = new System.Drawing.Size(445, 20);
             this.labelNome.TabIndex = 3;
-            this.labelNome.Text = "Nome:";
-            this.labelNome.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label2
             // 
@@ -105,6 +101,7 @@
             this.maskedTextBoxCpf.Name = "maskedTextBoxCpf";
             this.maskedTextBoxCpf.Size = new System.Drawing.Size(90, 20);
             this.maskedTextBoxCpf.TabIndex = 1;
+            this.maskedTextBoxCpf.TextChanged += new System.EventHandler(this.MaskedTextBoxCpf_TextChanged);
             // 
             // buttonBuscar
             // 

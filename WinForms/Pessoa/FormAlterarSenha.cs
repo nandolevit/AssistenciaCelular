@@ -61,6 +61,13 @@ namespace WinForms
         {
             if (!ativado)
             {
+                UserInfo user = userNegocio.ConsultarLogin(textBoxNovoLogin.Text);
+
+                if (user == null)
+                    userExiste = false;
+                else
+                    userExiste = true;
+
                 if (userExiste)
                 {
                     FormMessage.ShowMessegeWarning("Usuário já existe, defina outro!");
@@ -133,12 +140,7 @@ namespace WinForms
 
         private void textBoxNovoLogin_Leave(object sender, EventArgs e)
         {
-            UserInfo user = userNegocio.ConsultarLogin(textBoxNovoLogin.Text);
-
-            if (user == null)
-                userExiste = false;
-            else
-                userExiste = true;
+            
         }
     }
 }

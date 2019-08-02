@@ -25,6 +25,7 @@ namespace WinForms
             InitializeComponent();
             FormFormat formFormat = new FormFormat(this);
             formFormat.formatar();
+            this.AcceptButton = buttonEmail;
         }
 
         private void ButtonBuscar_Click(object sender, EventArgs e)
@@ -39,15 +40,17 @@ namespace WinForms
 
                 if (pessoa != null)
                 {
-                    labelNome.Text += " " + pessoa.pssnome;
-                    labelEmail.Text += "" + pessoa.pssemail;
+                    labelNome.Text = "Nome: " + pessoa.pssnome;
+                    labelEmail.Text = "E-mail: " + pessoa.pssemail;
 
                     user = negocioUser.ConsultarUsuarioFuncId(pessoa.pssid);
 
+                    buttonBuscar.Enabled = false;
                     buttonEmail.Enabled = true;
                 }
                 else
                 {
+                    buttonBuscar.Enabled = true;
                     buttonEmail.Enabled = false;
                     FormMessage.ShowMessegeWarning("Ninguém foi encontrado!");
                 }
@@ -76,7 +79,16 @@ namespace WinForms
             if (negocioEmail.EnviarEmailBasico(pessoa.pssemail, "Esqueci minha senha!", mensagem))
                 this.DialogResult = DialogResult.Yes;
             else
-                this.DialogResult = DialogResult.Cancel;
+                this.DialogResult = DialogResult.Abort;
+        }
+
+        private void MaskedTextBoxCpf_TextChanged(object sender, EventArgs e)
+        {
+            labelNome.Text = string.Empty;
+            labelEmail.Text = string.Empty;
+
+            buttonBuscar.Enabled = true;
+            buttonEmail.Enabled = false;
         }
     }
 }

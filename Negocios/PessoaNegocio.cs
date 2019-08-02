@@ -197,6 +197,7 @@ namespace Negocios
                     pssassistencia = assist,
                     psscpf = Convert.ToString(row["psscpf"]),
                     pssdataregistro = Convert.ToDateTime(row["pssdataregistro"]).Date,
+                    pssnome = Convert.ToString(row["pssnome"]),
                     pssemail = Convert.ToString(row["pssemail"]),
                     pssendbairro = Convert.ToString(row["pssendbairro"]),
                     pssendcep = Convert.ToString(row["pssendcep"]),
@@ -208,7 +209,6 @@ namespace Negocios
                     pssidtipo = enumTipo,
                     pssiduser = Convert.ToInt32(row["pssiduser"]),
                     pssniver = Convert.ToDateTime(row["pssniver"]).Date,
-                    pssnome = Convert.ToString(row["pssnome"]),
                     psstelefone = Convert.ToString(row["psstelefone"]),
                 };
 

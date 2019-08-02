@@ -48,7 +48,7 @@ namespace WinForms
             InitializeComponent();
             FormFormat formFormat = new FormFormat(this);
             formFormat.formatar();
-
+            maskedTextBoxCpf.Mask = "000.000.000-00";
             this.AcceptButton = buttonSalvar;
         }
 
@@ -205,7 +205,6 @@ namespace WinForms
             infoPessoa.pssiduser = Form1.User == null ? 0 : Form1.User.useidfuncionario;
             infoPessoa.pssidtipo = enumPessoa;
             infoPessoa.pssniver = string.IsNullOrEmpty(textBoxNiver.Text) ? DateTime.Now.Date : Convert.ToDateTime(textBoxNiver.Text).Date;
-            infoPessoa.pssassistencia = EnumAssistencia.Assistencia;
 
             SelecionadoPessoa = infoPessoa;
         }
@@ -366,36 +365,6 @@ namespace WinForms
                 FormMessage.ShowMessegeWarning("CEP não encontrado, tente outro CEP!");
             }
         }
-
-        private void buttonBuscarUnidade_Click(object sender, EventArgs e)
-        {
-            CodDescricaoColecao codDescricaoColecao = funcNegocios.ConsultarCargos();
-            Form_ConsultarColecao form_ConsultarColecao = new Form_ConsultarColecao();
-
-            if (codDescricaoColecao != null)
-            {
-                foreach (CodDescricaoInfo cod in codDescricaoColecao)
-                {
-                    Form_Consultar form_Consultar = new Form_Consultar
-                    {
-                        Cod = string.Format("{0:000}", cod.cod),
-                        Descricao = cod.descricao
-                    };
-
-                    form_ConsultarColecao.Add(form_Consultar);
-                }
-            }
-
-            FormConsultar_Cod_Descricao formConsultar_Cod_Descricao = new FormConsultar_Cod_Descricao(form_ConsultarColecao, "Unidades");
-            formConsultar_Cod_Descricao.ShowDialog(this);
-
-            if (formConsultar_Cod_Descricao.DialogResult == DialogResult.Yes)
-            {
-                //codCargo = Convert.ToInt32(formConsultar_Cod_Descricao.Selecionado.Cod);
-                labelCargoDescricao.Text = formConsultar_Cod_Descricao.Selecionado.Descricao;
-            }
-        }
-
         private void buttonAddNiver_Click(object sender, EventArgs e)
         {
             FormAddData formAddData = new FormAddData();
@@ -419,6 +388,20 @@ namespace WinForms
         private void FormCadastroPessoa_Load(object sender, EventArgs e)
         {
             maskedTextBoxCpf.Select();
+        }
+
+        private void RadioButtonCpf_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonCpf.Checked)
+            {
+                maskedTextBoxCpf.Mask = "000.000.000-00";
+                labelCpf.Text = "CPF:";
+            }
+            else
+            {
+                maskedTextBoxCpf.Mask = "000.000.000/0000-00";
+                labelCpf.Text = "CNPJ:";
+            }
         }
     }
 }

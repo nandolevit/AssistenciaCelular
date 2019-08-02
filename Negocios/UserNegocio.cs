@@ -24,6 +24,18 @@ namespace Negocios
 
         AccessDbMySql accessDbMySql = new AccessDbMySql();
 
+        public int UpdateUserAdmin(int id)
+        {
+            if (accessDbMySql.Conectar(EmpConexao))
+            {
+                accessDbMySql.AddParametrosMySql("@id", id);
+
+                return accessDbMySql.ExecutarScalarMySql("spUpdateUserAdmin");
+            }
+            else
+                return 0;
+        }
+
         public bool TestarConexaoSemPersistencia(string access)
         {
             bool teste = accessDbMySql.ConectarSemPersistencia(access);
@@ -162,6 +174,7 @@ namespace Negocios
                     uselogin = Convert.ToString(row["uselogin"]),
                     usenovologin = Convert.ToInt32(row["usenovologin"]),
                     usenome = Convert.ToString(row["pssnome"]),
+                    usecargo = Convert.ToInt32(row["usecargo"]),
                     usesenha = Convert.ToString(row["usesenha"])
                 };
 

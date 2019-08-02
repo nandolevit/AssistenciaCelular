@@ -281,9 +281,26 @@ namespace WinForms
                         menuStripPrincipal.Enabled = true;
 
                         if (Unidade.uniassistencia == EnumAssistencia.Loja)
+                        {
+                            estoqueToolStripMenuItem.Visible = false;
                             buttonOs.Enabled = false;
+                        }
                         else
+                        {
+                            estoqueToolStripMenuItem.Visible = true;
                             buttonOs.Enabled = true;
+                        }
+
+                        if (User.usecargo == 1)
+                        {
+                            funcionarioToolStripMenuItem.Visible = true;
+                            funcionarioToolStripMenuItem1.Visible = true;
+                        }
+                        else
+                        {
+                            funcionarioToolStripMenuItem.Visible = false;
+                            funcionarioToolStripMenuItem1.Visible = false;
+                        }
 
                         panelOnline.Visible = true;
                         FormOnline formOnline = new FormOnline();

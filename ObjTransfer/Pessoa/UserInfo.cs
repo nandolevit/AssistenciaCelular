@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ObjTransfer
 {
     [Serializable]
-    public class UserInfo : PessoaInfo
+    public class UserInfo 
     {
         public int useid { get; set; }
         public string uselogin { get; set; }
@@ -17,5 +17,6 @@ namespace ObjTransfer
         public int usenovologin { get; set; }
         public string usenome { get; set; }
         public int loginid { get; set; }
+        public int usecargo { get; set; }
     }
 }

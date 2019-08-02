@@ -20,7 +20,6 @@ namespace WinForms
         UserNegocio userNegocio = new UserNegocio(Form1.Empresa.empconexao);
         SerializarNegocios serializarNegocios = new SerializarNegocios(Form1.Caminho);
         AccessLogin accessLogin = new AccessLogin(Form1.Empresa.empconexao);
-        UnidadeInfo infoUnid;
 
         private string FileNameLogin { get { return "log.lvt"; } }
         string[] login = new string[3];
@@ -177,7 +176,7 @@ namespace WinForms
             FormUserEsqueciSenha formUserEsqueciSenha = new FormUserEsqueciSenha();
             if (formUserEsqueciSenha.ShowDialog(this) == DialogResult.Yes)
                 FormMessage.ShowMessegeInfo("Seu Login e senha foi enviado para o seu email com sucesso!");
-            else
+            else if(formUserEsqueciSenha.DialogResult == DialogResult.Abort)
                 FormMessage.ShowMessegeInfo("Falha, não foi possível recuperar a sua senha!");
         }
     }

@@ -45,11 +45,10 @@
             this.textBoxComplemento = new System.Windows.Forms.TextBox();
             this.labelComplemento = new System.Windows.Forms.Label();
             this.groupBoxDadosPessoais = new System.Windows.Forms.GroupBox();
+            this.radioButtonCnpj = new System.Windows.Forms.RadioButton();
+            this.radioButtonCpf = new System.Windows.Forms.RadioButton();
             this.buttonAddNiver = new System.Windows.Forms.Button();
             this.textBoxNiver = new System.Windows.Forms.TextBox();
-            this.buttonBuscarCargo = new System.Windows.Forms.Button();
-            this.labelCargoDescricao = new System.Windows.Forms.Label();
-            this.labelUnidade = new System.Windows.Forms.Label();
             this.maskedTextBoxCpf = new System.Windows.Forms.MaskedTextBox();
             this.labelNiver = new System.Windows.Forms.Label();
             this.maskedTextBoxTel2 = new System.Windows.Forms.MaskedTextBox();
@@ -227,11 +226,10 @@
             // 
             // groupBoxDadosPessoais
             // 
+            this.groupBoxDadosPessoais.Controls.Add(this.radioButtonCnpj);
+            this.groupBoxDadosPessoais.Controls.Add(this.radioButtonCpf);
             this.groupBoxDadosPessoais.Controls.Add(this.buttonAddNiver);
             this.groupBoxDadosPessoais.Controls.Add(this.textBoxNiver);
-            this.groupBoxDadosPessoais.Controls.Add(this.buttonBuscarCargo);
-            this.groupBoxDadosPessoais.Controls.Add(this.labelCargoDescricao);
-            this.groupBoxDadosPessoais.Controls.Add(this.labelUnidade);
             this.groupBoxDadosPessoais.Controls.Add(this.maskedTextBoxCpf);
             this.groupBoxDadosPessoais.Controls.Add(this.labelNiver);
             this.groupBoxDadosPessoais.Controls.Add(this.maskedTextBoxTel2);
@@ -250,6 +248,29 @@
             this.groupBoxDadosPessoais.TabIndex = 1;
             this.groupBoxDadosPessoais.TabStop = false;
             this.groupBoxDadosPessoais.Text = "Dados Pessoais";
+            // 
+            // radioButtonCnpj
+            // 
+            this.radioButtonCnpj.AutoSize = true;
+            this.radioButtonCnpj.Location = new System.Drawing.Point(165, 34);
+            this.radioButtonCnpj.Name = "radioButtonCnpj";
+            this.radioButtonCnpj.Size = new System.Drawing.Size(52, 17);
+            this.radioButtonCnpj.TabIndex = 18;
+            this.radioButtonCnpj.Text = "CNPJ";
+            this.radioButtonCnpj.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonCpf
+            // 
+            this.radioButtonCpf.AutoSize = true;
+            this.radioButtonCpf.Checked = true;
+            this.radioButtonCpf.Location = new System.Drawing.Point(114, 33);
+            this.radioButtonCpf.Name = "radioButtonCpf";
+            this.radioButtonCpf.Size = new System.Drawing.Size(45, 17);
+            this.radioButtonCpf.TabIndex = 17;
+            this.radioButtonCpf.TabStop = true;
+            this.radioButtonCpf.Text = "CPF";
+            this.radioButtonCpf.UseVisualStyleBackColor = true;
+            this.radioButtonCpf.CheckedChanged += new System.EventHandler(this.RadioButtonCpf_CheckedChanged);
             // 
             // buttonAddNiver
             // 
@@ -275,48 +296,13 @@
             this.textBoxNiver.TabStop = false;
             this.textBoxNiver.TextChanged += new System.EventHandler(this.TextBoxNiver_TextChanged);
             // 
-            // buttonBuscarCargo
-            // 
-            this.buttonBuscarCargo.BackgroundImage = global::WinForms.Properties.Resources.icons8_Filter_32;
-            this.buttonBuscarCargo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonBuscarCargo.FlatAppearance.BorderSize = 0;
-            this.buttonBuscarCargo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonBuscarCargo.Location = new System.Drawing.Point(494, 32);
-            this.buttonBuscarCargo.Name = "buttonBuscarCargo";
-            this.buttonBuscarCargo.Size = new System.Drawing.Size(20, 20);
-            this.buttonBuscarCargo.TabIndex = 6;
-            this.toolTip1.SetToolTip(this.buttonBuscarCargo, "Selecionar unidade.");
-            this.buttonBuscarCargo.UseVisualStyleBackColor = true;
-            this.buttonBuscarCargo.Visible = false;
-            this.buttonBuscarCargo.Click += new System.EventHandler(this.buttonBuscarUnidade_Click);
-            // 
-            // labelCargoDescricao
-            // 
-            this.labelCargoDescricao.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelCargoDescricao.Location = new System.Drawing.Point(249, 32);
-            this.labelCargoDescricao.Name = "labelCargoDescricao";
-            this.labelCargoDescricao.Size = new System.Drawing.Size(239, 21);
-            this.labelCargoDescricao.TabIndex = 5;
-            this.labelCargoDescricao.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.labelCargoDescricao.Visible = false;
-            // 
-            // labelUnidade
-            // 
-            this.labelUnidade.AutoSize = true;
-            this.labelUnidade.Location = new System.Drawing.Point(246, 16);
-            this.labelUnidade.Name = "labelUnidade";
-            this.labelUnidade.Size = new System.Drawing.Size(38, 13);
-            this.labelUnidade.TabIndex = 4;
-            this.labelUnidade.Text = "Cargo:";
-            this.labelUnidade.Visible = false;
-            // 
             // maskedTextBoxCpf
             // 
-            this.maskedTextBoxCpf.Location = new System.Drawing.Point(114, 33);
+            this.maskedTextBoxCpf.Location = new System.Drawing.Point(223, 32);
+            this.maskedTextBoxCpf.Mask = "000.000.000-00";
             this.maskedTextBoxCpf.Name = "maskedTextBoxCpf";
             this.maskedTextBoxCpf.Size = new System.Drawing.Size(129, 20);
             this.maskedTextBoxCpf.TabIndex = 3;
-            this.maskedTextBoxCpf.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.maskedTextBoxCpf.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
             this.maskedTextBoxCpf.Enter += new System.EventHandler(this.maskedTextBoxCpf_Enter);
             this.maskedTextBoxCpf.Leave += new System.EventHandler(this.maskedTextBoxCpf_Leave);
@@ -361,11 +347,11 @@
             // labelCpf
             // 
             this.labelCpf.AutoSize = true;
-            this.labelCpf.Location = new System.Drawing.Point(115, 17);
+            this.labelCpf.Location = new System.Drawing.Point(224, 16);
             this.labelCpf.Name = "labelCpf";
-            this.labelCpf.Size = new System.Drawing.Size(62, 13);
+            this.labelCpf.Size = new System.Drawing.Size(30, 13);
             this.labelCpf.TabIndex = 2;
-            this.labelCpf.Text = "CPF/CNPJ:";
+            this.labelCpf.Text = "CPF:";
             // 
             // labelTel
             // 
@@ -523,14 +509,13 @@
         private System.Windows.Forms.TextBox textBoxEmail;
         private System.Windows.Forms.Button buttonSalvar;
         private System.Windows.Forms.Button buttonFechar;
-        private System.Windows.Forms.Label labelCargoDescricao;
-        private System.Windows.Forms.Label labelUnidade;
         private System.Windows.Forms.Button buttonEnd;
-        private System.Windows.Forms.Button buttonBuscarCargo;
         private System.Windows.Forms.Button buttonAddNiver;
         private System.Windows.Forms.TextBox textBoxNiver;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.PictureBox pictureBoxLoad;
+        private System.Windows.Forms.RadioButton radioButtonCnpj;
+        private System.Windows.Forms.RadioButton radioButtonCpf;
     }
 }
