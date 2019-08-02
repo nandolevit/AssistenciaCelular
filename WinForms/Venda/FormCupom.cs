@@ -104,7 +104,7 @@ namespace WinForms
             {
                 if (enumCaixa == EnumCaixa.Caixa)
                 {
-                    EmailNegocio negocioEmail = new EmailNegocio(Form1.EmpresaEmail);
+                    EmailNegocio negocioEmail = new EmailNegocio(Form1.EmpresaEmail, Form1.Empresa.empfantasia);
                     EmailInfo email = new EmailInfo
                     {
                         emailAssunto = "Caixa Fechado - " + caixaAbrirInfo.caixaabrirdata.Date.ToShortDateString(),

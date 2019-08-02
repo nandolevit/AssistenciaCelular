@@ -35,7 +35,7 @@ namespace WinForms
             if (!string.IsNullOrEmpty(cpf))
             {
                 negocioUser = new UserNegocio(Form1.Empresa.empconexao);
-                negocioEmail = new EmailNegocio(Form1.EmpresaEmail);
+                negocioEmail = new EmailNegocio(Form1.EmpresaEmail, Form1.Empresa.empfantasia);
                 pessoa = negocioUser.ConsultarPessoaCpf(cpf);
 
                 if (pessoa != null)

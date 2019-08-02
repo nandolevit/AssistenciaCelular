@@ -28,6 +28,12 @@ namespace WinForms
 			NovoTextoTxt(texto);
 		}
 
+        public static string PrimeiroNome(string nome)
+        {
+            string[] compNome = nome.Split(' ');
+            string primeiroNome = compNome[0].Substring(0, 1).ToUpper() + compNome[0].Substring(1).ToLower();
+            return primeiroNome;
+        }
         public static void MoedaFormat(TextBox box)
         {
             if (double.TryParse(box.Text, out double cod))
@@ -139,19 +145,30 @@ namespace WinForms
 
 		public static bool ValidaEmail(string texto)
 		{
-			string padrao = @"(@\w+\.\w+)(\.\w+)*$";
-			Regex er = new Regex(padrao, RegexOptions.IgnoreCase);
+            string padrao = @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
+                @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-0-9a-z]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$"; //@"(@\w+\.\w+)(\.\w+)*$"; 
 
-			if (er.IsMatch(texto))
-			{
-				//MessageBox.Show("Email válido!");
+            string novoTexto = FormatarEmail(texto).Trim();
+
+            Regex er = new Regex(padrao, RegexOptions.IgnoreCase);
+
+			if (er.IsMatch(novoTexto))
 				return true;
-			}
 			else
 			{
-				DelW("EMAIL INVÁLIDO!");
+				DelW(texto + " EMAIL INVÁLIDO!");
 				return false;
 			}
 		}
-	}
+
+        private static string FormatarEmail(string email)
+        {
+            string[] novoEmail = email.Split('-');
+
+            if(novoEmail.Length > 1)
+                return novoEmail[1];
+            else
+                return novoEmail[0];
+        }
+    }
 }

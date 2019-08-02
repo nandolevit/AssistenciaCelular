@@ -46,16 +46,17 @@ namespace WinForms
         {
             if (CampoObrigatorio())
             {
-                PreencherEmail();
+                if (PreencherEmail())
+                {
+                    negocioEmail = new EmailNegocio(Form1.EmpresaEmail, Form1.Empresa.empfantasia);
 
-                negocioEmail = new EmailNegocio(Form1.EmpresaEmail);
-
-                if (negocioEmail.EnviarEmailGmail(infoEmail))
-                    FormMessage.ShowMessegeWarning("Mensagem enviada por email");
+                    if (negocioEmail.EnviarEmailGmail(infoEmail))
+                        FormMessage.ShowMessegeWarning("Mensagem enviada por email");
+                }
             }
         }
 
-        private void PreencherEmail()
+        private bool PreencherEmail()
         {
             infoEmail = new EmailInfo
             {
@@ -66,6 +67,16 @@ namespace WinForms
                 emailMessage = textBoxMessage.Text
             };
 
+            List<string> ValidarEmail = new List<string>();
+
+            ValidarEmail.AddRange(infoEmail.emailTo.ToArray());
+            ValidarEmail.AddRange(infoEmail.emailCC.ToArray());
+            ValidarEmail.AddRange(infoEmail.emailCCo.ToArray());
+
+            foreach (string item in ValidarEmail)
+                if (!FormTextoFormat.ValidaEmail(item))
+                    return false;
+
             if (listBoxAnexo.Items.Count > 0)
             {
                 foreach (string item in listBoxAnexo.Items)
@@ -75,6 +86,8 @@ namespace WinForms
             }
             else
                 infoEmail.emailAnexo = new string[0];
+
+            return true;
         }
 
         private bool CampoObrigatorio()
@@ -124,13 +137,15 @@ namespace WinForms
                     return;
                 }
 
+                string novoEmail = FormTextoFormat.PrimeiroNome(infoPessoa.pssnome) + " - " + infoPessoa.pssemail;
                 if (string.IsNullOrEmpty(box.Text))
-                    box.Text = infoPessoa.pssemail;
+                    box.Text = novoEmail;
                 else
-                    box.Text += ";" + infoPessoa.pssemail;
-            }
+                    box.Text += ";" + novoEmail;
 
-            
+                box.Select();
+                box.SelectionStart = box.Text.Length;
+            }
         }
 
         private void ButtonCC_Click(object sender, EventArgs e)

@@ -444,12 +444,12 @@ namespace WinForms
 
         private void MenuItemAlterarSenha_Click(object sender, EventArgs e)
         {
-            FecharForm();
             FormAlterarSenha formAlterarSenha = new FormAlterarSenha(true);
-            formAlterarSenha.ShowDialog(this);
-
-            if (formAlterarSenha.DialogResult == DialogResult.Yes)
+            if (formAlterarSenha.ShowDialog(this) == DialogResult.Yes)
+            {
+                FecharForm();
                 AoCarregar();
+            }
 
             formAlterarSenha.Dispose();
         }
@@ -836,48 +836,6 @@ namespace WinForms
             FormAbertos(formRelatorioVendaVendedor, true);
         }
 
-        private void Form1_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (User != null)
-            {
-                switch (e.KeyCode)
-                {
-                    case Keys.F1:
-                        CadPessoa(EnumPessoaTipo.Cliente);
-                        break;
-                    case Keys.F2:
-                        BuscarPessoa(EnumPessoaTipo.Cliente);
-                        break;
-                    case Keys.F3:
-                        BuscarServico();
-                        break;
-                    case Keys.F4:
-                        BuscarProduto();
-                        break;
-                    case Keys.F5:
-                        Vender();
-                        break;
-                    case Keys.F6:
-                        break;
-                    case Keys.F7:
-                        break;
-                    case Keys.F8:
-                        break;
-                    case Keys.F9:
-                        break;
-                    case Keys.F10:
-                        break;
-                    case Keys.F12:
-                        break;
-                    case Keys.LWin:
-                    case Keys.RWin:
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-
         private void contarProdutoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FormEstoqueContagem formEstoqueContagem = new FormEstoqueContagem(true);
@@ -912,5 +870,6 @@ namespace WinForms
             FormEmail formEmail = new FormEmail();
             formEmail.ShowDialog(this);
         }
+
     }
 }

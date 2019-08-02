@@ -13,15 +13,17 @@ namespace Negocios
     {
         Email infoEmail;
         EmpresaEmailInfo empresa;
+        private string NameFantasia { get; set; }
 
-        public EmailNegocio(EmpresaEmailInfo emp)
+        public EmailNegocio(EmpresaEmailInfo emp, string fantasia)
         {
             empresa = emp;
+            NameFantasia = fantasia;
         }
 
         public bool EnviarEmailGmail(EmailInfo emailInfo)
         {
-            infoEmail = new Email("smtp.gmail.com", empresa.emaillogin, empresa.emailsenha);
+            infoEmail = new Email("smtp.gmail.com", empresa.emaillogin, empresa.emailsenha, NameFantasia);
             return infoEmail.EnviarEmail(emailInfo);
         }
 

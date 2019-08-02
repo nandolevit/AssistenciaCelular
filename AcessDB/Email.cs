@@ -18,13 +18,15 @@ namespace AccessDB
         SmtpClient smtp = new SmtpClient();
         public string smtpEmailFrom { get; set; }
         public string smtpSenha { get; set; }
+        public string smtpName { get; set; }
         public string Host { get; set; }
 
-        public Email(string host, string email, string senha)
+        public Email(string host, string email, string senha, string name)
         {
             smtpEmailFrom = email;
             smtpSenha = senha;
             Host = host;
+            smtpName = name;
         }
 
         private SmtpClient EmailPadrao()
@@ -40,19 +42,41 @@ namespace AccessDB
 
         private MailMessage EmailMessage(EmailInfo email)
         {
-            mail.From = new MailAddress(smtpEmailFrom);
+            mail.From = new MailAddress(smtpEmailFrom, smtpName);
 
             if (email.emailTo.Length > 0)
                 foreach (string item in email.emailTo)
-                    mail.To.Add(new MailAddress(item.Trim()));
+                {
+                    string[] novoEmail = FormatarEmail(item);
+
+                    if (novoEmail.Length > 1)
+                        mail.To.Add(new MailAddress(displayName: novoEmail[0].Trim(), address: novoEmail[1].Trim()));
+                    else
+                        mail.To.Add(new MailAddress(address: novoEmail[0].Trim()));
+                }
 
             if (email.emailCC.Length > 0)
                 foreach (string item in email.emailCC)
-                    mail.CC.Add(new MailAddress(item.Trim()));
+                {
+                    string[] novoEmail = FormatarEmail(item);
+
+                    if (novoEmail.Length > 1)
+                        mail.CC.Add(new MailAddress(displayName: novoEmail[0].Trim(), address: novoEmail[1].Trim()));
+                    else
+                        mail.CC.Add(new MailAddress(address: novoEmail[0].Trim()));
+                }
 
             if (email.emailCCo.Length > 0)
                 foreach (string item in email.emailCCo)
-                    mail.Bcc.Add(new MailAddress(item.Trim()));
+                {
+                    string[] novoEmail = FormatarEmail(item);
+
+                    if (novoEmail.Length > 1)
+                        mail.Bcc.Add(new MailAddress(displayName: novoEmail[0].Trim(), address: novoEmail[1].Trim()));
+                    else
+                        mail.Bcc.Add(new MailAddress(address: novoEmail[0].Trim()));
+                    
+                }
 
             mail.Subject = email.emailAssunto;
             mail.Body = email.emailMessage;
@@ -62,6 +86,12 @@ namespace AccessDB
                     mail.Attachments.Add(new Attachment(item));
 
             return mail;
+        }
+
+        private string [] FormatarEmail(string email)
+        {
+            string[] novoEmail = email.Split('-');
+            return novoEmail;
         }
 
         public bool EnviarEmail(EmailInfo emailInfo)

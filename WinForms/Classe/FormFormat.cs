@@ -119,10 +119,10 @@ namespace WinForms
 
             if (box.Name == "textBoxEmail")
             {
-                int ponto = box.Text.IndexOf('.');
-                int arroba = box.Text.IndexOf('@');
+                //int ponto = box.Text.IndexOf('.');
+                //int arroba = box.Text.IndexOf('@');
 
-                if (ponto < 0 || arroba < 0)
+                if (FormTextoFormat.ValidaEmail(box.Text))
                 {
                     FormMessage.ShowMessegeWarning("E-mail inválido, campo será definico como \" sem@email.com\"");
                     box.Text = "sem@email.com";
